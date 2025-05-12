@@ -1,15 +1,7 @@
 package com.example.saltitantes.model.entity;
 
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.concurrent.ThreadLocalRandom;
 
-@Getter
-@Setter
 public class Criaturas {
 
     static int contador = 0;
@@ -38,6 +30,46 @@ public class Criaturas {
     public void moverY() {
         double r = ThreadLocalRandom.current().nextDouble(-1, 1);
         this.posicaoy += r * this.ouro;
+    }
+
+    public static int getContador() {
+        return contador;
+    }
+
+    public static void setContador(int contador) {
+        Criaturas.contador = contador;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
+    }
+
+    public int getOuro() {
+        return ouro;
+    }
+
+    public void setOuro(int ouro) {
+        this.ouro = ouro;
+    }
+
+    public double getPosicaox() {
+        return posicaox;
+    }
+
+    public void setPosicaox(double posicaox) {
+        this.posicaox = posicaox;
+    }
+
+    public double getPosicaoy() {
+        return posicaoy;
+    }
+
+    public void setPosicaoy(double posicaoy) {
+        this.posicaoy = posicaoy;
     }
 
     public void adicionarOuro(int quantidade) {

@@ -1,10 +1,5 @@
 package com.example.saltitantes.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CriaturasDTO {
 
     private int identificador;
@@ -19,4 +14,19 @@ public class CriaturasDTO {
         this.posicaoy = posicaoy;
     }
 
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public int getOuro() {
+        return ouro;
+    }
+
+    public double getPosicaox() {
+        return posicaox;
+    }
+
+    public double getPosicaoy() {
+        return posicaoy;
+    }
 }

@@ -1,24 +1,25 @@
 package com.example.saltitantes.model.service;
-
-import com.example.saltitantes.model.entity.Criaturas;
 import com.example.saltitantes.model.dto.CriaturasDTO;
-import org.springframework.stereotype.Service;
-
+import com.example.saltitantes.model.entity.Criaturas;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class Simulador {
 
     private final List<Criaturas> criaturas = new ArrayList<>();
+    private final List<List<CriaturasDTO>> historicoSimulacoes = new ArrayList<>();
 
     public void inicializar(int n) {
         criaturas.clear();
+        historicoSimulacoes.clear(); // limpa histórico ao iniciar nova simulação
         for (int i = 0; i < n; i++) {
             criaturas.add(new Criaturas());
         }
+        salvarEstadoAtual(); // salva estado inicial
     }
 
     public void simular(int iteracoes) {
@@ -33,6 +34,7 @@ public class Simulador {
                     c.adicionarOuro(ouroRoubado);
                 }
             }
+            salvarEstadoAtual(); // salva o estado após cada iteração
         }
     }
 
@@ -59,5 +61,20 @@ public class Simulador {
                         c.getPosicaoy()
                 )).collect(Collectors.toList());
     }
-}
 
+    public List<List<CriaturasDTO>> getHistoricoSimulacoes() {
+        return historicoSimulacoes;
+    }
+
+    private void salvarEstadoAtual() {
+        // Cria uma cópia do estado atual para armazenar no histórico
+        List<CriaturasDTO> estadoCopia = criaturas.stream()
+                .map(c -> new CriaturasDTO(
+                        c.getIdentificador(),
+                        c.getOuro(),
+                        c.getPosicaox(),
+                        c.getPosicaoy()
+                )).collect(Collectors.toList());
+        historicoSimulacoes.add(estadoCopia);
+    }
+}
