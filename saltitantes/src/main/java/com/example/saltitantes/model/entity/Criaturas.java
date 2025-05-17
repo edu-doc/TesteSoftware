@@ -40,7 +40,7 @@ public class Criaturas {
         this.ouro -= quantidade;
     }
     public static void resetarContador() {
-    contador = 1;
+    contador = 0;
 }
 
 
