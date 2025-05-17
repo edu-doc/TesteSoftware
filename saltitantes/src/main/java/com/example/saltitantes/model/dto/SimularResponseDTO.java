@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ParametrosDTO {
-
-    private int quantidade;
-    private int iteracoes;
+public class SimularResponseDTO {
+    private int iteracao;
+    private CriaturasDTO criaturas[];
 }

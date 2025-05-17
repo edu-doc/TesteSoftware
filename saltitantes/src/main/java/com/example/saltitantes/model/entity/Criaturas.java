@@ -2,16 +2,23 @@ package com.example.saltitantes.model.entity;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class Criaturas {
 
     static int contador = 0;
-    int identificador;
+    int id;
     int ouro;
     double posicaox;
     double posicaoy;
 
     public Criaturas() {
-        this.identificador = count();
+        this.id = count();
         this.ouro = 1000000;
         this.posicaox = 0;
         this.posicaoy = 0;
@@ -32,46 +39,6 @@ public class Criaturas {
         this.posicaoy += r * this.ouro;
     }
 
-    public static int getContador() {
-        return contador;
-    }
-
-    public static void setContador(int contador) {
-        Criaturas.contador = contador;
-    }
-
-    public int getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(int identificador) {
-        this.identificador = identificador;
-    }
-
-    public int getOuro() {
-        return ouro;
-    }
-
-    public void setOuro(int ouro) {
-        this.ouro = ouro;
-    }
-
-    public double getPosicaox() {
-        return posicaox;
-    }
-
-    public void setPosicaox(double posicaox) {
-        this.posicaox = posicaox;
-    }
-
-    public double getPosicaoy() {
-        return posicaoy;
-    }
-
-    public void setPosicaoy(double posicaoy) {
-        this.posicaoy = posicaoy;
-    }
-
     public void adicionarOuro(int quantidade) {
         this.ouro += quantidade;
     }
@@ -79,5 +46,9 @@ public class Criaturas {
     public void perderOuro(int quantidade) {
         this.ouro -= quantidade;
     }
+    public static void resetarContador() {
+    contador = 1;
+}
+
 
 }

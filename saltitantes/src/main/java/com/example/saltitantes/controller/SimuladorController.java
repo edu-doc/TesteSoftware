@@ -1,33 +1,28 @@
 package com.example.saltitantes.controller;
 
-import com.example.saltitantes.model.dto.CriaturasDTO;
+
 import com.example.saltitantes.model.dto.ParametrosDTO;
-import com.example.saltitantes.model.service.Simulador;
-import org.springframework.web.bind.annotation.*;
+import com.example.saltitantes.model.dto.SimularResponseDTO;
+import com.example.saltitantes.model.service.SimuladorService;
+
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
+@AllArgsConstructor
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1")
 public class SimuladorController {
 
-    private final Simulador simuladorService;
-
-    public SimuladorController(Simulador simuladorService) {
-        this.simuladorService = simuladorService;
-    }
-
-    @PostMapping("/start")
-    public String inicializar(@RequestBody ParametrosDTO parametros) {
-
-        simuladorService.inicializar(parametros.getQuantidade());
-        simuladorService.simular(parametros.getIteracoes());
-        return "Simulação iniciada com " + parametros.getQuantidade() + " criaturas " + "com um total de " + parametros.getIteracoes() + " iterações";
-    }
-
-
-    @GetMapping("/estado")
-    public List<List<CriaturasDTO>> getEstado() {
-        return simuladorService.getHistoricoSimulacoes();
-    }
+    private final SimuladorService simuladorService;
+    @PostMapping("/simular")
+public ResponseEntity<List<SimularResponseDTO>> inicializar(@RequestBody ParametrosDTO parametros) {
+    simuladorService.inicializar(parametros.getQuantidade());
+    List<SimularResponseDTO> response = simuladorService.simular(parametros.getIteracoes());
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+}
 }
