@@ -12,6 +12,5 @@ public class CriaturasDTO {
     private int id;
     private int ouro;
     private double posicaox;
-    private double posicaoy;
     private int idCriaturaRoubada;
 }

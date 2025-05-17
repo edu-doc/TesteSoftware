@@ -14,7 +14,13 @@ public class SimuladorService {
     private final List<List<CriaturasDTO>> historicoSimulacoes = new ArrayList<>();
 
     public void inicializar(int n) {
-
+        if (n <= 0) {
+            throw new IllegalArgumentException("A quantidade de criaturas deve ser maior que zero.");
+        }
+        if (n > 1000) {
+            throw new IllegalArgumentException("A quantidade de criaturas deve ser menor ou igual a 1000.");
+        }
+    
         criaturas.clear();
         Criaturas.resetarContador();    
         historicoSimulacoes.clear();
@@ -31,7 +37,6 @@ public class SimuladorService {
 
         for (Criaturas c : criaturas) {
             c.moverX();
-            c.moverY();
 
             Criaturas vizinha = encontrarMaisProxima(c);
             int idRoubada = -1;
@@ -46,7 +51,6 @@ public class SimuladorService {
                 c.getId(),
                 c.getOuro(),
                 c.getPosicaox(),
-                c.getPosicaoy(),
                 idRoubada
             );
 
@@ -75,8 +79,7 @@ public class SimuladorService {
 
     private double distancia(Criaturas a, Criaturas b) {
         double dx = a.getPosicaox() - b.getPosicaox();
-        double dy = a.getPosicaoy() - b.getPosicaoy();
-        return Math.sqrt(dx * dx + dy * dy);
+        return Math.abs(dx);
     }
 
     public List<List<CriaturasDTO>> getHistoricoSimulacoes() {
