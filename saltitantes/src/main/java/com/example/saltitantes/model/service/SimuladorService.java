@@ -1,4 +1,5 @@
 package com.example.saltitantes.model.service;
+
 import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.dto.SimularResponseDTO;
 import com.example.saltitantes.model.entity.Criaturas;
@@ -13,6 +14,11 @@ public class SimuladorService {
     private final List<Criaturas> criaturas = new ArrayList<>();
     private final List<List<CriaturasDTO>> historicoSimulacoes = new ArrayList<>();
 
+    // apenas para teste
+    public List<Criaturas> getCriaturasParaTeste() {
+        return criaturas;
+    }
+
     public void inicializar(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser maior que zero.");
@@ -20,54 +26,54 @@ public class SimuladorService {
         if (n > 1000) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser menor ou igual a 1000.");
         }
-    
+
         criaturas.clear();
-        Criaturas.resetarContador();    
+        Criaturas.resetarContador();
         historicoSimulacoes.clear();
         for (int i = 0; i < n; i++) {
             criaturas.add(new Criaturas());
         }
     }
 
-   public List<SimularResponseDTO> simular(int iteracoes) {
-    historicoSimulacoes.clear();
+    public List<SimularResponseDTO> simular(int iteracoes) {
+        historicoSimulacoes.clear();
 
-    for (int i = 0; i < iteracoes; i++) {
-        List<CriaturasDTO> criaturasDaIteracao = new ArrayList<>();
+        for (int i = 0; i < iteracoes; i++) {
+            List<CriaturasDTO> criaturasDaIteracao = new ArrayList<>();
 
-        for (Criaturas c : criaturas) {
-            c.moverX();
+            for (Criaturas c : criaturas) {
+                // certo mover antes de roubar? acho que não
+                c.moverX();
 
-            Criaturas vizinha = encontrarMaisProxima(c);
-            int idRoubada = -1;
-            if (vizinha != null && vizinha.getOuro() > 0) {
-                int ouroRoubado = vizinha.getOuro() / 2;
-                vizinha.perderOuro(ouroRoubado);
-                c.adicionarOuro(ouroRoubado);
-                idRoubada = vizinha.getId();
+                Criaturas vizinha = encontrarMaisProxima(c);
+                int idRoubada = -1;
+                if (vizinha != null && vizinha.getOuro() > 0) {
+                    int ouroRoubado = vizinha.getOuro() / 2;
+                    vizinha.perderOuro(ouroRoubado);
+                    c.adicionarOuro(ouroRoubado);
+                    idRoubada = vizinha.getId();
+                }
+
+                CriaturasDTO dto = new CriaturasDTO(
+                        c.getId(),
+                        c.getOuro(),
+                        c.getPosicaox(),
+                        idRoubada);
+
+                criaturasDaIteracao.add(dto);
             }
 
-            CriaturasDTO dto = new CriaturasDTO(
-                c.getId(),
-                c.getOuro(),
-                c.getPosicaox(),
-                idRoubada
-            );
-
-            criaturasDaIteracao.add(dto);
+            historicoSimulacoes.add(criaturasDaIteracao);
+        }
+        List<SimularResponseDTO> resposta = new ArrayList<>();
+        for (int i = 0; i < historicoSimulacoes.size(); i++) {
+            SimularResponseDTO dto = new SimularResponseDTO(i + 1,
+                    historicoSimulacoes.get(i).toArray(new CriaturasDTO[0]));
+            resposta.add(dto);
         }
 
-        historicoSimulacoes.add(criaturasDaIteracao);
+        return resposta;
     }
-    List<SimularResponseDTO> resposta = new ArrayList<>();
-    for (int i = 0; i < historicoSimulacoes.size(); i++) {
-        SimularResponseDTO dto = new SimularResponseDTO(i + 1,
-                historicoSimulacoes.get(i).toArray(new CriaturasDTO[0]));
-        resposta.add(dto);
-    }
-
-    return resposta;
-}
 
     private Criaturas encontrarMaisProxima(Criaturas atual) {
         return criaturas.stream()
