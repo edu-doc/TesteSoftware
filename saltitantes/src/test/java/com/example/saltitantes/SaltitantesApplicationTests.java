@@ -113,32 +113,39 @@ public class SaltitantesApplicationTests {
 				of(3));
 	}
 
-	/* teste dando erro(não sei pq)
 	@ParameterizedTest
-@MethodSource("vizinhaSemOuroProvider")
-void testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int iteracoes) {
-    SimuladorService simulador = new SimuladorService();
-    simulador.inicializar(2);
+	@MethodSource("vizinhaSemOuroProvider")
+	void testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int iteracoes) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(2);
 
-    List<Criaturas> lista = simulador.getCriaturasParaTeste();
+		List<Criaturas> lista = simulador.getCriaturasParaTeste();
 
-    // Posiciona de forma que fiquem vizinhas após mover
-    lista.get(0).setPosicaox(-1); // depois do moverX vira 0
-    lista.get(1).setPosicaox(0);  // depois do moverX vira 1
+		// Posiciona de forma que fiquem vizinhas após mover
+		lista.get(0).setPosicaox(-1); // depois do moverX vira 0
+		lista.get(1).setPosicaox(0);  // depois do moverX vira 1
 
-    // Vizinha sem ouro
-    lista.get(1).setOuro(0);
+		// Vizinha sem ouro
+		lista.get(1).setOuro(0);
 
-    var resultado = simulador.simular(iteracoes);
-    CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
+		var resultado = simulador.simular(iteracoes);
+		CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
 
-    for (CriaturasDTO c : criaturas) {
-        assertThat(c.getIdCriaturaRoubada())
-            .as("Nenhuma criatura deveria conseguir roubar")
-            .isEqualTo(-1);
-    }
-}
-	*/
+		for (CriaturasDTO c : criaturas) {
+			assertThat(c.getIdCriaturaRoubada())
+				.as("Nenhuma criatura deveria conseguir roubar")
+				.isEqualTo(-1);
+		}
+	}
+
+	static Stream<Arguments> vizinhaSemOuroProvider() {
+		return Stream.of(
+				Arguments.of(1),
+				Arguments.of(2),
+				Arguments.of(5)
+		);
+	}
+
 
 
 }
