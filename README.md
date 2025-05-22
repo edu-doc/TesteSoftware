@@ -48,6 +48,13 @@ Abaixo estão descritos detalhadamente todos os testes implementados, agrupados 
   - n = 1000 (válido)
   - n = 1001 (inválido, lança exceção)
 
+##### testSemVizinhaNaoRoubada
+- **Tipo:** Fronteira/Negócio
+- **Cenário:** Simulação com apenas uma criatura (sem vizinha para ser roubada)
+- **O que valida:**
+  - Quando só existe uma criatura, ela não pode ser roubada e o campo `idCriaturaRoubada` deve ser -1.
+- **Motivação:** Garante que o sistema lida corretamente com o caso limite onde não há interações possíveis, mantendo a integridade da lógica de roubo.
+
 ---
 
 #### 2. Testes Funcionais de Simulação
@@ -100,6 +107,7 @@ Abaixo estão descritos detalhadamente todos os testes implementados, agrupados 
 
 ### Resumo dos Tipos de Teste
 
+- **Domínio:** Validam regras de negócio e restrições essenciais do sistema, como limites mínimos e máximos de entrada e condições de operação válidas. Exemplo: inicialização do simulador com valores inválidos ou extremos de criaturas.
 - **Fronteira:** Validam limites de entrada e comportamento em extremos (ex: inicialização, zero iterações)
 - **Funcional:** Validam o funcionamento correto dos métodos principais do sistema (ex: simulação)
 - **Estrutural/Interação:** Verificam as interações entre entidades e regras de negócio específicas (ex: roubo entre criaturas)

@@ -18,11 +18,21 @@ public class SimuladorService {
     public List<Criaturas> getCriaturasParaTeste() {
         return criaturas;
     }
+    /**
+     * Inicia a simulação com a quantidade especificada de criaturas.
+     *
+     * @param n a quantidade de criaturas a serem simulada
+     * @pre n > 1
+     * @pre n <= 1000
+     * @post 
+     * @throws IllegalArgumentException se a quantidade de criaturas for menor ou
+     * igual a 1 ou maior que 1000
+     */
 
     public void inicializar(int n) {
 
         
-        if (n <= 0) {
+        if (n <= 1) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser maior que zero.");
         }
         if (n > 1000) {
@@ -32,11 +42,12 @@ public class SimuladorService {
         /*
             Teste	    n	  Deve lançar exceção?	    Motivo
             __________________________________________________
-            T1	        -1	        Sim	                n <= 0
-            T2	         0	        Sim	                n <= 0
-            T3	         1	        Não 	            Valor válido
-            T4	         1000	    Não	                Valor válido
-            T5	         1001	    Sim	                n > 1000
+            T1	        -1	        Sim	                n <= 1
+            T2	         0	        Sim	                n <= 1
+            T3	         1	        sim 	            n <= 1
+            T4	         2	        Não 	            Valor válido
+            T5	         1000	    Não	                Valor válido
+            T6	         1001	    Sim	                n > 1000
 
          */
 
@@ -48,8 +59,26 @@ public class SimuladorService {
             criaturas.add(new Criaturas());
         }
     }
-
+/**
+     * simula todas as iterações do simulador
+     *
+     * @return retorna toda a lista de iterações
+     * @param iteracoes a quantidade de iterações a serem simuladas
+     * @pre iteracoes > 0
+     * @pre  iteracoes <= 1000
+     * @post 
+     * @throws IllegalStateException se a simulação não foi iniciada
+     * corretamente.
+     * @throws IllegalArgumentException se a quantidade de iterações for menor ou
+     * igual a 1 ou maior que 1000
+     */
     public List<SimularResponseDTO> simular(int iteracoes) {
+        if (iteracoes <= 0) {
+            throw new IllegalArgumentException("A quantidade de iterações deve ser maior que zero.");
+        }
+        if (iteracoes > 1000) {
+            throw new IllegalArgumentException("A quantidade de iterações deve ser menor ou igual a 1000.");
+        }
         historicoSimulacoes.clear();
 
         for (int i = 0; i < iteracoes; i++) {
@@ -108,7 +137,16 @@ public class SimuladorService {
         return resposta;
     }
 
-    private Criaturas encontrarMaisProxima(Criaturas atual) {
+    /**
+     * Encontra a criatura mais próxima da criatura atual.
+     * @param atual criatura de referência (não pode ser null)
+     * @return criatura mais próxima ou null se não houver
+     * @throws IllegalArgumentException se a criatura atual for null
+     */
+    public Criaturas encontrarMaisProxima(Criaturas atual) {
+        if (atual == null) {
+            throw new IllegalArgumentException("A criatura de referência não pode ser null.");
+        }
         return criaturas.stream()
                 .filter(c -> c != atual)
                 .min(Comparator.comparingDouble((Criaturas c) -> distancia(atual, c))
@@ -116,7 +154,17 @@ public class SimuladorService {
                 .orElse(null);
     }
 
-    private double distancia(Criaturas a, Criaturas b) {
+    /**
+     * Calcula a distância absoluta entre duas criaturas.
+     * @param a criatura a (não pode ser null)
+     * @param b criatura b (não pode ser null)
+     * @return distância absoluta no eixo x
+     * @throws IllegalArgumentException se qualquer criatura for null
+     */
+    public double distancia(Criaturas a, Criaturas b) {
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Nenhuma criatura pode ser null para o cálculo da distância.");
+        }
         double dx = a.getPosicaox() - b.getPosicaox();
         return Math.abs(dx);
     }
