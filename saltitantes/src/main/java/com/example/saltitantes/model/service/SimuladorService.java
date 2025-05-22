@@ -27,6 +27,18 @@ public class SimuladorService {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser menor ou igual a 1000.");
         }
 
+        /*
+            Teste	    n	  Deve lançar exceção?	    Motivo
+            __________________________________________________
+            T1	        -1	        Sim	                n <= 0
+            T2	         0	        Sim	                n <= 0
+            T3	         1	        Não 	            Valor válido
+            T4	         1000	    Não	                Valor válido
+            T5	         1001	    Sim	                n > 1000
+
+         */
+
+
         criaturas.clear();
         Criaturas.resetarContador();
         historicoSimulacoes.clear();
@@ -47,7 +59,26 @@ public class SimuladorService {
 
                 Criaturas vizinha = encontrarMaisProxima(c);
                 int idRoubada = -1;
+
                 if (vizinha != null && vizinha.getOuro() > 0) {
+
+                    /*
+                    Resultado da Condição =	Deve roubar
+
+                    C1 = (vizinha != null)	C2 = (vizinha.getOuro() > 0)
+
+                    C1      C2	           Deve roubar
+                    false	false	false	❌ Não
+                    false	true	false	❌ Não
+                    true	false	false	❌ Não
+                    true	true	true	✅ Sim
+
+                    Quando C2 é falsa, não importa o valor de C1, a condição é falsa.
+                    Quando C1 é falsa, não importa o valor de C2, a condição é falsa.
+                    Quando C1 é verdadeira, C2 deve ser verdadeira para a condição ser verdadeira.
+
+                    */
+
                     int ouroRoubado = vizinha.getOuro() / 2;
                     vizinha.perderOuro(ouroRoubado);
                     c.adicionarOuro(ouroRoubado);

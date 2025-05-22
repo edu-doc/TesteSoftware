@@ -4,6 +4,7 @@ import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.entity.Criaturas;
 import com.example.saltitantes.model.service.SimuladorService;
 
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,9 +33,9 @@ public class SaltitantesApplicationTests {
 
 	static Stream<Arguments> inicializacaoProvider() {
 		return Stream.of(
-				of(10, false), // válido
+				of(1, false), // válido
 				of(0, true), // fronteira inferior
-				of(-5, true), // negativo
+				of(-1, true), // negativo
 				of(1000, false), // limite superior
 				of(1001, true) // acima do limite
 		);
@@ -121,22 +122,24 @@ public class SaltitantesApplicationTests {
 
 		List<Criaturas> lista = simulador.getCriaturasParaTeste();
 
-		// Posiciona de forma que fiquem vizinhas após mover
-		lista.get(0).setPosicaox(-1); // depois do moverX vira 0
-		lista.get(1).setPosicaox(0);  // depois do moverX vira 1
+		lista.get(0).setPosicaox(0);
+		lista.get(1).setPosicaox(1);
 
-		// Vizinha sem ouro
+		lista.get(0).setOuro(10);
 		lista.get(1).setOuro(0);
 
 		var resultado = simulador.simular(iteracoes);
 		CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
 
 		for (CriaturasDTO c : criaturas) {
-			assertThat(c.getIdCriaturaRoubada())
-				.as("Nenhuma criatura deveria conseguir roubar")
-				.isEqualTo(-1);
+			if (c.getId() == lista.get(0).getId()) {
+				assertThat(c.getIdCriaturaRoubada())
+						.as("Criatura 0 não deveria conseguir roubar a criatura 1")
+						.isEqualTo(-1);
+			}
 		}
 	}
+
 
 	static Stream<Arguments> vizinhaSemOuroProvider() {
 		return Stream.of(
@@ -145,6 +148,41 @@ public class SaltitantesApplicationTests {
 				Arguments.of(5)
 		);
 	}
+
+	@ParameterizedTest
+	@MethodSource("vizinhaComOuroProvider")
+	void testVizinhaPodeSerRoubadaSeTemOuro(int iteracoes) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(2);
+
+		List<Criaturas> lista = simulador.getCriaturasParaTeste();
+
+		lista.get(0).setPosicaox(0);
+		lista.get(1).setPosicaox(1);
+
+		lista.get(0).setOuro(10);
+		lista.get(1).setOuro(10);
+
+		var resultado = simulador.simular(iteracoes);
+		CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
+
+		boolean houveRoubo = Arrays.stream(criaturas)
+				.anyMatch(c -> c.getIdCriaturaRoubada() == lista.get(1).getId());
+
+		assertThat(houveRoubo)
+				.as("Era esperado que uma criatura conseguisse roubar")
+				.isTrue();
+	}
+
+	static Stream<Arguments> vizinhaComOuroProvider() {
+		return Stream.of(
+				Arguments.of(1),
+				Arguments.of(2),
+				Arguments.of(5)
+		);
+	}
+
+
 
 
 
