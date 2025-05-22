@@ -33,7 +33,7 @@ public class SaltitantesApplicationTests {
 
 	static Stream<Arguments> inicializacaoProvider() {
 		return Stream.of(
-				of(1, false), // válido
+				of(1, true), // fronteria inferior
 				of(0, true), // fronteira inferior
 				of(-1, true), // negativo
 				of(1000, false), // limite superior
@@ -91,23 +91,10 @@ public class SaltitantesApplicationTests {
 
 	static Stream<Arguments> iteracoesZeroProvider() {
 		return Stream.of(
-				of(1),
+				of(2),
 				of(5),
 				of(10));
-	}
-
-	@ParameterizedTest
-	@MethodSource("criaturaIsoladaProvider")
-	void testCriaturaNaoEncontraVizinhaParaRoubar(int iteracoes) {
-		SimuladorService simulador = new SimuladorService();
-		simulador.inicializar(1); // só uma criatura
-
-		var resultado = simulador.simular(iteracoes);
-		CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
-
-		assertThat(criaturas[0].getIdCriaturaRoubada()).isEqualTo(-1); // ninguém para roubar
-	}
-
+}
 	static Stream<Arguments> criaturaIsoladaProvider() {
 		return Stream.of(
 				of(1),

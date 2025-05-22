@@ -20,7 +20,7 @@ public class SimuladorService {
     }
 
     public void inicializar(int n) {
-        if (n <= 0) {
+        if (n <= 1) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser maior que zero.");
         }
         if (n > 1000) {
