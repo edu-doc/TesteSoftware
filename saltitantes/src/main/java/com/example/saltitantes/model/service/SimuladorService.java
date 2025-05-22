@@ -20,6 +20,8 @@ public class SimuladorService {
     }
 
     public void inicializar(int n) {
+
+        
         if (n <= 1) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser maior que zero.");
         }
@@ -54,7 +56,7 @@ public class SimuladorService {
             List<CriaturasDTO> criaturasDaIteracao = new ArrayList<>();
 
             for (Criaturas c : criaturas) {
-                // certo mover antes de roubar? acho que não
+                
                 c.moverX();
 
                 Criaturas vizinha = encontrarMaisProxima(c);

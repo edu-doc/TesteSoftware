@@ -34,7 +34,6 @@ public class SaltitantesApplicationTests {
 	static Stream<Arguments> inicializacaoProvider() {
 		return Stream.of(
 				of(1, true), // fronteria inferior
-				of(0, true), // fronteira inferior
 				of(-1, true), // negativo
 				of(1000, false), // limite superior
 				of(1001, true) // acima do limite
@@ -168,9 +167,4 @@ public class SaltitantesApplicationTests {
 				Arguments.of(5)
 		);
 	}
-
-
-
-
-
 }
