@@ -14,24 +14,20 @@ public class SimuladorService {
     private final List<Criaturas> criaturas = new ArrayList<>();
     private final List<List<CriaturasDTO>> historicoSimulacoes = new ArrayList<>();
 
-    // apenas para teste
-    public List<Criaturas> getCriaturasParaTeste() {
-        return criaturas;
-    }
     /**
      * Inicia a simulação com a quantidade especificada de criaturas.
      *
      * @param n a quantidade de criaturas a serem simulada
+     * @return retorna uma lista do tipo criaturas
      * @pre n > 1
      * @pre n <= 1000
-     * @post 
+     * @post cria uma lista de criaturas contendo a quantiade n
      * @throws IllegalArgumentException se a quantidade de criaturas for menor ou
      * igual a 1 ou maior que 1000
      */
 
     public void inicializar(int n) {
 
-        
         if (n <= 1) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser maior que zero.");
         }
@@ -59,14 +55,14 @@ public class SimuladorService {
             criaturas.add(new Criaturas());
         }
     }
-/**
+    /**
      * simula todas as iterações do simulador
      *
-     * @return retorna toda a lista de iterações
+     * @return retorna  uma lista do tipo SimularResponseDTO
      * @param iteracoes a quantidade de iterações a serem simuladas
      * @pre iteracoes > 0
      * @pre  iteracoes <= 1000
-     * @post 
+     * @post retorna um historico em formato de lista com n iterações de simulações ocorridas
      * @throws IllegalStateException se a simulação não foi iniciada
      * corretamente.
      * @throws IllegalArgumentException se a quantidade de iterações for menor ou
@@ -140,7 +136,9 @@ public class SimuladorService {
     /**
      * Encontra a criatura mais próxima da criatura atual.
      * @param atual criatura de referência (não pode ser null)
-     * @return criatura mais próxima ou null se não houver
+     * @return objeto do tipo criatura
+     * @pre nenhuma pré condição
+     * @post retorna a criatura mais próxima da criatura atual
      * @throws IllegalArgumentException se a criatura atual for null
      */
     public Criaturas encontrarMaisProxima(Criaturas atual) {
@@ -158,7 +156,9 @@ public class SimuladorService {
      * Calcula a distância absoluta entre duas criaturas.
      * @param a criatura a (não pode ser null)
      * @param b criatura b (não pode ser null)
-     * @return distância absoluta no eixo x
+     * @return distância do tipo double
+     * @pre nenhuma pré condição
+     * @post compara e retorna a distância absoluta entre as criaturas
      * @throws IllegalArgumentException se qualquer criatura for null
      */
     public double distancia(Criaturas a, Criaturas b) {
@@ -167,6 +167,11 @@ public class SimuladorService {
         }
         double dx = a.getPosicaox() - b.getPosicaox();
         return Math.abs(dx);
+    }
+
+
+    public List<Criaturas> getCriaturasParaTeste() {
+        return criaturas;
     }
 
     public List<List<CriaturasDTO>> getHistoricoSimulacoes() {

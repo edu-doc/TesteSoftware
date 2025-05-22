@@ -1,0 +1,3188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SimuladorService.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.example.saltitantes.model.service;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.example.saltitantes.model.dto.CriaturasDTO;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.example.saltitantes.model.dto.SimularResponseDTO;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.example.saltitantes.model.entity.Criaturas;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Comparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.stereotype.Service;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@Service</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class SimuladorService {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private final List&#60;Criaturas&#62; criaturas = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private final List&#60;List&#60;CriaturasDTO&#62;&#62; historicoSimulacoes = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // apenas para teste</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public List&#60;Criaturas&#62; getCriaturasParaTeste() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_19'/>
+19
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_19'>1</a>
+<span>
+
+1. getCriaturasParaTeste : replaced return value with Collections.emptyList for com/example/saltitantes/model/service/SimuladorService::getCriaturasParaTeste &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return criaturas;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Inicia a simula&#231;&#227;o com a quantidade especificada de criaturas.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param n a quantidade de criaturas a serem simulada</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @pre n &#62; 1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @pre n &#60;= 1000</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @post </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException se a quantidade de criaturas for menor ou</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * igual a 1 ou maior que 1000</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void inicializar(int n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_35'/>
+35
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_35'>2</a>
+<span>
+
+1. inicializar : negated conditional &rarr; KILLED<br/>
+
+2. inicializar : changed conditional boundary &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (n &#60;= 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;A quantidade de criaturas deve ser maior que zero.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_38'>2</a>
+<span>
+
+1. inicializar : changed conditional boundary &rarr; KILLED<br/>
+
+2. inicializar : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (n &#62; 1000) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;A quantidade de criaturas deve ser menor ou igual a 1000.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Teste&#9;    n&#9;  Deve lan&#231;ar exce&#231;&#227;o?&#9;    Motivo</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            __________________________________________________</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            T1&#9;        -1&#9;        Sim&#9;                n &#60;= 1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            T2&#9;         0&#9;        Sim&#9;                n &#60;= 1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            T3&#9;         1&#9;        sim &#9;            n &#60;= 1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            T4&#9;         2&#9;        N&#227;o &#9;            Valor v&#225;lido</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            T5&#9;         1000&#9;    N&#227;o&#9;                Valor v&#225;lido</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            T6&#9;         1001&#9;    Sim&#9;                n &#62; 1000</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_55'/>
+55
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_55'>1</a>
+<span>
+
+1. inicializar : removed call to java/util/List::clear &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        criaturas.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_56'/>
+56
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_56'>1</a>
+<span>
+
+1. inicializar : removed call to com/example/saltitantes/model/entity/Criaturas::resetarContador &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Criaturas.resetarContador();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_57'>1</a>
+<span>
+
+1. inicializar : removed call to java/util/List::clear &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        historicoSimulacoes.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_58'/>
+58
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_58'>2</a>
+<span>
+
+1. inicializar : negated conditional &rarr; KILLED<br/>
+
+2. inicializar : changed conditional boundary &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; n; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            criaturas.add(new Criaturas());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * simula todas as itera&#231;&#245;es do simulador</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return retorna toda a lista de itera&#231;&#245;es</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param iteracoes a quantidade de itera&#231;&#245;es a serem simuladas</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @pre iteracoes &#62; 0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @pre  iteracoes &#60;= 1000</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @post </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalStateException se a simula&#231;&#227;o n&#227;o foi iniciada</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * corretamente.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException se a quantidade de itera&#231;&#245;es for menor ou</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * igual a 1 ou maior que 1000</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public List&#60;SimularResponseDTO&#62; simular(int iteracoes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_76'>2</a>
+<span>
+
+1. simular : changed conditional boundary &rarr; KILLED<br/>
+
+2. simular : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (iteracoes &#60;= 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;A quantidade de itera&#231;&#245;es deve ser maior que zero.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_79'>2</a>
+<span>
+
+1. simular : negated conditional &rarr; KILLED<br/>
+
+2. simular : changed conditional boundary &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (iteracoes &#62; 1000) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;A quantidade de itera&#231;&#245;es deve ser menor ou igual a 1000.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_82'/>
+82
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_82'>1</a>
+<span>
+
+1. simular : removed call to java/util/List::clear &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        historicoSimulacoes.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_84'>2</a>
+<span>
+
+1. simular : changed conditional boundary &rarr; KILLED<br/>
+
+2. simular : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; iteracoes; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            List&#60;CriaturasDTO&#62; criaturasDaIteracao = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            for (Criaturas c : criaturas) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_89'>1</a>
+<span>
+
+1. simular : removed call to com/example/saltitantes/model/entity/Criaturas::moverX &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                c.moverX();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                Criaturas vizinha = encontrarMaisProxima(c);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                int idRoubada = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_94'>3</a>
+<span>
+
+1. simular : negated conditional &rarr; KILLED<br/>
+
+2. simular : negated conditional &rarr; KILLED<br/>
+
+3. simular : changed conditional boundary &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (vizinha != null &#38;&#38; vizinha.getOuro() &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    Resultado da Condi&#231;&#227;o =&#9;Deve roubar</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    C1 = (vizinha != null)&#9;C2 = (vizinha.getOuro() &#62; 0)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    C1      C2&#9;           Deve roubar</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    false&#9;false&#9;false&#9;&#10060; N&#227;o</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    false&#9;true&#9;false&#9;&#10060; N&#227;o</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    true&#9;false&#9;false&#9;&#10060; N&#227;o</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    true&#9;true&#9;true&#9;&#9989; Sim</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    Quando C2 &#233; falsa, n&#227;o importa o valor de C1, a condi&#231;&#227;o &#233; falsa.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    Quando C1 &#233; falsa, n&#227;o importa o valor de C2, a condi&#231;&#227;o &#233; falsa.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    Quando C1 &#233; verdadeira, C2 deve ser verdadeira para a condi&#231;&#227;o ser verdadeira.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_113'>1</a>
+<span>
+
+1. simular : Replaced integer division with multiplication &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    int ouroRoubado = vizinha.getOuro() / 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_114'>1</a>
+<span>
+
+1. simular : removed call to com/example/saltitantes/model/entity/Criaturas::perderOuro &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    vizinha.perderOuro(ouroRoubado);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_115'/>
+115
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_115'>1</a>
+<span>
+
+1. simular : removed call to com/example/saltitantes/model/entity/Criaturas::adicionarOuro &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    c.adicionarOuro(ouroRoubado);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    idRoubada = vizinha.getId();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                CriaturasDTO dto = new CriaturasDTO(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        c.getId(),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        c.getOuro(),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        c.getPosicaox(),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        idRoubada);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                criaturasDaIteracao.add(dto);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            historicoSimulacoes.add(criaturasDaIteracao);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        List&#60;SimularResponseDTO&#62; resposta = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_131'>2</a>
+<span>
+
+1. simular : changed conditional boundary &rarr; KILLED<br/>
+
+2. simular : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; historicoSimulacoes.size(); i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_132'/>
+132
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_132'>1</a>
+<span>
+
+1. simular : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            SimularResponseDTO dto = new SimularResponseDTO(i + 1,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    historicoSimulacoes.get(i).toArray(new CriaturasDTO[0]));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            resposta.add(dto);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_137'>1</a>
+<span>
+
+1. simular : replaced return value with Collections.emptyList for com/example/saltitantes/model/service/SimuladorService::simular &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return resposta;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Encontra a criatura mais pr&#243;xima da criatura atual.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param atual criatura de refer&#234;ncia (n&#227;o pode ser null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return criatura mais pr&#243;xima ou null se n&#227;o houver</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException se a criatura atual for null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Criaturas encontrarMaisProxima(Criaturas atual) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_147'>1</a>
+<span>
+
+1. encontrarMaisProxima : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (atual == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;A criatura de refer&#234;ncia n&#227;o pode ser null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_150'>1</a>
+<span>
+
+1. encontrarMaisProxima : replaced return value with null for com/example/saltitantes/model/service/SimuladorService::encontrarMaisProxima &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return criaturas.stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_151'>2</a>
+<span>
+
+1. lambda$encontrarMaisProxima$0 : negated conditional &rarr; KILLED<br/>
+
+2. lambda$encontrarMaisProxima$0 : replaced boolean return with true for com/example/saltitantes/model/service/SimuladorService::lambda$encontrarMaisProxima$0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .filter(c -&#62; c != atual)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_152'/>
+152
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_152'>1</a>
+<span>
+
+1. lambda$encontrarMaisProxima$1 : replaced double return with 0.0d for com/example/saltitantes/model/service/SimuladorService::lambda$encontrarMaisProxima$1 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                .min(Comparator.comparingDouble((Criaturas c) -&#62; distancia(atual, c))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        .thenComparingInt(Criaturas::getId))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .orElse(null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Calcula a dist&#226;ncia absoluta entre duas criaturas.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param a criatura a (n&#227;o pode ser null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param b criatura b (n&#227;o pode ser null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return dist&#226;ncia absoluta no eixo x</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException se qualquer criatura for null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double distancia(Criaturas a, Criaturas b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_165'>2</a>
+<span>
+
+1. distancia : negated conditional &rarr; KILLED<br/>
+
+2. distancia : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (a == null || b == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Nenhuma criatura pode ser null para o c&#225;lculo da dist&#226;ncia.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_168'>1</a>
+<span>
+
+1. distancia : Replaced double subtraction with addition &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        double dx = a.getPosicaox() - b.getPosicaox();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_169'/>
+169
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_169'>1</a>
+<span>
+
+1. distancia : replaced double return with 0.0d for com/example/saltitantes/model/service/SimuladorService::distancia &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return Math.abs(dx);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public List&#60;List&#60;CriaturasDTO&#62;&#62; getHistoricoSimulacoes() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_173'>1</a>
+<span>
+
+1. getHistoricoSimulacoes : replaced return value with Collections.emptyList for com/example/saltitantes/model/service/SimuladorService::getHistoricoSimulacoes &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return historicoSimulacoes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_19'>19</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_19'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCriaturasParaTeste<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</span></span> replaced return value with Collections.emptyList for com/example/saltitantes/model/service/SimuladorService::getCriaturasParaTeste &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_35'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#3]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#3]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#6]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#7]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_55'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::clear &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[31],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[31],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[31],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#6]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#5]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#4]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testEncontrarMaisProximaComParametroNulo()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_56'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>none</span></span> removed call to com/example/saltitantes/model/entity/Criaturas::resetarContador &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[34],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[34],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[34],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#6]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#5]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#4]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testEncontrarMaisProximaComParametroNulo()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_57'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::clear &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[39],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[39],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=inicializar,-methodDesc=(I)V],-indexes=[39],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#6]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#5]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#4]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testEncontrarMaisProximaComParametroNulo()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_58'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>inicializar<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#2]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#3]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_82'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::clear &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[30],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[30],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[30],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_89'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>none</span></span> removed call to com/example/saltitantes/model/entity/Criaturas::moverX &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[64],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[64],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[64],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_113'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>none</span></span> Replaced integer division with multiplication &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[87],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[87],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[87],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_114'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>none</span></span> removed call to com/example/saltitantes/model/entity/Criaturas::perderOuro &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[93],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[93],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[93],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_115'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>none</span></span> removed call to com/example/saltitantes/model/entity/Criaturas::adicionarOuro &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[98],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[98],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[98],-mutator=org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_132'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[169],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[169],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=simular,-methodDesc=(I)Ljava/util/List;],-indexes=[169],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>simular<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> replaced return value with Collections.emptyList for com/example/saltitantes/model/service/SimuladorService::simular &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encontrarMaisProxima<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testEncontrarMaisProximaComParametroNulo()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encontrarMaisProxima<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</span></span> replaced return value with null for com/example/saltitantes/model/service/SimuladorService::encontrarMaisProxima &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$encontrarMaisProxima$0<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$encontrarMaisProxima$0<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()]</span></span> replaced boolean return with true for com/example/saltitantes/model/service/SimuladorService::lambda$encontrarMaisProxima$0 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_152'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$encontrarMaisProxima$1<br/><b>Killed by : </b>none</span></span> replaced double return with 0.0d for com/example/saltitantes/model/service/SimuladorService::lambda$encontrarMaisProxima$1 &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=lambda$encontrarMaisProxima$1,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[7],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=lambda$encontrarMaisProxima$1,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[7],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=lambda$encontrarMaisProxima$1,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[7],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>distancia<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>distancia<br/><b>Killed by : </b>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_168'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>distancia<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=distancia,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[22],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=distancia,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[22],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=distancia,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[22],-mutator=org.pitest.mutationtest.engine.gregor.mutators.MathMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_169'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>distancia<br/><b>Killed by : </b>none</span></span> replaced double return with 0.0d for com/example/saltitantes/model/service/SimuladorService::distancia &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=distancia,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[28],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=distancia,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[28],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=distancia,-methodDesc=(Lcom/example/saltitantes/model/entity/Criaturas;Lcom/example/saltitantes/model/entity/Criaturas;)D],-indexes=[28],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b8b07ae_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b8b07ae_173'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getHistoricoSimulacoes<br/><b>Killed by : </b>none</span></span> replaced return value with Collections.emptyList for com/example/saltitantes/model/service/SimuladorService::getHistoricoSimulacoes &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=getHistoricoSimulacoes,-methodDesc=()Ljava/util/List;],-indexes=[5],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.EmptyObjectReturnValsMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=getHistoricoSimulacoes,-methodDesc=()Ljava/util/List;],-indexes=[5],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.EmptyObjectReturnValsMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.example.saltitantes.model.service.SimuladorService,-method=getHistoricoSimulacoes,-methodDesc=()Ljava/util/List;],-indexes=[5],-mutator=org.pitest.mutationtest.engine.gregor.mutators.returns.EmptyObjectReturnValsMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#6]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#5]</li> <li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#4]</li> 
+</ul>
+</div></div> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+
+<li class='mutator'>EMPTY_RETURNS</li>
+
+<li class='mutator'>FALSE_RETURNS</li>
+
+<li class='mutator'>INCREMENTS</li>
+
+<li class='mutator'>INVERT_NEGS</li>
+
+<li class='mutator'>MATH</li>
+
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+
+<li class='mutator'>NULL_RETURNS</li>
+
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+
+<li class='mutator'>TRUE_RETURNS</li>
+
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#2] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#3] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#6] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#5] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#4] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#2] (1 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:deveLancarExcecaoQuandoIteracoesZero(int)]/[test-template-invocation:#1] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#3] (3 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testEncontrarMaisProximaComParametroNulo()] (3 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testDistanciaComParametrosNulos()] (2 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[method:testSemVizinhaNaoRoubada()] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#2] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#3] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#2] (1 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#3] (1 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testRoubos(int)]/[test-template-invocation:#1] (1 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#3] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#3] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#2] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#2] (1 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaPodeSerRoubadaSeTemOuro(int)]/[test-template-invocation:#1] (1 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#3] (4 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#2] (8 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testVizinhaNaoPodeSerRoubadaSeNaoTemOuro(int)]/[test-template-invocation:#1] (12 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacao(int, int, int, int)]/[test-template-invocation:#1] (18 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoValida(int, int)]/[test-template-invocation:#1] (29 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testSimulacaoExcecao(int, int)]/[test-template-invocation:#1] (108 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#7] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#3] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#2] (0 ms)</li><li>com.example.saltitantes.SaltitantesApplicationTests.[engine:junit-jupiter]/[class:com.example.saltitantes.SaltitantesApplicationTests]/[test-template:testInicializacao(int, boolean)]/[test-template-invocation:#1] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.19.2
+
+</body>
+</html>
