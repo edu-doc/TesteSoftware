@@ -6,6 +6,8 @@ import com.example.saltitantes.model.service.SimuladorService;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,17 +26,21 @@ public class SaltitantesApplicationTests {
 
 		if (expectException) {
 			assertThatThrownBy(() -> simulador.inicializar(n))
-					.isInstanceOf(IllegalArgumentException.class);
+					.isInstanceOf(IllegalArgumentException.class)
+					.hasMessageContaining("criaturas");
 		} else {
-			simulador.inicializar(n);
+			assertThatCode(() -> simulador.inicializar(n))
+					.doesNotThrowAnyException();
 			assertThat(simulador.getHistoricoSimulacoes()).isEmpty();
 		}
 	}
 
 	static Stream<Arguments> inicializacaoProvider() {
 		return Stream.of(
-				of(1, true), // fronteria inferior
 				of(-1, true), // negativo
+				of(0, true),// fronteria inferior
+				of(1, false), // positivo
+				of(999, false),
 				of(1000, false), // limite superior
 				of(1001, true) // acima do limite
 		);
@@ -79,6 +85,31 @@ public class SaltitantesApplicationTests {
 	}
 
 	@ParameterizedTest
+	@MethodSource("semVizinhaProvider")
+	void testNaoRoubaSeNaoTemVizinha(int iteracoes) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(1); // apenas 1 criatura, sem vizinhos
+
+		List<Criaturas> lista = simulador.getCriaturasParaTeste();
+		lista.get(0).setOuro(10);
+		lista.get(0).setPosicaox(0);
+
+		var resultado = simulador.simular(iteracoes);
+		CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
+
+		assertThat(criaturas[0].getIdCriaturaRoubada())
+				.as("Não deveria conseguir roubar sem vizinha")
+				.isEqualTo(-1);
+	}
+
+	static Stream<Arguments> semVizinhaProvider() {
+		return Stream.of(
+				Arguments.of(1),
+				Arguments.of(3)
+		);
+	}
+
+	@ParameterizedTest
 	@MethodSource("iteracoesZeroProvider")
 	void testSimulacaoComZeroIteracoes(int nCriaturas) {
 		SimuladorService simulador = new SimuladorService();
@@ -94,11 +125,7 @@ public class SaltitantesApplicationTests {
 				of(5),
 				of(10));
 }
-	static Stream<Arguments> criaturaIsoladaProvider() {
-		return Stream.of(
-				of(1),
-				of(3));
-	}
+
 
 	@ParameterizedTest
 	@MethodSource("vizinhaSemOuroProvider")
@@ -167,4 +194,5 @@ public class SaltitantesApplicationTests {
 				Arguments.of(5)
 		);
 	}
+
 }
