@@ -4,4 +4,3 @@ com\example\saltitantes\model\service\SimuladorService.class
 com\example\saltitantes\model\dto\CriaturasDTO.class
 com\example\saltitantes\SaltitantesApplication.class
 com\example\saltitantes\model\dto\SimularResponseDTO.class
-com\example\saltitantes\controller\SimuladorController.class

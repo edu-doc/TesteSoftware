@@ -28,3 +28,93 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+### Java ###
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+### Spring Boot ###
+spring-boot-starter-*.jar
+
+### Logs ###
+logs/
+*.log
+log/
+
+### Temporary files ###
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+
+### OS generated files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.settings/
+.loadpath
+.recommenders
+.project
+.externalToolBuilders/
+*.launch
+.pydevproject
+.cproject
+.autotools
+.factorypath
+.buildpath
+.target
+.tern-project
+.texlipse
+.springBeans
+.recommenders/
+.apt_generated/
+.apt_generated_test/
+
+### Application specific ###
+application-local.properties
+application-dev.properties
+*.h2.db
+*.trace.db
+
+### Backup and conflict files ###
+*_BACKUP.*
+*_CONFLITO.*
+*.orig
+*.rej

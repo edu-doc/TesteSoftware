@@ -43,7 +43,7 @@ public class SimuladorService {
      * @param n a quantidade de criaturas a serem simulada
      * @pre n > 1
      * @pre n <= 1000
-     * @post
+     * @post cria uma lista de criaturas contendo a quantidade n
      * @throws IllegalArgumentException se a quantidade de criaturas for menor ou
      *                                  igual a 1 ou maior que 1000
      */
@@ -82,13 +82,13 @@ public class SimuladorService {
     /**
      * simula todas as iterações do simulador
      *
-     * @return retorna toda a lista de iterações
+     * @return retorna uma lista do tipo SimularResponseDTO
      * @param iteracoes a quantidade de iterações a serem simuladas
      * @pre iteracoes > 0
      * @pre iteracoes <= 1000
-     * @post
-     * @throws IllegalStateException    se a simulação não foi iniciada
-     *                                  corretamente.
+     * @post retorna um histórico em formato de lista com n iterações de simulações
+     *       ocorridas
+     * @throws IllegalStateException    se a simulação não foi iniciada corretamente
      * @throws IllegalArgumentException se a quantidade de iterações for menor ou
      *                                  igual a 1 ou maior que 1000
      */
@@ -188,7 +188,7 @@ public class SimuladorService {
                 roubos.put(criatura.getId(), -1);
             }
         }
-        
+
         return roubos;
     }
 
@@ -199,13 +199,13 @@ public class SimuladorService {
      */
     private Map<Integer, Integer> processarClusters() {
         Map<Integer, Integer> roubosDosClusters = new HashMap<>();
-        
+
         for (Cluster cluster : clusters) {
             cluster.moverX();
             int criaturaSendoRoubada = roubarDaCriaturaMaisProxima(cluster);
             roubosDosClusters.put(cluster.getIdCluster(), criaturaSendoRoubada);
         }
-        
+
         return roubosDosClusters;
     }
 
@@ -273,10 +273,11 @@ public class SimuladorService {
      * @param roubos           mapa com IDs de entidades e quem elas roubaram
      * @return DTO da resposta da simulação
      */
-    private SimularResponseDTO criarSnapshotIteracao(int numeroIteracao, int clusterEliminado, Map<Integer, Integer> roubos) {
+    private SimularResponseDTO criarSnapshotIteracao(int numeroIteracao, int clusterEliminado,
+            Map<Integer, Integer> roubos) {
         // Criar DTOs das criaturas
         CriaturasDTO[] criaturasDTO = criaturas.stream()
-                .map(c -> new CriaturasDTO(c.getId(), c.getOuro(), c.getPosicaox(), 
+                .map(c -> new CriaturasDTO(c.getId(), c.getOuro(), c.getPosicaox(),
                         roubos.getOrDefault(c.getId(), -1)))
                 .toArray(CriaturasDTO[]::new);
 
@@ -325,7 +326,9 @@ public class SimuladorService {
      * Encontra a criatura mais próxima da criatura atual.
      * 
      * @param atual criatura de referência (não pode ser null)
-     * @return criatura mais próxima ou null se não houver
+     * @return objeto do tipo criatura
+     * @pre nenhuma pré condição
+     * @post retorna a criatura mais próxima da criatura atual
      * @throws IllegalArgumentException se a criatura atual for null
      */
     public Criaturas encontrarMaisProxima(Criaturas atual) {
@@ -344,7 +347,9 @@ public class SimuladorService {
      * 
      * @param a criatura a (não pode ser null)
      * @param b criatura b (não pode ser null)
-     * @return distância absoluta no eixo x
+     * @return distância do tipo double
+     * @pre nenhuma pré condição
+     * @post compara e retorna a distância absoluta entre as criaturas
      * @throws IllegalArgumentException se qualquer criatura for null
      */
     public double distancia(Criaturas a, Criaturas b) {

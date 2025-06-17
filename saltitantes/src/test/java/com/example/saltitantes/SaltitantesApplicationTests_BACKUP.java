@@ -15,6 +15,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 public class SaltitantesApplicationTests_BACKUP {
@@ -74,6 +75,14 @@ public class SaltitantesApplicationTests_BACKUP {
         assertThat(resposta.get(iteracaoEsperada).getCriaturas()).hasSize(qtdEsperada);
     }
 
+	static Stream<Arguments> simulacaoProvider() {
+		return Stream.of(
+				of(2, 1, 0, 2), // T6: 2 criaturas, 1 iteração
+				of(3, 3, 2, 3), // T7: 3 criaturas, 3 iterações, pegar última
+				of(5, 5, 1, 5) // T8: 5 criaturas, 5 iterações, pegar a segunda
+		);
+	}
+
     @ParameterizedTest
     @MethodSource("simulacaoExcecaoProvider")
     void testSimulacaoExcecao(int nCriaturas, int iteracoes) {
@@ -84,21 +93,32 @@ public class SaltitantesApplicationTests_BACKUP {
                 .hasMessageContaining("iterações");
     }
 
-    static Stream<Arguments> simulacaoProvider() {
-        return Stream.of(
-                of(2, 1, 0, 2), // T6: 2 criaturas, 1 iteração
-                of(3, 3, 2, 3), // T7: 3 criaturas, 3 iterações, pegar última
-                of(5, 5, 1, 5) // T8: 5 criaturas, 5 iterações, pegar a segunda
-        );
-    }
-
     static Stream<Arguments> simulacaoExcecaoProvider() {
         return Stream.of(
+				of(2, -1),   // iteração negativa
                 of(2, 0),    // iteração zero
-                of(2, -1),   // iteração negativa
                 of(2, 1001)  // acima do limite
         );
     }
+
+	@ParameterizedTest
+	@MethodSource("simulacaoValidaProvider")
+	void testSimulacaoValida(int nCriaturas, int iteracoes) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(nCriaturas);
+
+		// A execução não deve lançar exceção
+		assertDoesNotThrow(() -> simulador.simular(iteracoes));
+	}
+
+	static Stream<Arguments> simulacaoValidaProvider() {
+		return Stream.of(
+				of(2, 1),    // iteração mínima válida
+				of(2, 999),  // iteração dentro do limite
+				of(2, 1000)  // iteração no limite máximo
+		);
+	}
+
 
 	@ParameterizedTest // T9 — Verificar se alguma criatura roubou outra
 	@MethodSource("rouboProvider")
