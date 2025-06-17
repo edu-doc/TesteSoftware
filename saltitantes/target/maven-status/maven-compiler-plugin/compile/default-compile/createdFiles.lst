@@ -1,6 +1,6 @@
 com\example\saltitantes\model\entity\Criaturas.class
-com\example\saltitantes\model\service\SimuladorService.class
 com\example\saltitantes\model\dto\ParametrosDTO.class
+com\example\saltitantes\model\service\SimuladorService.class
 com\example\saltitantes\model\dto\CriaturasDTO.class
 com\example\saltitantes\SaltitantesApplication.class
 com\example\saltitantes\model\dto\SimularResponseDTO.class
