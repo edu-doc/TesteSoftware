@@ -1,0 +1,5 @@
+com\example\saltitantes\dominio\TesteDominio.class
+com\example\saltitantes\estrutural\TesteEstrutural.class
+com\example\saltitantes\fronteira\TesteFronteira.class
+com\example\saltitantes\funcional\TesteFuncional.class
+com\example\saltitantes\SaltitantesApplicationTests_BACKUP.class
