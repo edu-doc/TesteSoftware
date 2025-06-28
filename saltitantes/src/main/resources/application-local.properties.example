@@ -1,0 +1,21 @@
+# Configurações locais - NÃO VERSIONAR NO GIT
+# INSTRUÇÕES:
+# 1. Copie este arquivo para: application-local.properties
+# 2. Substitua as credenciais abaixo pelas suas
+# 3. Execute: $env:SPRING_PROFILES_ACTIVE="local"; mvn spring-boot:run
+
+# PostgreSQL - Configuração Local
+spring.datasource.url=jdbc:postgresql://localhost:5432/saltitantes_db
+spring.datasource.username=SEU_USUARIO_POSTGRES
+spring.datasource.password=SUA_SENHA_POSTGRES
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA/Hibernate - Local
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# Pool de Conexões
+spring.datasource.hikari.maximum-pool-size=5
+spring.datasource.hikari.minimum-idle=2

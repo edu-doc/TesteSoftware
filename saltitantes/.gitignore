@@ -118,3 +118,10 @@ application-dev.properties
 *_CONFLITO.*
 *.orig
 *.rej
+
+### Database Configuration ###
+application-local.properties
+application-production.properties
+database.properties
+*.env
+.env*

@@ -5,10 +5,13 @@ import com.example.saltitantes.model.dto.EstatisticasDTO;
 import com.example.saltitantes.model.dto.LoginDTO;
 import com.example.saltitantes.model.dto.UsuarioDTO;
 import com.example.saltitantes.model.entity.Usuario;
-import java.util.HashMap;
+import com.example.saltitantes.repository.UserRepository;
+
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
-    private final Map<String, Usuario> usuarios = new HashMap<>();
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Cria um novo usuário no sistema.
@@ -35,16 +39,20 @@ public class UsuarioService {
             throw new IllegalArgumentException("Senha não pode ser vazia.");
         }
 
-        if (usuarios.containsKey(criarUsuarioDTO.getLogin())) {
+        // Verifica se o login já existe
+        Optional<Usuario> usuarioExistente = userRepository.findByLogin(criarUsuarioDTO.getLogin());
+        if (usuarioExistente.isPresent()) {
             throw new IllegalArgumentException("Login já existe.");
         }
 
+        // Cria novo usuário com senha simples
         Usuario usuario = new Usuario(
                 criarUsuarioDTO.getLogin(),
-                criarUsuarioDTO.getSenha(),
+                criarUsuarioDTO.getSenha(), // Senha simples, sem criptografia
                 criarUsuarioDTO.getAvatar());
 
-        usuarios.put(usuario.getLogin(), usuario);
+        // Salva no banco de dados
+        usuario = userRepository.save(usuario);
 
         return converterParaDTO(usuario);
     }
@@ -57,12 +65,13 @@ public class UsuarioService {
      * @throws IllegalArgumentException se credenciais inválidas
      */
     public UsuarioDTO login(LoginDTO loginDTO) {
-        Usuario usuario = usuarios.get(loginDTO.getLogin());
+        Optional<Usuario> usuarioOpt = userRepository.findByLogin(loginDTO.getLogin());
 
-        if (usuario == null) {
+        if (usuarioOpt.isEmpty()) {
             throw new IllegalArgumentException("Usuário não encontrado.");
         }
 
+        Usuario usuario = usuarioOpt.get();
         if (!usuario.verificarSenha(loginDTO.getSenha())) {
             throw new IllegalArgumentException("Senha incorreta.");
         }
@@ -77,11 +86,12 @@ public class UsuarioService {
      * @throws IllegalArgumentException se usuário não existe
      */
     public void excluirUsuario(String login) {
-        if (!usuarios.containsKey(login)) {
+        Optional<Usuario> usuarioOpt = userRepository.findByLogin(login);
+        if (usuarioOpt.isEmpty()) {
             throw new IllegalArgumentException("Usuário não encontrado.");
         }
 
-        usuarios.remove(login);
+        userRepository.delete(usuarioOpt.get());
     }
 
     /**
@@ -90,7 +100,7 @@ public class UsuarioService {
      * @return lista de DTOs dos usuários
      */
     public List<UsuarioDTO> listarUsuarios() {
-        return usuarios.values().stream()
+        return userRepository.findAll().stream()
                 .map(this::converterParaDTO)
                 .collect(Collectors.toList());
     }
@@ -103,16 +113,20 @@ public class UsuarioService {
      * @throws IllegalArgumentException se usuário não existe
      */
     public void registrarSimulacao(String login, boolean bemSucedida) {
-        Usuario usuario = usuarios.get(login);
+        Optional<Usuario> usuarioOpt = userRepository.findByLogin(login);
 
-        if (usuario == null) {
+        if (usuarioOpt.isEmpty()) {
             throw new IllegalArgumentException("Usuário não encontrado.");
         }
 
+        Usuario usuario = usuarioOpt.get();
         usuario.incrementarTotalSimulacoes();
         if (bemSucedida) {
             usuario.incrementarPontuacao();
         }
+
+        // Salva as alterações no banco
+        userRepository.save(usuario);
     }
 
     /**
@@ -121,18 +135,21 @@ public class UsuarioService {
      * @return DTO com as estatísticas
      */
     public EstatisticasDTO obterEstatisticas() {
-        List<UsuarioDTO> usuariosDTO = listarUsuarios();
+        List<Usuario> usuarios = userRepository.findAll();
+        List<UsuarioDTO> usuariosDTO = usuarios.stream()
+                .map(this::converterParaDTO)
+                .collect(Collectors.toList());
 
-        int totalSimulacoes = usuarios.values().stream()
+        int totalSimulacoes = usuarios.stream()
                 .mapToInt(Usuario::getTotalSimulacoes)
                 .sum();
 
-        int totalSimulacoesSucesso = usuarios.values().stream()
+        int totalSimulacoesSucesso = usuarios.stream()
                 .mapToInt(Usuario::getPontuacao)
                 .sum();
 
         double mediaSimulacoesSucessoUsuario = usuarios.isEmpty() ? 0.0
-                : usuarios.values().stream()
+                : usuarios.stream()
                         .mapToDouble(Usuario::getTaxaSucesso)
                         .average()
                         .orElse(0.0);
@@ -152,12 +169,11 @@ public class UsuarioService {
      * Converte uma entidade Usuario para DTO.
      * 
      * @param usuario entidade a ser convertida
-     * @return DTO correspondente
+     * @return DTO correspondente (sem senha por segurança)
      */
     private UsuarioDTO converterParaDTO(Usuario usuario) {
         return new UsuarioDTO(
                 usuario.getLogin(),
-                null, // Não retornar senha por segurança
                 usuario.getAvatar(),
                 usuario.getPontuacao(),
                 usuario.getTotalSimulacoes(),
@@ -171,13 +187,13 @@ public class UsuarioService {
      * @return true se o usuário existe
      */
     public boolean usuarioExiste(String login) {
-        return usuarios.containsKey(login);
+        return userRepository.findByLogin(login).isPresent();
     }
 
     /**
      * Método para testes - limpa todos os usuários.
      */
     public void limparUsuarios() {
-        usuarios.clear();
+        userRepository.deleteAll();
     }
 }

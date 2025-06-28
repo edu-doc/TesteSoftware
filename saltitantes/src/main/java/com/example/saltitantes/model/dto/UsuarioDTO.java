@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * DTO para operações de usuário.
+ * DTO para operações de usuário (sem senha por segurança).
  */
 @Getter
 @Setter
@@ -15,7 +15,6 @@ import lombok.Setter;
 public class UsuarioDTO {
 
     private String login;
-    private String senha;
     private String avatar;
     private int pontuacao;
     private int totalSimulacoes;

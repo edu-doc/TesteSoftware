@@ -25,7 +25,7 @@ public class Guardiao {
      */
     public Guardiao(int id) {
         this.id = id;
-        this.ouro = 0; // Valor inicial é 0 conforme especificação
+        this.ouro = 1000000; // Mesmo valor inicial das criaturas para que possa se mover
         this.posicaox = 0.0;
     }
 

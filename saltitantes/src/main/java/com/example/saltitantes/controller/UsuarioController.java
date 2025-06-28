@@ -3,10 +3,13 @@ package com.example.saltitantes.controller;
 import com.example.saltitantes.model.dto.CriarUsuarioDTO;
 import com.example.saltitantes.model.dto.EstatisticasDTO;
 import com.example.saltitantes.model.dto.LoginDTO;
+import com.example.saltitantes.model.dto.LoginResponse;
 import com.example.saltitantes.model.dto.UsuarioDTO;
 import com.example.saltitantes.model.service.UsuarioService;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,12 +39,12 @@ public class UsuarioController {
      * @return resposta com o usuário criado
      */
     @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestBody CriarUsuarioDTO criarUsuarioDTO) {
+    public ResponseEntity<UsuarioDTO> criarUsuario(@RequestBody CriarUsuarioDTO criarUsuarioDTO) {
         try {
             UsuarioDTO usuario = usuarioService.criarUsuario(criarUsuarioDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -49,15 +52,16 @@ public class UsuarioController {
      * Realiza login do usuário.
      * 
      * @param loginDTO credenciais de login
-     * @return resposta com os dados do usuário
+     * @return resposta com informações do usuário
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginDTO loginDTO) {
         try {
             UsuarioDTO usuario = usuarioService.login(loginDTO);
-            return ResponseEntity.ok(usuario);
+            return ResponseEntity.ok(new LoginResponse("Login realizado com sucesso!", true, usuario));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new LoginResponse(e.getMessage(), false, null));
         }
     }
 

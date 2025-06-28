@@ -14,10 +14,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SimuladorService {
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     private final List<Criaturas> criaturas = new ArrayList<>();
     private final List<Cluster> clusters = new ArrayList<>();
@@ -105,6 +109,7 @@ public class SimuladorService {
         }
 
         historicoSimulacoes.clear();
+        boolean simulacaoFinalizada = false;
 
         for (int i = 0; i < iteracoes; i++) {
             // Processar criaturas individuais e formar clusters
@@ -120,18 +125,54 @@ public class SimuladorService {
             // Processar o guardião (após as criaturas/clusters)
             int clusterEliminado = processarGuardiao();
 
-            // Criar snapshot da iteração atual
+            // Criar snapshot da iteração atual (sempre false durante as iterações)
             SimularResponseDTO iteracaoAtual = criarSnapshotIteracao(i + 1, clusterEliminado, todosRoubos);
             historicoSimulacoes.add(iteracaoAtual);
 
             // Verificar condições de sucesso
             if (verificarCondicoesSucesso()) {
-                iteracaoAtual.setSimulacaoBemSucedida(true);
+                simulacaoFinalizada = true;
                 break;
             }
         }
 
+        // Definir o flag de sucesso apenas na ÚLTIMA iteração
+        if (!historicoSimulacoes.isEmpty()) {
+            SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
+            ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
+        }
+
         return historicoSimulacoes;
+    }
+
+    /**
+     * Executa a simulação e registra o resultado para o usuário.
+     *
+     * @param iteracoes    número de iterações a serem executadas
+     * @param loginUsuario login do usuário que está executando a simulação
+     * @return lista contendo o snapshot de cada iteração ocorrida
+     * @throws IllegalStateException    se a simulação não foi iniciada corretamente
+     * @throws IllegalArgumentException se a quantidade de iterações for menor ou
+     *                                  igual a 1 ou maior que 1000
+     */
+    public List<SimularResponseDTO> simular(int iteracoes, String loginUsuario) {
+        List<SimularResponseDTO> resultado = simular(iteracoes);
+
+        // Verifica se a simulação foi bem-sucedida
+        boolean bemSucedida = resultado.stream()
+                .anyMatch(SimularResponseDTO::isSimulacaoBemSucedida);
+
+        // Registra a simulação para o usuário (se o login foi fornecido)
+        if (loginUsuario != null && !loginUsuario.trim().isEmpty()) {
+            try {
+                usuarioService.registrarSimulacao(loginUsuario, bemSucedida);
+            } catch (IllegalArgumentException e) {
+                // Log de erro, mas não interrompe a simulação
+                System.err.println("Erro ao registrar simulação para usuário " + loginUsuario + ": " + e.getMessage());
+            }
+        }
+
+        return resultado;
     }
 
     /**

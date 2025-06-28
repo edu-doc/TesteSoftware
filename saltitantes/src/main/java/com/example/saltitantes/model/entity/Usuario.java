@@ -5,17 +5,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import jakarta.persistence.*;
+
 /**
  * Representa um usuário do sistema de simulação.
  */
+@Entity
+@Table(name = "usuarios")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
     private String login;
+
+    @Column(nullable = false)
     private String senha;
+
     private String avatar;
     private int pontuacao; // Quantidade de simulações bem-sucedidas
     private int totalSimulacoes; // Total de simulações executadas pelo usuário
