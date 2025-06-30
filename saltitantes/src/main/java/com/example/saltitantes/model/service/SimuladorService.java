@@ -194,23 +194,32 @@ public class SimuladorService {
         }
 
         // Formar clusters onde há mais de uma criatura na mesma posição
-        for (Map.Entry<Double, List<Criaturas>> entry : posicoesOcupadas.entrySet()) {
-            List<Criaturas> criaturasNaPosicao = entry.getValue();
+        List<Criaturas> criaturasRestantes = new ArrayList<>(criaturas); // cópia para evitar ConcurrentModification
 
-            if (criaturasNaPosicao.size() > 1) {
-                // Formar cluster
-                Cluster novoCluster = new Cluster(criaturasNaPosicao.get(0), criaturasNaPosicao.get(1));
+        for (int i = 0; i < criaturasRestantes.size(); i++) {
+            Criaturas c1 = criaturasRestantes.get(i);
+            List<Criaturas> proximas = new ArrayList<>();
+            proximas.add(c1);
 
-                // Adicionar criaturas restantes ao cluster
-                for (int i = 2; i < criaturasNaPosicao.size(); i++) {
-                    novoCluster.adicionarCriatura(criaturasNaPosicao.get(i));
+            for (int j = i + 1; j < criaturasRestantes.size(); j++) {
+                Criaturas c2 = criaturasRestantes.get(j);
+                double distancia = Math.abs(c1.getPosicaox() - c2.getPosicaox());
+
+                if (distancia <= 5000) {
+                    proximas.add(c2);
+                }
+            }
+
+            if (proximas.size() > 1) {
+                Cluster novoCluster = new Cluster(proximas.get(0), proximas.get(1));
+
+                for (int k = 2; k < proximas.size(); k++) {
+                    novoCluster.adicionarCriatura(proximas.get(k));
                 }
 
-                // Remover criaturas individuais e adicionar cluster
-                criaturas.removeAll(criaturasNaPosicao);
+                criaturas.removeAll(proximas);
                 clusters.add(novoCluster);
 
-                // IMPORTANTE: Cluster rouba METADE das moedas da criatura mais próxima
                 int criaturaSendoRoubada = roubarDaCriaturaMaisProxima(novoCluster);
                 roubos.put(novoCluster.getIdCluster(), criaturaSendoRoubada);
             }
