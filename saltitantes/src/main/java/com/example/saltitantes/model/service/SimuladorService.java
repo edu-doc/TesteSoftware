@@ -49,7 +49,7 @@ public class SimuladorService {
      * @pre n <= 1000
      * @post cria uma lista de criaturas contendo a quantidade n
      * @throws IllegalArgumentException se a quantidade de criaturas for menor ou
-     *                                  igual a 1 ou maior que 1000
+     * igual a 1 ou maior que 1000
      */
     public void inicializar(int n) {
         if (n <= 1) {
@@ -58,17 +58,6 @@ public class SimuladorService {
         if (n > 1000) {
             throw new IllegalArgumentException("A quantidade de criaturas deve ser menor ou igual a 1000.");
         }
-
-        /*
-         * Teste n Deve lançar exceção? Motivo
-         * __________________________________________________
-         * T1 -1 Sim n <= 1
-         * T2 0 Sim n <= 1
-         * T3 1 sim n <= 1
-         * T4 2 Não Valor válido
-         * T5 1000 Não Valor válido
-         * T6 1001 Sim n > 1000
-         */
 
         criaturas.clear();
         clusters.clear();
@@ -91,10 +80,10 @@ public class SimuladorService {
      * @pre iteracoes > 0
      * @pre iteracoes <= 1000
      * @post retorna um histórico em formato de lista com n iterações de simulações
-     *       ocorridas
+     * ocorridas
      * @throws IllegalStateException    se a simulação não foi iniciada corretamente
      * @throws IllegalArgumentException se a quantidade de iterações for menor ou
-     *                                  igual a 1 ou maior que 1000
+     * igual a 1 ou maior que 1000
      */
     public List<SimularResponseDTO> simular(int iteracoes) {
         if (iteracoes <= 0) {
@@ -129,14 +118,14 @@ public class SimuladorService {
             SimularResponseDTO iteracaoAtual = criarSnapshotIteracao(i + 1, clusterEliminado, todosRoubos);
             historicoSimulacoes.add(iteracaoAtual);
 
-            // Verificar condições de sucesso
-            if (verificarCondicoesSucesso()) {
+            // Verificar condições de vitória
+            if (verificarGanhador()) {
                 simulacaoFinalizada = true;
-                break;
+                break; // Encerra o loop pois a simulação terminou
             }
         }
 
-        // Definir o flag de sucesso apenas na ÚLTIMA iteração
+        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi finalizada
         if (!historicoSimulacoes.isEmpty()) {
             SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
             ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
@@ -153,7 +142,7 @@ public class SimuladorService {
      * @return lista contendo o snapshot de cada iteração ocorrida
      * @throws IllegalStateException    se a simulação não foi iniciada corretamente
      * @throws IllegalArgumentException se a quantidade de iterações for menor ou
-     *                                  igual a 1 ou maior que 1000
+     * igual a 1 ou maior que 1000
      */
     public List<SimularResponseDTO> simular(int iteracoes, String loginUsuario) {
         List<SimularResponseDTO> resultado = simular(iteracoes);
@@ -178,9 +167,8 @@ public class SimuladorService {
     /**
      * Processa as criaturas individuais, movendo-as e formando clusters quando
      * necessário.
-     * 
-     * @return mapa com criaturas/clusters e IDs das criaturas roubadas
-     */
+     * * @return mapa com criaturas/clusters e IDs das criaturas roubadas
+     **/
     private Map<Integer, Integer> processarCriaturas() {
         Map<Integer, Integer> roubos = new HashMap<>();
 
@@ -192,6 +180,9 @@ public class SimuladorService {
         // SEGUNDO: Processar roubo das criaturas individuais
         List<Criaturas> criaturasParaProcessamento = new ArrayList<>(criaturas);
         for (Criaturas criatura : criaturasParaProcessamento) {
+            // Apenas processa criaturas que ainda existem na lista principal
+            if (!criaturas.contains(criatura)) continue;
+
             Criaturas vizinha = encontrarMaisProxima(criatura);
             if (vizinha != null && vizinha.getOuro() > 0) {
                 // Criatura individual rouba METADE do ouro da mais próxima
@@ -203,6 +194,9 @@ public class SimuladorService {
                 roubos.put(criatura.getId(), -1);
             }
         }
+
+        // Bloco para eliminar criaturas com menos de 100k de ouro
+        criaturas.removeIf(criatura -> criatura.getOuro() < 300000);
 
         // TERCEIRO: Formar clusters baseado na proximidade após movimento
         List<Criaturas> criaturasRestantes = new ArrayList<>(criaturas);
@@ -259,8 +253,7 @@ public class SimuladorService {
 
     /**
      * Processa os clusters existentes, movendo-os e fazendo-os roubar.
-     * 
-     * @return mapa com clusters e IDs das criaturas roubadas
+     * * @return mapa com clusters e IDs das criaturas roubadas
      */
     private Map<Integer, Integer> processarClusters() {
         Map<Integer, Integer> roubosDosClusters = new HashMap<>();
@@ -276,8 +269,7 @@ public class SimuladorService {
 
     /**
      * Processa o guardião, movendo-o e eliminando clusters se necessário.
-     * 
-     * @return ID do cluster eliminado ou -1 se nenhum foi eliminado
+     * * @return ID do cluster eliminado ou -1 se nenhum foi eliminado
      */
     private int processarGuardiao() {
         guardiao.moverX();
@@ -306,8 +298,7 @@ public class SimuladorService {
 
     /**
      * Faz um cluster roubar da criatura mais próxima.
-     * 
-     * @param cluster cluster que vai roubar
+     * * @param cluster cluster que vai roubar
      * @return ID da criatura roubada ou -1 se nenhuma foi roubada
      */
     private int roubarDaCriaturaMaisProxima(Cluster cluster) {
@@ -324,8 +315,7 @@ public class SimuladorService {
 
     /**
      * Encontra a criatura mais próxima de um cluster.
-     * 
-     * @param cluster cluster de referência
+     * * @param cluster cluster de referência
      * @return criatura mais próxima ou null se não houver
      */
     private Criaturas encontrarCriaturaMaisProximaDoCluster(Cluster cluster) {
@@ -337,14 +327,13 @@ public class SimuladorService {
 
     /**
      * Cria um snapshot da iteração atual.
-     * 
-     * @param numeroIteracao   número da iteração
+     * * @param numeroIteracao   número da iteração
      * @param clusterEliminado ID do cluster eliminado pelo guardião
      * @param roubos           mapa com IDs de entidades e quem elas roubaram
      * @return DTO da resposta da simulação
      */
     private SimularResponseDTO criarSnapshotIteracao(int numeroIteracao, int clusterEliminado,
-            Map<Integer, Integer> roubos) {
+                                                     Map<Integer, Integer> roubos) {
         // Criar DTOs das criaturas
         CriaturasDTO[] criaturasDTO = criaturas.stream()
                 .map(c -> new CriaturasDTO(c.getId(), c.getOuro(), c.getPosicaox(),
@@ -372,30 +361,34 @@ public class SimuladorService {
     }
 
     /**
-     * Verifica as condições de sucesso da simulação.
-     * 
-     * @return true se a simulação foi bem-sucedida
+     * Verifica as condições de vitória da simulação.
+     * A simulação é considerada vencida (bem-sucedida) se:
+     * 1. Apenas o guardião resta (listas de criaturas e clusters estão vazias).
+     * 2. Restam apenas o guardião e uma única criatura (lista de clusters vazia e lista de criaturas com 1 elemento).
+     *
+     * @return true se uma das condições de vitória for atendida, false caso contrário.
      */
-    private boolean verificarCondicoesSucesso() {
-        int totalEntidades = criaturas.size() + clusters.size();
+    private boolean verificarGanhador() {
+        // Conta o número de criaturas e clusters restantes.
+        int numeroDeCriaturas = criaturas.size();
+        int numeroDeClusters = clusters.size();
 
-        // Sucesso: resta apenas o guardião
-        if (totalEntidades == 0) {
-            return true;
-        }
+        // Condição 1: Apenas o guardião está vivo.
+        // Isso acontece quando não há mais criaturas individuais nem clusters.
+        boolean apenasGuardiaoVivo = (numeroDeCriaturas == 0 && numeroDeClusters == 0);
 
-        // Sucesso: resta apenas o guardião e uma criatura, com guardião tendo mais ouro
-        if (totalEntidades == 1 && criaturas.size() == 1) {
-            return guardiao.getOuro() > criaturas.get(0).getOuro();
-        }
+        // Condição 2: Guardião e uma única criatura estão vivos.
+        // Isso acontece quando a lista de criaturas tem exatamente um elemento e não há clusters.
+        boolean guardiaoMaisUmaCriatura = (numeroDeCriaturas == 1 && numeroDeClusters == 0);
 
-        return false;
+        // Se qualquer uma das condições for verdadeira, a simulação tem um ganhador.
+
+        return apenasGuardiaoVivo || guardiaoMaisUmaCriatura;
     }
 
     /**
      * Encontra a criatura mais próxima da criatura atual.
-     * 
-     * @param atual criatura de referência (não pode ser null)
+     * * @param atual criatura de referência (não pode ser null)
      * @return objeto do tipo criatura
      * @pre nenhuma pré condição
      * @post retorna a criatura mais próxima da criatura atual
@@ -414,8 +407,7 @@ public class SimuladorService {
 
     /**
      * Calcula a distância absoluta entre duas criaturas.
-     * 
-     * @param a criatura a (não pode ser null)
+     * * @param a criatura a (não pode ser null)
      * @param b criatura b (não pode ser null)
      * @return distância do tipo double
      * @pre nenhuma pré condição
