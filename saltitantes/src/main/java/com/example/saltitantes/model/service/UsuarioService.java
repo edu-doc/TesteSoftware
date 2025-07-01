@@ -166,6 +166,23 @@ public class UsuarioService {
     }
 
     /**
+     * Obtém as estatísticas de um usuário específico.
+     * 
+     * @param login login do usuário
+     * @return DTO do usuário com suas estatísticas
+     * @throws IllegalArgumentException se usuário não existe
+     */
+    public UsuarioDTO obterEstatisticasUsuario(String login) {
+        Optional<Usuario> usuarioOpt = userRepository.findByLogin(login);
+
+        if (usuarioOpt.isEmpty()) {
+            throw new IllegalArgumentException("Usuário não encontrado.");
+        }
+
+        return converterParaDTO(usuarioOpt.get());
+    }
+
+    /**
      * Converte uma entidade Usuario para DTO.
      * 
      * @param usuario entidade a ser convertida

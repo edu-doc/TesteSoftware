@@ -102,4 +102,20 @@ public class UsuarioController {
         EstatisticasDTO estatisticas = usuarioService.obterEstatisticas();
         return ResponseEntity.ok(estatisticas);
     }
+
+    /**
+     * Obtém as estatísticas de um usuário específico.
+     * 
+     * @param login login do usuário
+     * @return estatísticas do usuário
+     */
+    @GetMapping("/{login}/estatisticas")
+    public ResponseEntity<?> obterEstatisticasUsuario(@PathVariable String login) {
+        try {
+            UsuarioDTO usuario = usuarioService.obterEstatisticasUsuario(login);
+            return ResponseEntity.ok(usuario);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
