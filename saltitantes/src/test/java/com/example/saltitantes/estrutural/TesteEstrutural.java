@@ -17,7 +17,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Testes Estruturais - Verificam as interações entre entidades e regras de negócio específicas.
+ * Testes Estruturais - Verificam as interações entre entidades e regras de
+ * negócio específicas.
  * 
  * Focam em:
  * - Interações entre criaturas (roubo)
@@ -43,17 +44,17 @@ public class TesteEstrutural {
         var resultado = simulador.simular(1);
 
         CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
-        
+
         assertThat(criaturas)
-            .as("Com %d criaturas, pelo menos uma deve roubar outra", nCriaturas)
-            .anyMatch(c -> c.getIdCriaturaRoubada() != -1);
+                .as("Com %d criaturas, pelo menos uma deve roubar outra", nCriaturas)
+                .anyMatch(c -> c.getIdCriaturaRoubada() != -1);
     }
 
     static Stream<Arguments> rouboProvider() {
         return Stream.of(
-                Arguments.of(2),   // Caso mínimo
-                Arguments.of(5),   // Caso intermediário
-                Arguments.of(10)   // Caso com mais interações
+                Arguments.of(2), // Caso mínimo
+                Arguments.of(5), // Caso intermediário
+                Arguments.of(10) // Caso com mais interações
         );
     }
 
@@ -76,8 +77,8 @@ public class TesteEstrutural {
         // Configurar cenário específico de teste
         lista.get(0).setPosicaox(0);
         lista.get(1).setPosicaox(1);
-        lista.get(0).setOuro(10);   // Criatura com ouro
-        lista.get(1).setOuro(0);    // Criatura sem ouro
+        lista.get(0).setOuro(10); // Criatura com ouro
+        lista.get(1).setOuro(0); // Criatura sem ouro
 
         var resultado = simulador.simular(iteracoes);
         CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
@@ -96,8 +97,7 @@ public class TesteEstrutural {
         return Stream.of(
                 Arguments.of(1),
                 Arguments.of(2),
-                Arguments.of(5)
-        );
+                Arguments.of(5));
     }
 
     /**
@@ -119,8 +119,8 @@ public class TesteEstrutural {
         // Configurar cenário onde ambas têm ouro
         lista.get(0).setPosicaox(0);
         lista.get(1).setPosicaox(1);
-        lista.get(0).setOuro(10);
-        lista.get(1).setOuro(10);
+        lista.get(0).setOuro(1000000);
+        lista.get(1).setOuro(1000000);
 
         var resultado = simulador.simular(iteracoes);
         CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
@@ -137,8 +137,7 @@ public class TesteEstrutural {
         return Stream.of(
                 Arguments.of(1),
                 Arguments.of(2),
-                Arguments.of(5)
-        );
+                Arguments.of(5));
     }
 
     /**
@@ -153,24 +152,24 @@ public class TesteEstrutural {
     void testValidacaoParametrosDistancia() {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(2);
-        
+
         List<Criaturas> lista = simulador.getCriaturasParaTeste();
         Criaturas criatura1 = lista.get(0);
-        
+
         // Teste com primeiro parâmetro nulo
         assertThatThrownBy(() -> simulador.distancia(null, criatura1))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("Nenhuma criatura pode ser null");
-            
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Nenhuma criatura pode ser null");
+
         // Teste com segundo parâmetro nulo
         assertThatThrownBy(() -> simulador.distancia(criatura1, null))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("Nenhuma criatura pode ser null");
-            
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Nenhuma criatura pode ser null");
+
         // Teste com ambos os parâmetros nulos
         assertThatThrownBy(() -> simulador.distancia(null, null))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("Nenhuma criatura pode ser null");
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Nenhuma criatura pode ser null");
     }
 
     /**
@@ -185,11 +184,11 @@ public class TesteEstrutural {
     void testValidacaoParametrosEncontrarMaisProxima() {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(2);
-        
+
         // Teste com parâmetro nulo
         assertThatThrownBy(() -> simulador.encontrarMaisProxima(null))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("criatura de referência não pode ser null");
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("criatura de referência não pode ser null");
     }
 
     /**
@@ -204,28 +203,31 @@ public class TesteEstrutural {
     void testCalculoDistancia() {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(2);
-        
+
         List<Criaturas> lista = simulador.getCriaturasParaTeste();
         Criaturas criatura1 = lista.get(0);
         Criaturas criatura2 = lista.get(1);
-        
+
         // Configurar posições conhecidas
         criatura1.setPosicaox(0.0);
         criatura2.setPosicaox(5.0);
-        
+
         double distancia = simulador.distancia(criatura1, criatura2);
-        
+
         assertThat(distancia)
-            .as("Distância entre posições 0.0 e 5.0 deve ser 5.0")
-            .isEqualTo(5.0);
-        
+                .as("Distância entre posições 0.0 e 5.0 deve ser 5.0")
+                .isEqualTo(5.0);
+
         // Testar simetria
         double distanciaInversa = simulador.distancia(criatura2, criatura1);
         assertThat(distanciaInversa)
-            .as("Distância deve ser simétrica")
-            .isEqualTo(distancia);
-    }    /**
-     * Testa o comportamento do método encontrarMaisProxima() com diferentes cenários.
+                .as("Distância deve ser simétrica")
+                .isEqualTo(distancia);
+    }
+
+    /**
+     * Testa o comportamento do método encontrarMaisProxima() com diferentes
+     * cenários.
      * 
      * Valida a lógica de busca:
      * - Identificação correta da criatura mais próxima
@@ -235,42 +237,42 @@ public class TesteEstrutural {
     void testEncontrarMaisProximaComportamento() {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(3);
-        
+
         List<Criaturas> lista = simulador.getCriaturasParaTeste();
-        
+
         // Configurar posições específicas
-        lista.get(0).setPosicaox(0.0);   // Criatura de referência
-        lista.get(1).setPosicaox(2.0);   // Mais próxima
-        lista.get(2).setPosicaox(10.0);  // Mais distante
-        
+        lista.get(0).setPosicaox(0.0); // Criatura de referência
+        lista.get(1).setPosicaox(2.0); // Mais próxima
+        lista.get(2).setPosicaox(10.0); // Mais distante
+
         Criaturas maisProxima = simulador.encontrarMaisProxima(lista.get(0));
-        
+
         assertThat(maisProxima)
-            .as("Deve encontrar a criatura mais próxima")
-            .isNotNull()
-            .extracting(Criaturas::getId)
-            .isEqualTo(lista.get(1).getId());
+                .as("Deve encontrar a criatura mais próxima")
+                .isNotNull()
+                .extracting(Criaturas::getId)
+                .isEqualTo(lista.get(1).getId());
     }
 
     @Test
-    void testRemoverCriaturaPoucoOuro(){
+    void testRemoverCriaturaPoucoOuro() {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(3);
 
         List<Criaturas> lista = simulador.getCriaturasParaTeste();
 
         // Configurar ouro insuficiente
-        lista.get(0).setOuro(100000);  // Criatura com pouco ouro
-        lista.get(1).setOuro(500000);  // Criatura com mais ouro
+        lista.get(0).setOuro(100000); // Criatura com pouco ouro
+        lista.get(1).setOuro(500000); // Criatura com mais ouro
         lista.get(2).setOuro(1000000); // Criatura com muito ouro
 
         // Remover criatura com pouco ouro
         simulador.eliminarCriaturasPoucoOuro(lista);
 
         assertThat(lista)
-            .as("Deve remover criaturas com pouco ouro")
-            .hasSize(2) // Apenas as duas restantes devem ter mais de 200 de ouro
-            .extracting(Criaturas::getOuro)
-            .allMatch(ouro -> ouro > 300000);
+                .as("Deve remover criaturas com pouco ouro")
+                .hasSize(2) // Apenas as duas restantes devem ter mais de 200 de ouro
+                .extracting(Criaturas::getOuro)
+                .allMatch(ouro -> ouro > 300000);
     }
 }
