@@ -195,8 +195,8 @@ public class SimuladorService {
             }
         }
 
-        // Bloco para eliminar criaturas com menos de 100k de ouro
-        criaturas.removeIf(criatura -> criatura.getOuro() < 300000);
+        // Bloco para eliminar criaturas com menos de 300 mil de ouro
+        eliminarCriaturasPoucoOuro(criaturas);
 
         // TERCEIRO: Formar clusters baseado na proximidade após movimento
         List<Criaturas> criaturasRestantes = new ArrayList<>(criaturas);
@@ -311,6 +311,16 @@ public class SimuladorService {
             return criaturaMaisProxima.getId();
         }
         return -1;
+    }
+
+    /**
+     * Remove criaturas da lista que possuem menos de 300.000 de ouro.
+     * Este método modifica a lista original.
+     *
+     * @param criaturas A lista de criaturas a ser modificada.
+     */
+    public void eliminarCriaturasPoucoOuro(List<Criaturas> criaturas) {
+        criaturas.removeIf(criatura -> criatura.getOuro() < 300000);
     }
 
     /**

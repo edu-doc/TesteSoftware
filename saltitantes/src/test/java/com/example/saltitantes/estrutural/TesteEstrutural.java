@@ -251,4 +251,26 @@ public class TesteEstrutural {
             .extracting(Criaturas::getId)
             .isEqualTo(lista.get(1).getId());
     }
+
+    @Test
+    void testRemoverCriaturaPoucoOuro(){
+        SimuladorService simulador = new SimuladorService();
+        simulador.inicializar(3);
+
+        List<Criaturas> lista = simulador.getCriaturasParaTeste();
+
+        // Configurar ouro insuficiente
+        lista.get(0).setOuro(100000);  // Criatura com pouco ouro
+        lista.get(1).setOuro(500000);  // Criatura com mais ouro
+        lista.get(2).setOuro(1000000); // Criatura com muito ouro
+
+        // Remover criatura com pouco ouro
+        simulador.eliminarCriaturasPoucoOuro(lista);
+
+        assertThat(lista)
+            .as("Deve remover criaturas com pouco ouro")
+            .hasSize(2) // Apenas as duas restantes devem ter mais de 200 de ouro
+            .extracting(Criaturas::getOuro)
+            .allMatch(ouro -> ouro > 300000);
+    }
 }
