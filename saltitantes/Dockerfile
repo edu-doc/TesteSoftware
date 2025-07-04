@@ -1,14 +1,14 @@
-# Usa imagem base com Java 17
-FROM eclipse-temurin:17-jdk-alpine
-
-# Define o diretório de trabalho dentro do container
+# Stage 1: Build da aplicação com Maven
+FROM maven:3.8-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copia o arquivo .jar gerado para dentro do container
-COPY target/saltitantes-0.0.1-SNAPSHOT.jar app.jar
-
-# Expõe a porta padrão usada por Spring Boot
+# Stage 2: Criação da imagem final de execução
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/saltitantes-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Comando para iniciar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
