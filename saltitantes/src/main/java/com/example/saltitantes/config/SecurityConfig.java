@@ -35,6 +35,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "http://localhost:3001",
+                "http://testesoftware.onrender.com",
                 "https://tcc-ben-ariel-franca-martins-projects.vercel.app"));// adionar depois a rota do projeto
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
