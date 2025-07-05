@@ -20,7 +20,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())
+                // Esta linha é crucial, ela aplica a configuração do bean abaixo
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable())
@@ -32,18 +33,29 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        // CORREÇÃO AQUI: Lista apenas com as origens do frontend
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "http://localhost:3001",
-                "https://testesoftware.onrender.com",
-                "https://testesoftware.onrender.com/api/v1/usuarios",
-                "https://tcc-ben-ariel-franca-martins-projects.vercel.app"));// adionar depois a rota do projeto
+                "https://teste-software-front.vercel.app",
+                "https://tcc-ben-ariel-franca-martins-projects.vercel.app" // Origem do seu projeto no Vercel
+        ));
+
+        // Métodos permitidos
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Cabeçalhos permitidos (usar "*" é comum para desenvolvimento)
         configuration.setAllowedHeaders(List.of("*"));
+
+        // Permitir credenciais (cookies, etc.)
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Aplica esta configuração a todas as rotas da sua API
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
+
 }
