@@ -6,7 +6,7 @@ Este diagrama representa a arquitetura da aplicação Saltitantes, focando nas f
 
 O sistema **Saltitantes** é uma aplicação Spring Boot que simula criaturas que se movem em um horizonte, formam clusters e interagem com um guardião. Os usuários podem executar simulações e acompanhar estatísticas.
 
-## Arquitetura
+## Arquitetura em camada com padrão mvc
 
 - **Controllers**: Camada de apresentação (API REST)
 - **Services**: Camada de negócio com lógica da aplicação
