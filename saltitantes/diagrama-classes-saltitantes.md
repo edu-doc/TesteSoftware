@@ -232,11 +232,24 @@ classDiagram
     classDef dtoClass fill:#fff3e0,stroke:#e65100,stroke-width:2px
     classDef repositoryClass fill:#fce4ec,stroke:#880e4f,stroke-width:2px
 
-    class SimuladorController,UsuarioController controllerClass
-    class SimuladorService,UsuarioService serviceClass
-    class Usuario,Criaturas,Cluster,Guardiao entityClass
-    class ParametrosDTO,SimularResponseDTO,UsuarioDTO,CriarUsuarioDTO,LoginDTO,EstatisticasDTO,CriaturasDTO,ClusterDTO,GuardiaoDTO dtoClass
-    class UserRepository repositoryClass
+    class SimuladorController:::controllerClass
+    class UsuarioController:::controllerClass
+    class SimuladorService:::serviceClass
+    class UsuarioService:::serviceClass
+    class Usuario:::entityClass
+    class Criaturas:::entityClass
+    class Cluster:::entityClass
+    class Guardiao:::entityClass
+    class ParametrosDTO:::dtoClass
+    class SimularResponseDTO:::dtoClass
+    class UsuarioDTO:::dtoClass
+    class CriarUsuarioDTO:::dtoClass
+    class LoginDTO:::dtoClass
+    class EstatisticasDTO:::dtoClass
+    class CriaturasDTO:::dtoClass
+    class ClusterDTO:::dtoClass
+    class GuardiaoDTO:::dtoClass
+    class UserRepository:::repositoryClass
 ```
 
 ## Funcionalidades Principais
