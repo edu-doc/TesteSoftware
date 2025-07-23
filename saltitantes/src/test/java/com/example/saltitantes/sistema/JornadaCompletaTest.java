@@ -10,11 +10,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.Duration;
 import java.util.UUID;
 
 @SpringBootTest
+@ActiveProfiles("local")
 public class JornadaCompletaTest {
 
     @Autowired
@@ -47,7 +49,8 @@ public class JornadaCompletaTest {
         loginPage.irParaPaginaDeCadastro(driver);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("foto")));
         String uniqueLogin = "user_" + UUID.randomUUID().toString().substring(0, 8);
-        cadastroPage.realizarCadastro(driver, uniqueLogin, "senhaForte123", "https://github.com/BenAriel/teste-software-front/blob/master/public/benno.jpg?raw=true");
+        cadastroPage.realizarCadastro(driver, uniqueLogin, "senhaForte123",
+                "https://github.com/BenAriel/teste-software-front/blob/master/public/benno.jpg?raw=true");
 
         try {
             Thread.sleep(3000);
@@ -55,11 +58,12 @@ public class JornadaCompletaTest {
             throw new RuntimeException(e);
         }
 
-        // Verifica se cadastro foi bem-sucedido e redirecionou para a página de simulação
+        // Verifica se cadastro foi bem-sucedido e redirecionou para a página de
+        // simulação
         WebElement pageTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h1[contains(text(), 'Simulação de Criaturas Saltitantes')]")
-        ));
-        Assertions.assertTrue(pageTitle.isDisplayed(), "Não foi redirecionado para a página de simulação após o cadastro.");
+                By.xpath("//h1[contains(text(), 'Simulação de Criaturas Saltitantes')]")));
+        Assertions.assertTrue(pageTitle.isDisplayed(),
+                "Não foi redirecionado para a página de simulação após o cadastro.");
 
         // --- 2. LOGOUT ---
         simulationPage.fazerLogout(driver);
@@ -85,8 +89,7 @@ public class JornadaCompletaTest {
 
         // Verifica se chegou na página de simulação novamente
         pageTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h1[contains(text(), 'Simulação de Criaturas Saltitantes')]")
-        ));
+                By.xpath("//h1[contains(text(), 'Simulação de Criaturas Saltitantes')]")));
         Assertions.assertTrue(pageTitle.isDisplayed(), "Redirecionamento para simulação após login falhou.");
 
         // --- 4. SIMULAÇÃO ---
@@ -128,8 +131,8 @@ public class JornadaCompletaTest {
 
         // Verifica se o resultado da busca pelo login do jogador foi exibido
         WebElement avatarDoUsuario = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.id("usuario-avatar")
-        ));
-        Assertions.assertNotNull(avatarDoUsuario, "FALHA: O avatar do usuário buscado não foi encontrado no DOM da página de estatísticas.");
+                By.id("usuario-avatar")));
+        Assertions.assertNotNull(avatarDoUsuario,
+                "FALHA: O avatar do usuário buscado não foi encontrado no DOM da página de estatísticas.");
     }
 }
