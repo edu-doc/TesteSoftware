@@ -16,7 +16,7 @@ import java.time.Duration;
 
 @SpringBootTest
 @ActiveProfiles("local")
-public class LoginTest {
+public class LoginJornadaFalhaTest {
 
     @Autowired
     private WebDriver driver;
@@ -35,15 +35,15 @@ public class LoginTest {
     void testLoginComSucesso() {
 
         // Acessa a página de login.
-        loginPage.realizarLogin(driver, "adminn", "adminn");
+        loginPage.realizarLogin(driver, "Seila", "Seila");
 
-        // Verifica se o usuário foi redirecionado para a página de simulação após o
-        // login.
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        // Verifica se a mensagem de erro é exibida após uma tentativa de login com
+        // credenciais inválidas.
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement mensagemDeErro = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//p[contains(text(), 'Falha no login. Verifique suas credenciais.')]")));
 
-        WebElement pageTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h1[contains(text(), 'Simulação de Criaturas Saltitantes')]")));
-
-        Assertions.assertTrue(pageTitle.isDisplayed(), "O título da página de simulação não foi encontrado.");
+        // Asserção: Confirma que a mensagem de erro está visível.
+        Assertions.assertTrue(mensagemDeErro.isDisplayed(), "A mensagem de erro de login não foi exibida.");
     }
 }
