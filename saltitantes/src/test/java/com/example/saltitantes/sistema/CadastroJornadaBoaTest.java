@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 @SpringBootTest
-public class CadastroTest {
+public class CadastroJornadaBoaTest {
 
     @Autowired
     private WebDriver driver;
