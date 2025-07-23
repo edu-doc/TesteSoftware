@@ -37,10 +37,8 @@ public class TesteClusterDominio {
     /**
      * Testa a formação básica de cluster.
      * 
-     * Valida que:
-     * - Cluster é formado com duas criaturas
-     * - Ouro total é a soma das criaturas
-     * - ID do cluster é único
+     * @pre Duas criaturas com ouro específico
+     * @post Cluster formado com ouro total correto e IDs das criaturas
      */
     @Test
     void testFormacaoClusterBasico() {
@@ -69,7 +67,8 @@ public class TesteClusterDominio {
     /**
      * Testa adição de criatura ao cluster existente.
      * 
-     * Valida regras de domínio para expansão de clusters.
+     * @pre Cluster com duas criaturas, terceira criatura disponível
+     * @post Terceira criatura adicionada, ouro total incrementado
      */
     @Test
     void testAdicaoTerceiraCriatura() {
@@ -97,7 +96,8 @@ public class TesteClusterDominio {
     /**
      * Testa comportamento de movimento do cluster.
      * 
-     * Valida que cluster se move conforme regras de domínio.
+     * @pre Cluster formado com ouro específico
+     * @post Cluster se move conforme ouro disponível
      */
     @ParameterizedTest
     @MethodSource("movimentoClusterProvider")
@@ -136,7 +136,8 @@ public class TesteClusterDominio {
     /**
      * Testa roubo de ouro pelo cluster.
      * 
-     * Valida que cluster pode roubar metade do ouro de outras criaturas.
+     * @pre Cluster formado, ouro disponível para roubar
+     * @post Ouro do cluster incrementado com valor roubado
      */
     @Test
     void testRouboOuroCluster() {
@@ -156,7 +157,8 @@ public class TesteClusterDominio {
     /**
      * Testa regras de domínio para posicionamento do cluster.
      * 
-     * Valida que cluster assume posição da primeira criatura.
+     * @pre Primeira criatura em posição específica
+     * @post Cluster assume posição da primeira criatura
      */
     @Test
     void testPosicionamentoCluster() {

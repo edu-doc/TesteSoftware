@@ -25,8 +25,8 @@ public class TesteFronteira {
     /**
      * Testa o comportamento quando não há vizinhas disponíveis para roubo.
      * 
-     * Caso limite: apenas uma criatura no sistema
-     * Valida que o sistema lida corretamente com ausência de interações.
+     * @pre Sistema inicializado com 2 criaturas, 1 removida
+     * @post IdCriaturaRoubada = -1, sistema funciona corretamente
      */
     @Test
     void testSemVizinhaNaoRoubada() {
@@ -47,8 +47,9 @@ public class TesteFronteira {
     /**
      * Testa o comportamento com zero iterações.
      * 
-     * Caso limite: nenhuma iteração executada
-     * Valida que o sistema rejeita adequadamente este caso extremo.
+     * @param nCriaturas Número de criaturas para teste
+     * @pre Sistema inicializado
+     * @post IllegalArgumentException lançada
      */
     @ParameterizedTest
     @MethodSource("iteracaoZeroProvider")
@@ -72,10 +73,11 @@ public class TesteFronteira {
     /**
      * Testa os limites exatos dos intervalos válidos para inicialização.
      * 
-     * Foca especificamente nos valores de fronteira:
-     * - Limite inferior válido (2)
-     * - Limite superior válido (1000)
-     * - Valores imediatamente fora dos limites
+     * @param n          Número de criaturas
+     * @param devePassar Se deve ser aceito
+     * @param categoria  Descrição do caso
+     * @pre Valores de fronteira testados
+     * @post Aceita válidos, rejeita inválidos
      */
     @ParameterizedTest
     @MethodSource("valoresFronteiraProvider")
@@ -104,10 +106,11 @@ public class TesteFronteira {
     /**
      * Testa comportamento com valores extremos de iterações.
      * 
-     * Valida os casos limite para número de iterações:
-     * - Mínimo válido (1)
-     * - Máximo válido (1000)
-     * - Valores fora dos limites
+     * @param iteracoes  Número de iterações
+     * @param devePassar Se deve ser aceito
+     * @param categoria  Descrição do caso
+     * @pre Sistema com 2 criaturas inicializado
+     * @post Aceita iterações válidas, rejeita inválidas
      */
     @ParameterizedTest
     @MethodSource("iteracoesFronteiraProvider")
@@ -137,8 +140,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Comportamento com grande número de iterações
      * 
-     * Valida que o sistema mantém performance e consistência
-     * mesmo com execuções longas.
+     * @pre Sistema inicializado, ouro das criaturas ajustado
+     * @post 100 iterações executadas com dados válidos
      */
     @Test
     void testFronteiraIteracoesExtensas() {
@@ -182,7 +185,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Número máximo de criaturas permitido
      * 
-     * Verifica o comportamento no limite superior de criaturas.
+     * @pre Limites do sistema definidos
+     * @post 1000 criaturas criadas, guardião com ID correto
      */
     @Test
     void testFronteiraMaximoCreaturas() {
@@ -208,7 +212,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Comportamento com criaturas em posições extremas
      * 
-     * Verifica como o sistema lida com valores de ponto flutuante extremos.
+     * @pre Sistema inicializado, posições extremas configuradas
+     * @post Simulação executa sem overflow
      */
     @Test
     void testFronteiraPosicoesExtremas() {
@@ -231,7 +236,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Comportamento com valores de ouro extremos
      * 
-     * Verifica se o sistema lida adequadamente com grandes quantidades de ouro.
+     * @pre Sistema inicializado, ouro extremo configurado
+     * @post Sem overflow, valores positivos mantidos
      */
     @Test
     void testFronteiraOuroExtremo() {
@@ -257,8 +263,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Precisão de ponto flutuante
      * 
-     * Verifica se comparações de posições funcionam corretamente
-     * com valores próximos considerando a escala do jogo.
+     * @pre Criaturas em posições próximas configuradas
+     * @post Sistema processa sem erros, dados válidos
      */
     @Test
     void testFronteiraPrecisaoPontoFlutuante() {
@@ -285,7 +291,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Comportamento quando todas as criaturas têm ouro zero
      * 
-     * Cenário extremo onde nenhuma criatura pode se mover.
+     * @pre Todas as criaturas com ouro = 0
+     * @post Criaturas não se movem (posição = 0.0)
      */
     @Test
     void testFronteiraTodasCriaturasOuroZero() {
@@ -314,7 +321,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Simulação com apenas guardião restante
      * 
-     * Verifica o comportamento quando apenas o guardião sobrevive.
+     * @pre Criaturas em cluster, guardião próximo
+     * @post Simulação bem-sucedida se apenas guardião resta
      */
     @Test
     void testFronteiraApenasDardiao() {
@@ -350,8 +358,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Tolerâncias para formação de clusters
      * 
-     * Verifica se as tolerâncias de formação de cluster estão adequadas
-     * para a escala do jogo (considerando ouro inicial de 1.000.000).
+     * @pre Criaturas próximas e distantes configuradas
+     * @post Clusters formados adequadamente, ouro correto
      */
     @Test
     void testFronteiraToleranciaFormacaoCluster() {
@@ -391,8 +399,8 @@ public class TesteFronteira {
     /**
      * Teste de fronteira: Valor inicial do ouro do guardião
      * 
-     * Verifica que o guardião inicia com o mesmo valor de ouro das criaturas
-     * (ao contrário da especificação original que dizia 0).
+     * @pre Sistema inicializado com 5 criaturas
+     * @post Guardião e criaturas com mesmo ouro inicial (1000000)
      */
     @Test
     void testFronteiraOuroInicialGuardiao() {
