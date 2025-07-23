@@ -78,8 +78,8 @@ public class TesteComDubles {
         /**
          * Teste com Stub: Simular login de usuário
          * 
-         * Utiliza stub para simular o comportamento do repositório
-         * sem dependência de banco de dados.
+         * @pre Repository mockado, usuários configurados
+         * @post Login válido retorna usuário, inválido retorna null
          */
         @Test
         void testStubLoginUsuario() {
@@ -113,8 +113,8 @@ public class TesteComDubles {
         /**
          * Teste com Mock: Verificar criação de usuário
          * 
-         * Utiliza mock para verificar se o método save do repositório
-         * é chamado corretamente durante a criação.
+         * @pre Repository mockado, usuário novo
+         * @post Usuário criado, método save chamado corretamente
          */
         @Test
         void testMockCriacaoUsuario() {
@@ -151,7 +151,8 @@ public class TesteComDubles {
         /**
          * Teste com Mock: Verificar falha na criação por usuário existente
          * 
-         * Simula tentativa de criar usuário com login já existente.
+         * @pre Repository mockado, usuário existente configurado
+         * @post IllegalArgumentException lançada, save nunca chamado
          */
         @Test
         void testMockFalhaCriacaoUsuarioExistente() {
@@ -173,8 +174,8 @@ public class TesteComDubles {
         /**
          * Teste com Stub: Simular cálculo de estatísticas
          * 
-         * Utiliza stub para fornecer dados específicos para
-         * testar o cálculo das estatísticas.
+         * @pre Repository com lista de usuários mockada
+         * @post Estatísticas calculadas corretamente
          */
         @Test
         void testStubCalculoEstatisticas() {
@@ -206,8 +207,8 @@ public class TesteComDubles {
         /**
          * Teste com Spy: Verificar atualização de estatísticas
          * 
-         * Utiliza spy para verificar se métodos internos são chamados
-         * durante o registro de simulação.
+         * @pre Spy do service, repository mockado
+         * @post Métodos chamados corretamente, simulação registrada
          */
         @Test
         void testSpyRegistroSimulacao() {
@@ -229,8 +230,8 @@ public class TesteComDubles {
         /**
          * Teste com Mock: Simulação de erro do repositório
          * 
-         * Simula erro na camada de persistência para testar
-         * o tratamento de exceções.
+         * @pre Repository configurado para lançar exceção
+         * @post RuntimeException propagada corretamente
          */
         @Test
         void testMockErroRepositorio() {
@@ -250,7 +251,8 @@ public class TesteComDubles {
         /**
          * Teste com Stub: Cenário de banco vazio
          * 
-         * Simula situação onde não há usuários cadastrados.
+         * @pre Repository retorna lista vazia
+         * @post Estatísticas zeradas corretamente
          */
         @Test
         void testStubBancoVazio() {
@@ -277,7 +279,8 @@ public class TesteComDubles {
         /**
          * Teste com Mock: Verificar listagem de usuários
          * 
-         * Testa o método que retorna todos os usuários cadastrados.
+         * @pre Repository com lista de usuários mockada
+         * @post Lista de usuários retornada corretamente
          */
         @Test
         void testMockListagemUsuarios() {
@@ -302,7 +305,8 @@ public class TesteComDubles {
         /**
          * Teste com Mock: Verificar exclusão de usuário
          * 
-         * Testa a funcionalidade de exclusão de usuário.
+         * @pre Repository mockado, usuário existente
+         * @post Usuário excluído, métodos chamados corretamente
          */
         @Test
         void testMockExclusaoUsuario() {
@@ -321,7 +325,8 @@ public class TesteComDubles {
         /**
          * Teste com Mock: Verificar se usuário existe
          * 
-         * Testa o método de verificação de existência de usuário.
+         * @pre Repository com respostas mockadas
+         * @post Existência verificada corretamente para ambos os casos
          */
         @Test
         void testMockVerificarExistenciaUsuario() {

@@ -34,10 +34,8 @@ public class TesteGuardiaDominio {
     /**
      * Testa inicialização do guardião.
      * 
-     * Valida regras de domínio para criação:
-     * - ID deve ser definido corretamente
-     * - Ouro inicial deve permitir movimento
-     * - Posição inicial deve ser 0
+     * @pre ID fornecido para criação
+     * @post Guardião criado com ID correto, ouro inicial 1000000, posição 0
      */
     @Test
     void testInicializacaoGuardiao() {
@@ -61,7 +59,9 @@ public class TesteGuardiaDominio {
     /**
      * Testa comportamento de movimento do guardião.
      * 
-     * Valida que guardião se move conforme fórmula: x = x + r * ouro
+     * @param ouroGuardiao Quantidade de ouro do guardião
+     * @pre Guardião com quantidade específica de ouro
+     * @post Movimento ocorre apenas se ouro > 0
      */
     @ParameterizedTest
     @ValueSource(ints = { 0, 100000, 1000000, 5000000 })
@@ -91,7 +91,11 @@ public class TesteGuardiaDominio {
     /**
      * Testa absorção de ouro pelo guardião.
      * 
-     * Valida regras de domínio para eliminação de clusters.
+     * @param ouroInicial   Ouro inicial do guardião
+     * @param ouroAbsorvido Ouro a ser absorvido
+     * @param ouroEsperado  Ouro esperado após absorção
+     * @pre Guardião com ouro inicial, ouro para absorver
+     * @post Ouro do guardião incrementado corretamente
      */
     @ParameterizedTest
     @MethodSource("absorcaoOuroProvider")
@@ -120,7 +124,11 @@ public class TesteGuardiaDominio {
     /**
      * Testa detecção de posições ocupadas.
      * 
-     * Valida algoritmo de comparação de posições com tolerância.
+     * @param posicaoGuardiao Posição do guardião
+     * @param posicaoAlvo     Posição alvo a verificar
+     * @param esperaOcupada   Se espera que a posição seja considerada ocupada
+     * @pre Guardião em posição específica
+     * @post Detecção correta considerando tolerância
      */
     @ParameterizedTest
     @MethodSource("posicaoOcupadaProvider")
@@ -152,7 +160,8 @@ public class TesteGuardiaDominio {
     /**
      * Testa comportamento com múltiplas absorções.
      * 
-     * Valida acumulação de ouro ao longo de várias eliminações.
+     * @pre Guardião com ouro inicial
+     * @post Ouro acumulado corretamente após múltiplas absorções
      */
     @Test
     void testMultiplasAbsorcoes() {
@@ -175,7 +184,8 @@ public class TesteGuardiaDominio {
     /**
      * Testa invariantes do guardião.
      * 
-     * Valida que propriedades essenciais são mantidas.
+     * @pre Guardião criado com ID específico
+     * @post ID imutável, ouro não-negativo após operações
      */
     @Test
     void testInvariantesGuardiao() {

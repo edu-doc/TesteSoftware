@@ -14,11 +14,15 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-
 public class TestePropriedades {
 
     /**
-     * PROPRIEDADE: A inicialização com um número válido de criaturas (2 a 1000) deve sempre funcionar.
+     * PROPRIEDADE: A inicialização com um número válido de criaturas (2 a 1000)
+     * deve sempre funcionar.
+     * 
+     * @param n Número de criaturas a criar
+     * @pre Número entre 2 e 1000
+     * @post n criaturas criadas, guardião não nulo
      */
     @Property(tries = 100)
     void inicializacaoValida(@ForAll @IntRange(min = 2, max = 1000) int n) {
@@ -30,7 +34,12 @@ public class TestePropriedades {
     }
 
     /**
-     * PROPRIEDADE: A inicialização com um número de criaturas <= 1 deve sempre lançar exceção.
+     * PROPRIEDADE: A inicialização com um número de criaturas <= 1 deve sempre
+     * lançar exceção.
+     * 
+     * @param n Número inválido de criaturas
+     * @pre Número <= 1
+     * @post IllegalArgumentException lançada
      */
     @Property
     void inicializacaoInvalidaAbaixoDoLimite(@ForAll @IntRange(max = 1) int n) {
@@ -40,7 +49,12 @@ public class TestePropriedades {
     }
 
     /**
-     * PROPRIEDADE: A simulação com um número de iterações inválido (<= 0 ou > 1000) deve sempre lançar exceção.
+     * PROPRIEDADE: A simulação com um número de iterações inválido deve sempre
+     * lançar exceção.
+     * 
+     * @param iteracoes Número inválido de iterações
+     * @pre Iterações <= 0 ou > 1000
+     * @post IllegalArgumentException lançada
      */
     @Property
     void simulacaoComIteracoesInvalidasSempreFalha(@ForAll("iteracoesInvalidas") int iteracoes) {
@@ -55,23 +69,28 @@ public class TestePropriedades {
         // Gera números inválidos combinando dois intervalos distintos
         return Arbitraries.oneOf(
                 Arbitraries.integers().lessOrEqual(0),
-                Arbitraries.integers().greaterOrEqual(1001)
-        );
+                Arbitraries.integers().greaterOrEqual(1001));
     }
 
     // --- Testes de Invariantes de Estado da Simulação ---
 
     /**
-     * PROPRIEDADE: Em qualquer iteração, os IDs de todas as entidades ativas devem ser únicos.
+     * PROPRIEDADE: Em qualquer iteração, os IDs de todas as entidades ativas devem
+     * ser únicos.
+     * 
+     * @param nCriaturas Número de criaturas
+     * @param iteracoes  Número de iterações
+     * @pre Sistema inicializado, ouro suficiente adicionado
+     * @post IDs únicos em todas as iterações
      */
     @Property(tries = 50)
     void idsDeEntidadesSaoSempreUnicos(
             @ForAll @IntRange(min = 2, max = 50) int nCriaturas,
-            @ForAll @IntRange(min = 1, max = 20) int iteracoes
-    ) {
+            @ForAll @IntRange(min = 1, max = 20) int iteracoes) {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(nCriaturas);
-        // IMPORTANTE: Garante que as criaturas não sejam eliminadas pela regra de pouco ouro
+        // IMPORTANTE: Garante que as criaturas não sejam eliminadas pela regra de pouco
+        // ouro
         simulador.getCriaturasParaTeste().forEach(c -> c.adicionarOuro(500_000));
 
         var resultado = simulador.simular(iteracoes);
@@ -89,13 +108,18 @@ public class TestePropriedades {
     }
 
     /**
-     * PROPRIEDADE: Uma criatura nunca pode ser independente e parte de um cluster ao mesmo tempo.
+     * PROPRIEDADE: Uma criatura nunca pode ser independente e parte de um cluster
+     * ao mesmo tempo.
+     * 
+     * @param nCriaturas Número de criaturas
+     * @param iteracoes  Número de iterações
+     * @pre Sistema inicializado, ouro suficiente
+     * @post Criaturas independentes não têm IDs em clusters
      */
     @Property(tries = 50)
     void criaturaNaoPodeSerIndependenteEParteDeUmCluster(
             @ForAll @IntRange(min = 10, max = 100) int nCriaturas,
-            @ForAll @IntRange(min = 1, max = 30) int iteracoes
-    ) {
+            @ForAll @IntRange(min = 1, max = 30) int iteracoes) {
         SimuladorService simulador = new SimuladorService();
         simulador.inicializar(nCriaturas);
         simulador.getCriaturasParaTeste().forEach(c -> c.adicionarOuro(500_000));
@@ -114,7 +138,8 @@ public class TestePropriedades {
                         .toList();
 
                 assertThat(idsDeCriaturasIndependentes)
-                        .as("Iteração %d: Nenhuma criatura independente deve ter seu ID na lista de membros de clusters", iteracao.getIteracao())
+                        .as("Iteração %d: Nenhuma criatura independente deve ter seu ID na lista de membros de clusters",
+                                iteracao.getIteracao())
                         .doesNotContainAnyElementsOf(idsDeCriaturasEmClusters);
             }
         }
@@ -123,7 +148,12 @@ public class TestePropriedades {
     // --- Testes de Regras de Negócio ---
 
     /**
-     * PROPRIEDADE: Uma entidade nunca deve conseguir roubar outra que tenha 0 de ouro.
+     * PROPRIEDADE: Uma entidade nunca deve conseguir roubar outra que tenha 0 de
+     * ouro.
+     * 
+     * @param simulador Simulador configurado com cenário específico
+     * @pre Uma criatura com ouro, outra sem ouro
+     * @post Criatura sem ouro não é roubada
      */
     @Property
     void umaEntidadeNuncaRoubaOutraQueNaoTemOuro(@ForAll("cenarioComAlvoSemOuro") SimuladorService simulador) {
@@ -143,7 +173,8 @@ public class TestePropriedades {
         boolean algumClusterRoubouOAlvo = primeiraIteracao.getClusters().stream()
                 .anyMatch(cl -> cl.getIdCriaturaRoubada() == idCriaturaAlvoSemOuro);
 
-        // A propriedade falha se qualquer um dos dois (criatura ou cluster) tiver roubado o alvo sem ouro.
+        // A propriedade falha se qualquer um dos dois (criatura ou cluster) tiver
+        // roubado o alvo sem ouro.
         boolean rouboInvalidoOcorreu = algumaCriaturaRoubouOAlvo || algumClusterRoubouOAlvo;
 
         assertThat(rouboInvalidoOcorreu)
@@ -153,7 +184,8 @@ public class TestePropriedades {
 
     @Provide
     Arbitrary<SimuladorService> cenarioComAlvoSemOuro() {
-        // Gera um cenário específico para testar a regra de não roubar de quem não tem ouro
+        // Gera um cenário específico para testar a regra de não roubar de quem não tem
+        // ouro
         return Arbitraries.randoms().map(random -> {
             SimuladorService simulador = new SimuladorService();
             simulador.inicializar(2);
