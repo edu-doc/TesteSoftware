@@ -1,17 +1,12 @@
 package com.example.saltitantes.propriedades;
 
-import com.example.saltitantes.controller.SimuladorController;
 import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.dto.SimularResponseDTO;
 import com.example.saltitantes.model.entity.Criaturas;
-import com.example.saltitantes.model.service.SimuladorService;
-import com.example.saltitantes.model.service.UsuarioService;
+import com.example.saltitantes.service.SimuladorService;
+
 import net.jqwik.api.*;
 import net.jqwik.api.constraints.IntRange;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -212,8 +207,7 @@ public class TestePropriedades {
 
     @Property
     void simular_DeveLancarIllegalArgumentExceptionParaIteracoesMenoresOuIgualAZero(
-            @ForAll @IntRange(min = Integer.MIN_VALUE, max = 0) int iteracoesInvalidas
-    ) {
+            @ForAll @IntRange(min = Integer.MIN_VALUE, max = 0) int iteracoesInvalidas) {
         SimuladorService simuladorLocal = new SimuladorService();
 
         simuladorLocal.inicializar(10);
@@ -221,6 +215,5 @@ public class TestePropriedades {
         assertThatThrownBy(() -> simuladorLocal.simular(iteracoesInvalidas))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.example.saltitantes.model.service;
+package com.example.saltitantes.service;
 
 import com.example.saltitantes.model.dto.ClusterDTO;
 import com.example.saltitantes.model.dto.CriaturasDTO;
@@ -45,7 +45,7 @@ public class SimuladorService {
      * @pre n <= 1000
      * @post cria uma lista de criaturas contendo a quantidade n
      * @throws IllegalArgumentException se a quantidade de criaturas for menor ou
-     * igual a 1 ou maior que 1000
+     *                                  igual a 1 ou maior que 1000
      */
     public void inicializar(int n) {
         if (n <= 1) {
@@ -76,10 +76,10 @@ public class SimuladorService {
      * @pre iteracoes > 0
      * @pre iteracoes <= 1000
      * @post retorna um histórico em formato de lista com n iterações de simulações
-     * ocorridas
+     *       ocorridas
      * @throws IllegalStateException    se a simulação não foi iniciada corretamente
      * @throws IllegalArgumentException se a quantidade de iterações for menor ou
-     * igual a 1 ou maior que 1000
+     *                                  igual a 1 ou maior que 1000
      */
     public List<SimularResponseDTO> simular(int iteracoes) {
         if (iteracoes <= 0) {
@@ -117,7 +117,8 @@ public class SimuladorService {
             }
         }
 
-        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi finalizada
+        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi
+        // finalizada
         if (!historicoSimulacoes.isEmpty()) {
             SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
             ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
@@ -134,7 +135,7 @@ public class SimuladorService {
      * @return lista contendo o snapshot de cada iteração ocorrida
      * @throws IllegalStateException    se a simulação não foi iniciada corretamente
      * @throws IllegalArgumentException se a quantidade de iterações for menor ou
-     * igual a 1 ou maior que 1000
+     *                                  igual a 1 ou maior que 1000
      */
     public List<SimularResponseDTO> simular(int iteracoes, String loginUsuario) {
         List<SimularResponseDTO> resultado = simular(iteracoes);
@@ -173,7 +174,8 @@ public class SimuladorService {
         List<Criaturas> criaturasParaProcessamento = new ArrayList<>(criaturas);
         for (Criaturas criatura : criaturasParaProcessamento) {
             // Apenas processa criaturas que ainda existem na lista principal
-            if (!criaturas.contains(criatura)) continue;
+            if (!criaturas.contains(criatura))
+                continue;
 
             Criaturas vizinha = encontrarMaisProxima(criatura);
             if (vizinha != null && vizinha.getOuro() > 0) {
@@ -291,6 +293,7 @@ public class SimuladorService {
     /**
      * Faz um cluster roubar da criatura mais próxima.
      * * @param cluster cluster que vai roubar
+     * 
      * @return ID da criatura roubada ou -1 se nenhuma foi roubada
      */
     private int roubarDaCriaturaMaisProxima(Cluster cluster) {
@@ -318,6 +321,7 @@ public class SimuladorService {
     /**
      * Encontra a criatura mais próxima de um cluster.
      * * @param cluster cluster de referência
+     * 
      * @return criatura mais próxima ou null se não houver
      */
     private Criaturas encontrarCriaturaMaisProximaDoCluster(Cluster cluster) {
@@ -329,13 +333,14 @@ public class SimuladorService {
 
     /**
      * Cria um snapshot da iteração atual.
-     * * @param numeroIteracao   número da iteração
+     * * @param numeroIteracao número da iteração
+     * 
      * @param clusterEliminado ID do cluster eliminado pelo guardião
      * @param roubos           mapa com IDs de entidades e quem elas roubaram
      * @return DTO da resposta da simulação
      */
     private SimularResponseDTO criarSnapshotIteracao(int numeroIteracao, int clusterEliminado,
-                                                     Map<Integer, Integer> roubos) {
+            Map<Integer, Integer> roubos) {
         // Criar DTOs das criaturas
         CriaturasDTO[] criaturasDTO = criaturas.stream()
                 .map(c -> new CriaturasDTO(c.getId(), c.getOuro(), c.getPosicaox(),
@@ -366,9 +371,11 @@ public class SimuladorService {
      * Verifica as condições de vitória da simulação.
      * A simulação é considerada vencida (bem-sucedida) se:
      * 1. Apenas o guardião resta (listas de criaturas e clusters estão vazias).
-     * 2. Restam apenas o guardião e uma única criatura (lista de clusters vazia e lista de criaturas com 1 elemento).
+     * 2. Restam apenas o guardião e uma única criatura (lista de clusters vazia e
+     * lista de criaturas com 1 elemento).
      *
-     * @return true se uma das condições de vitória for atendida, false caso contrário.
+     * @return true se uma das condições de vitória for atendida, false caso
+     *         contrário.
      */
     private boolean verificarGanhador() {
         // Conta o número de criaturas e clusters restantes.
@@ -380,7 +387,8 @@ public class SimuladorService {
         boolean apenasGuardiaoVivo = (numeroDeCriaturas == 0 && numeroDeClusters == 0);
 
         // Condição 2: Guardião e uma única criatura estão vivos.
-        // Isso acontece quando a lista de criaturas tem exatamente um elemento e não há clusters.
+        // Isso acontece quando a lista de criaturas tem exatamente um elemento e não há
+        // clusters.
         boolean guardiaoMaisUmaCriatura = (numeroDeCriaturas == 1 && numeroDeClusters == 0);
 
         // Se qualquer uma das condições for verdadeira, a simulação tem um ganhador.
@@ -391,6 +399,7 @@ public class SimuladorService {
     /**
      * Encontra a criatura mais próxima da criatura atual.
      * * @param atual criatura de referência (não pode ser null)
+     * 
      * @return objeto do tipo criatura
      * @pre nenhuma pré condição
      * @post retorna a criatura mais próxima da criatura atual
@@ -410,6 +419,7 @@ public class SimuladorService {
     /**
      * Calcula a distância absoluta entre duas criaturas.
      * * @param a criatura a (não pode ser null)
+     * 
      * @param b criatura b (não pode ser null)
      * @return distância do tipo double
      * @pre nenhuma pré condição

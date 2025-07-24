@@ -1,4 +1,4 @@
-package com.example.saltitantes.model.service;
+package com.example.saltitantes.service;
 
 import com.example.saltitantes.model.dto.CriarUsuarioDTO;
 import com.example.saltitantes.model.dto.EstatisticasDTO;
