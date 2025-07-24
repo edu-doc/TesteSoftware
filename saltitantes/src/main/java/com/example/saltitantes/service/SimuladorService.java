@@ -117,12 +117,19 @@ public class SimuladorService {
             }
         }
 
+<<<<<<< Updated upstream:saltitantes/src/main/java/com/example/saltitantes/service/SimuladorService.java
         // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi
         // finalizada
         if (!historicoSimulacoes.isEmpty()) {
             SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
             ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
         }
+=======
+        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi finalizada
+        SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
+        ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
+
+>>>>>>> Stashed changes:saltitantes/src/main/java/com/example/saltitantes/model/service/SimuladorService.java
 
         return historicoSimulacoes;
     }
@@ -174,8 +181,11 @@ public class SimuladorService {
         List<Criaturas> criaturasParaProcessamento = new ArrayList<>(criaturas);
         for (Criaturas criatura : criaturasParaProcessamento) {
             // Apenas processa criaturas que ainda existem na lista principal
+<<<<<<< Updated upstream:saltitantes/src/main/java/com/example/saltitantes/service/SimuladorService.java
             if (!criaturas.contains(criatura))
                 continue;
+=======
+>>>>>>> Stashed changes:saltitantes/src/main/java/com/example/saltitantes/model/service/SimuladorService.java
 
             Criaturas vizinha = encontrarMaisProxima(criatura);
             if (vizinha != null && vizinha.getOuro() > 0) {
@@ -227,7 +237,6 @@ public class SimuladorService {
 
         // Criar clusters a partir dos grupos identificados
         for (List<Criaturas> grupo : gruposProximos) {
-            if (grupo.size() >= 2) {
                 Cluster novoCluster = new Cluster(grupo.get(0), grupo.get(1));
 
                 for (int k = 2; k < grupo.size(); k++) {
@@ -239,7 +248,7 @@ public class SimuladorService {
 
                 int criaturaSendoRoubada = roubarDaCriaturaMaisProxima(novoCluster);
                 roubos.put(novoCluster.getIdCluster(), criaturaSendoRoubada);
-            }
+
         }
 
         return roubos;
@@ -296,7 +305,7 @@ public class SimuladorService {
      * 
      * @return ID da criatura roubada ou -1 se nenhuma foi roubada
      */
-    private int roubarDaCriaturaMaisProxima(Cluster cluster) {
+    public int roubarDaCriaturaMaisProxima(Cluster cluster) {
         Criaturas criaturaMaisProxima = encontrarCriaturaMaisProximaDoCluster(cluster);
 
         if (criaturaMaisProxima != null && criaturaMaisProxima.getOuro() > 0) {
@@ -324,7 +333,7 @@ public class SimuladorService {
      * 
      * @return criatura mais próxima ou null se não houver
      */
-    private Criaturas encontrarCriaturaMaisProximaDoCluster(Cluster cluster) {
+    public Criaturas encontrarCriaturaMaisProximaDoCluster(Cluster cluster) {
         return criaturas.stream()
                 .min(Comparator.comparingDouble((Criaturas c) -> Math.abs(c.getPosicaox() - cluster.getPosicaox()))
                         .thenComparingInt(Criaturas::getId))

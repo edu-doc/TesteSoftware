@@ -2,6 +2,7 @@ package com.example.saltitantes.estrutural;
 
 import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.dto.SimularResponseDTO;
+import com.example.saltitantes.model.entity.Cluster;
 import com.example.saltitantes.model.entity.Criaturas;
 import com.example.saltitantes.service.SimuladorService;
 import com.example.saltitantes.service.UsuarioService;
@@ -384,6 +385,70 @@ public class TesteEstrutural {
 
                 // Assert: Apenas verificamos que a chamada que causa a exceção foi tentada
                 verify(usuarioService).registrarSimulacao(login, false);
+        }
+
+        /**
+         * Roubo acontece (if = true)
+         */
+        @Test
+        void roubarDaCriaturaMaisProxima_deveTransferirOuro_quandoAlvoTemOuro() {
+
+                Criaturas criaturaAlvo = new Criaturas();
+                criaturaAlvo.setOuro(1000);
+                int idAlvo = criaturaAlvo.getId();
+
+                Cluster cluster = new Cluster(new Criaturas(), new Criaturas());
+
+                int ouroInicialCluster = cluster.getOuroTotal();
+
+                doReturn(criaturaAlvo).when(simuladorService).encontrarCriaturaMaisProximaDoCluster(any(Cluster.class));
+
+                int idRetornado = simuladorService.roubarDaCriaturaMaisProxima(cluster);
+
+                assertThat(idRetornado).isEqualTo(idAlvo);
+                assertThat(criaturaAlvo.getOuro()).isEqualTo(500); // O alvo perdeu metade
+
+                assertThat(cluster.getOuroTotal()).isEqualTo(ouroInicialCluster + 500);
+        }
+
+        /**
+         * Alvo existe, mas não tem ouro (if = false)
+         */
+        @Test
+        void roubarDaCriaturaMaisProxima_naoDeveFazerNada_quandoAlvoNaoTemOuro() {
+
+                Criaturas criaturaAlvo = new Criaturas();
+                criaturaAlvo.setOuro(0); // Alvo sem ouro
+
+                Cluster cluster = new Cluster(new Criaturas(), new Criaturas());
+
+                int ouroInicialCluster = cluster.getOuroTotal();
+
+                doReturn(criaturaAlvo).when(simuladorService).encontrarCriaturaMaisProximaDoCluster(any(Cluster.class));
+
+                int idRetornado = simuladorService.roubarDaCriaturaMaisProxima(cluster);
+
+                assertThat(idRetornado).isEqualTo(-1);
+                assertThat(criaturaAlvo.getOuro()).isZero();
+
+                assertThat(cluster.getOuroTotal()).isEqualTo(ouroInicialCluster);
+        }
+
+        /**
+         * Não há alvos para roubar (if = false)
+         */
+        @Test
+        void roubarDaCriaturaMaisProxima_naoDeveFazerNada_quandoNaoExistemAlvos() {
+
+                Cluster cluster = new Cluster(new Criaturas(), new Criaturas());
+                int ouroInicialCluster = cluster.getOuroTotal();
+
+                doReturn(null).when(simuladorService).encontrarCriaturaMaisProximaDoCluster(any(Cluster.class));
+
+                int idRetornado = simuladorService.roubarDaCriaturaMaisProxima(cluster);
+
+                assertThat(idRetornado).isEqualTo(-1); // Retorno deve ser -1
+                assertThat(cluster.getOuroTotal()).isEqualTo(ouroInicialCluster); // Ouro do cluster não muda
         }
 
 }

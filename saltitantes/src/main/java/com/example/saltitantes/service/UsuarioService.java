@@ -25,7 +25,7 @@ public class UsuarioService {
 
     /**
      * Cria um novo usuário no sistema.
-     * 
+     *
      * @param criarUsuarioDTO dados do usuário a ser criado
      * @return DTO do usuário criado
      * @throws IllegalArgumentException se login já existe ou dados inválidos
@@ -59,7 +59,7 @@ public class UsuarioService {
 
     /**
      * Realiza login do usuário.
-     * 
+     *
      * @param loginDTO dados de login
      * @return DTO do usuário logado
      * @throws IllegalArgumentException se credenciais inválidas
@@ -81,7 +81,7 @@ public class UsuarioService {
 
     /**
      * Remove um usuário do sistema.
-     * 
+     *
      * @param login login do usuário a ser removido
      * @throws IllegalArgumentException se usuário não existe
      */
@@ -96,7 +96,7 @@ public class UsuarioService {
 
     /**
      * Lista todos os usuários cadastrados.
-     * 
+     *
      * @return lista de DTOs dos usuários
      */
     public List<UsuarioDTO> listarUsuarios() {
@@ -107,7 +107,7 @@ public class UsuarioService {
 
     /**
      * Registra uma simulação executada por um usuário.
-     * 
+     *
      * @param login       login do usuário
      * @param bemSucedida se a simulação foi bem-sucedida
      * @throws IllegalArgumentException se usuário não existe
@@ -131,7 +131,7 @@ public class UsuarioService {
 
     /**
      * Obtém as estatísticas do sistema.
-     * 
+     *
      * @return DTO com as estatísticas
      */
     public EstatisticasDTO obterEstatisticas() {
@@ -150,9 +150,9 @@ public class UsuarioService {
 
         double mediaSimulacoesSucessoUsuario = usuarios.isEmpty() ? 0.0
                 : usuarios.stream()
-                        .mapToDouble(Usuario::getTaxaSucesso)
-                        .average()
-                        .orElse(0.0);
+                .mapToDouble(Usuario::getTaxaSucesso)
+                .average()
+                .orElse(0.0);
 
         double mediaTotalSimulacoesSucesso = totalSimulacoes == 0 ? 0.0
                 : (double) totalSimulacoesSucesso / totalSimulacoes * 100.0;
@@ -167,7 +167,7 @@ public class UsuarioService {
 
     /**
      * Obtém as estatísticas de um usuário específico.
-     * 
+     *
      * @param login login do usuário
      * @return DTO do usuário com suas estatísticas
      * @throws IllegalArgumentException se usuário não existe
@@ -184,7 +184,7 @@ public class UsuarioService {
 
     /**
      * Converte uma entidade Usuario para DTO.
-     * 
+     *
      * @param usuario entidade a ser convertida
      * @return DTO correspondente (sem senha por segurança)
      */
@@ -197,20 +197,4 @@ public class UsuarioService {
                 usuario.getTaxaSucesso());
     }
 
-    /**
-     * Verifica se um usuário existe.
-     * 
-     * @param login login do usuário
-     * @return true se o usuário existe
-     */
-    public boolean usuarioExiste(String login) {
-        return userRepository.findByLogin(login).isPresent();
-    }
-
-    /**
-     * Método para testes - limpa todos os usuários.
-     */
-    public void limparUsuarios() {
-        userRepository.deleteAll();
-    }
 }
