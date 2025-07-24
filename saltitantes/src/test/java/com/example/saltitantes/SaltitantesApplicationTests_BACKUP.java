@@ -2,7 +2,7 @@ package com.example.saltitantes;
 
 import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.entity.Criaturas;
-import com.example.saltitantes.model.service.SimuladorService;
+import com.example.saltitantes.service.SimuladorService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,10 +30,9 @@ public class SaltitantesApplicationTests_BACKUP {
 		CriaturasDTO[] criaturas = resultado.get(0).getCriaturas();
 		assertThat(criaturas.length).isEqualTo(1);
 		assertThat(criaturas[0].getIdCriaturaRoubada())
-			.as("Quando não há vizinha, idCriaturaRoubada deve ser -1")
-			.isEqualTo(-1);
+				.as("Quando não há vizinha, idCriaturaRoubada deve ser -1")
+				.isEqualTo(-1);
 	}
-
 
 	@ParameterizedTest // T1 a T5 — Testes de inicialização (domínio e fronteira)
 	@MethodSource("inicializacaoProvider")
@@ -54,25 +53,25 @@ public class SaltitantesApplicationTests_BACKUP {
 	static Stream<Arguments> inicializacaoProvider() {
 		return Stream.of(
 				of(-1, true), // negativo
-				of(0, true),// abaixo da fronteira inferior
+				of(0, true), // abaixo da fronteira inferior
 				of(1, true), // abaixo da fronteira inferior
-				of(2,false),// limite inferior
-				of(999, false),// valor valido
+				of(2, false), // limite inferior
+				of(999, false), // valor valido
 				of(1000, false), // limite superior
 				of(1001, true) // acima do limite
 		);
 	}
 
-    @ParameterizedTest // T6 a T8 — Testes de simulação
-    @MethodSource("simulacaoProvider")
-    void testSimulacao(int nCriaturas, int iteracoes, int iteracaoEsperada) {
-        SimuladorService simulador = new SimuladorService();
-        simulador.inicializar(nCriaturas);
+	@ParameterizedTest // T6 a T8 — Testes de simulação
+	@MethodSource("simulacaoProvider")
+	void testSimulacao(int nCriaturas, int iteracoes, int iteracaoEsperada) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(nCriaturas);
 
-        var resposta = simulador.simular(iteracoes);
+		var resposta = simulador.simular(iteracoes);
 
-        assertThat(resposta).hasSize(iteracoes);
-    }
+		assertThat(resposta).hasSize(iteracoes);
+	}
 
 	static Stream<Arguments> simulacaoProvider() {
 		return Stream.of(
@@ -82,23 +81,23 @@ public class SaltitantesApplicationTests_BACKUP {
 		);
 	}
 
-    @ParameterizedTest
-    @MethodSource("simulacaoExcecaoProvider")
-    void testSimulacaoExcecao(int nCriaturas, int iteracoes) {
-        SimuladorService simulador = new SimuladorService();
-        simulador.inicializar(nCriaturas);
-        assertThatThrownBy(() -> simulador.simular(iteracoes))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("iterações");
-    }
+	@ParameterizedTest
+	@MethodSource("simulacaoExcecaoProvider")
+	void testSimulacaoExcecao(int nCriaturas, int iteracoes) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(nCriaturas);
+		assertThatThrownBy(() -> simulador.simular(iteracoes))
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("iterações");
+	}
 
-    static Stream<Arguments> simulacaoExcecaoProvider() {
-        return Stream.of(
-				of(2, -1),   // iteração negativa
-                of(2, 0),    // iteração zero
-                of(2, 1001)  // acima do limite
-        );
-    }
+	static Stream<Arguments> simulacaoExcecaoProvider() {
+		return Stream.of(
+				of(2, -1), // iteração negativa
+				of(2, 0), // iteração zero
+				of(2, 1001) // acima do limite
+		);
+	}
 
 	@ParameterizedTest
 	@MethodSource("simulacaoValidaProvider")
@@ -112,12 +111,11 @@ public class SaltitantesApplicationTests_BACKUP {
 
 	static Stream<Arguments> simulacaoValidaProvider() {
 		return Stream.of(
-				of(2, 1),    // iteração mínima válida
-				of(2, 999),  // iteração dentro do limite
-				of(2, 1000)  // iteração no limite máximo
+				of(2, 1), // iteração mínima válida
+				of(2, 999), // iteração dentro do limite
+				of(2, 1000) // iteração no limite máximo
 		);
 	}
-
 
 	@ParameterizedTest // T9 — Verificar se alguma criatura roubou outra
 	@MethodSource("rouboProvider")
@@ -138,24 +136,22 @@ public class SaltitantesApplicationTests_BACKUP {
 	}
 
 	@ParameterizedTest
-    @MethodSource("iteracoesZeroProvider")
-    void deveLancarExcecaoQuandoIteracoesZero(int nCriaturas) {
-        SimuladorService simulador = new SimuladorService();
-        simulador.inicializar(nCriaturas);
+	@MethodSource("iteracoesZeroProvider")
+	void deveLancarExcecaoQuandoIteracoesZero(int nCriaturas) {
+		SimuladorService simulador = new SimuladorService();
+		simulador.inicializar(nCriaturas);
 
-        assertThatThrownBy(() -> simulador.simular(0))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("iterações");
-    }
+		assertThatThrownBy(() -> simulador.simular(0))
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("iterações");
+	}
 
-    static Stream<Arguments> iteracoesZeroProvider() {
-        return Stream.of(
-            of(2),
-            of(5),
-            of(10)
-        );
-    }
-
+	static Stream<Arguments> iteracoesZeroProvider() {
+		return Stream.of(
+				of(2),
+				of(5),
+				of(10));
+	}
 
 	@ParameterizedTest
 	@MethodSource("vizinhaSemOuroProvider")
@@ -183,13 +179,11 @@ public class SaltitantesApplicationTests_BACKUP {
 		}
 	}
 
-
 	static Stream<Arguments> vizinhaSemOuroProvider() {
 		return Stream.of(
 				Arguments.of(1),
 				Arguments.of(2),
-				Arguments.of(5)
-		);
+				Arguments.of(5));
 	}
 
 	@ParameterizedTest
@@ -221,43 +215,42 @@ public class SaltitantesApplicationTests_BACKUP {
 		return Stream.of(
 				Arguments.of(1),
 				Arguments.of(2),
-				Arguments.of(5)
-		);
+				Arguments.of(5));
 	}
 
 	@Test
 	void testDistanciaComParametrosNulos() {
 		SimuladorService simulador = new SimuladorService();
 		simulador.inicializar(2);
-		
+
 		List<Criaturas> lista = simulador.getCriaturasParaTeste();
 		Criaturas criatura1 = lista.get(0);
-		
+
 		// Teste com primeiro parâmetro nulo
 		assertThatThrownBy(() -> simulador.distancia(null, criatura1))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("Nenhuma criatura pode ser null");
-			
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("Nenhuma criatura pode ser null");
+
 		// Teste com segundo parâmetro nulo
 		assertThatThrownBy(() -> simulador.distancia(criatura1, null))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("Nenhuma criatura pode ser null");
-			
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("Nenhuma criatura pode ser null");
+
 		// Teste com ambos os parâmetros nulos
 		assertThatThrownBy(() -> simulador.distancia(null, null))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("Nenhuma criatura pode ser null");
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("Nenhuma criatura pode ser null");
 	}
 
 	@Test
 	void testEncontrarMaisProximaComParametroNulo() {
 		SimuladorService simulador = new SimuladorService();
 		simulador.inicializar(2);
-		
+
 		// Teste com parâmetro nulo
 		assertThatThrownBy(() -> simulador.encontrarMaisProxima(null))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("criatura de referência não pode ser null");
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessageContaining("criatura de referência não pode ser null");
 	}
 
 }

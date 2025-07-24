@@ -1,7 +1,7 @@
 package com.example.saltitantes.fronteira;
 
 import com.example.saltitantes.model.dto.CriaturasDTO;
-import com.example.saltitantes.model.service.SimuladorService;
+import com.example.saltitantes.service.SimuladorService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

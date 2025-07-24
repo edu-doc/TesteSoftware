@@ -1,13 +1,13 @@
 package com.example.saltitantes.funcional;
 
-import com.example.saltitantes.model.service.SimuladorService;
-import com.example.saltitantes.model.service.UsuarioService;
 import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.dto.GuardiaoDTO;
 import com.example.saltitantes.model.dto.SimularResponseDTO;
 import com.example.saltitantes.model.dto.UsuarioDTO;
 import com.example.saltitantes.model.dto.EstatisticasDTO;
 import com.example.saltitantes.model.entity.Usuario;
+import com.example.saltitantes.service.SimuladorService;
+import com.example.saltitantes.service.UsuarioService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -697,7 +697,7 @@ public class TesteFuncional {
         void simular_DeveLancarExcecaoQuandoChamadoSemInicializar() {
                 SimuladorService servicoNaoInicializado = new SimuladorService();
                 assertThatThrownBy(() -> servicoNaoInicializado.simular(5))
-                        .isInstanceOf(NullPointerException.class);
+                                .isInstanceOf(NullPointerException.class);
         }
 
         @Test

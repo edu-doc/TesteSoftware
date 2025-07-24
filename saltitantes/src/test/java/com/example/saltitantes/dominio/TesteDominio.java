@@ -1,9 +1,10 @@
 package com.example.saltitantes.dominio;
 
-import com.example.saltitantes.model.service.SimuladorService;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import com.example.saltitantes.service.SimuladorService;
+
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;

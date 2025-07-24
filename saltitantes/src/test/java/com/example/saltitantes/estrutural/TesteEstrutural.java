@@ -3,12 +3,12 @@ package com.example.saltitantes.estrutural;
 import com.example.saltitantes.model.dto.CriaturasDTO;
 import com.example.saltitantes.model.dto.SimularResponseDTO;
 import com.example.saltitantes.model.entity.Criaturas;
-import com.example.saltitantes.model.service.SimuladorService;
+import com.example.saltitantes.service.SimuladorService;
+import com.example.saltitantes.service.UsuarioService;
 
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.saltitantes.model.service.UsuarioService;
 import jakarta.persistence.Id;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +45,7 @@ public class TesteEstrutural {
         @Spy
         @InjectMocks
         private SimuladorService simuladorService;
+
         /**
          * T9 — Verificar se alguma criatura roubou outra
          * 
@@ -302,7 +303,7 @@ public class TesteEstrutural {
                 assertThat(unicoEstado.isSimulacaoBemSucedida()).isTrue();
         }
 
-        //** Login válido e simulação com SUCESSO**
+        // ** Login válido e simulação com SUCESSO**
 
         @Test
         void simularComUsuario_DeveRegistrarComSucesso_QuandoLoginValido() {
@@ -375,7 +376,7 @@ public class TesteEstrutural {
 
                 // Força o método do mock a lançar a exceção esperada
                 doThrow(new IllegalArgumentException("Erro forçado"))
-                        .when(usuarioService).registrarSimulacao(login, false);
+                                .when(usuarioService).registrarSimulacao(login, false);
 
                 // Act
                 // Não precisa de asserção de exceção, pois o método a captura e apenas loga

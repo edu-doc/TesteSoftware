@@ -5,7 +5,7 @@ import com.example.saltitantes.model.dto.EstatisticasDTO;
 import com.example.saltitantes.model.dto.LoginDTO;
 import com.example.saltitantes.model.dto.LoginResponse;
 import com.example.saltitantes.model.dto.UsuarioDTO;
-import com.example.saltitantes.model.service.UsuarioService;
+import com.example.saltitantes.service.UsuarioService;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

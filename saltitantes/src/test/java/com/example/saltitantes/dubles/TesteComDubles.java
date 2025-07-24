@@ -1,12 +1,12 @@
 package com.example.saltitantes.dubles;
 
-import com.example.saltitantes.model.service.UsuarioService;
 import com.example.saltitantes.model.entity.Usuario;
 import com.example.saltitantes.model.dto.UsuarioDTO;
 import com.example.saltitantes.model.dto.EstatisticasDTO;
 import com.example.saltitantes.model.dto.LoginDTO;
 import com.example.saltitantes.model.dto.CriarUsuarioDTO;
 import com.example.saltitantes.repository.UserRepository;
+import com.example.saltitantes.service.UsuarioService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

@@ -2,7 +2,8 @@ package com.example.saltitantes.controller;
 
 import com.example.saltitantes.model.dto.ParametrosDTO;
 import com.example.saltitantes.model.dto.SimularResponseDTO;
-import com.example.saltitantes.model.service.SimuladorService;
+import com.example.saltitantes.service.SimuladorService;
+
 import lombok.AllArgsConstructor;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
