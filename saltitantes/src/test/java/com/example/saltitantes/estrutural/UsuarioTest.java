@@ -2,7 +2,7 @@ package com.example.saltitantes.estrutural; // Ou o pacote correto do seu teste
 
 import com.example.saltitantes.model.dto.UsuarioDTO;
 import com.example.saltitantes.model.entity.Usuario;
-import com.example.saltitantes.model.service.UsuarioService;
+import com.example.saltitantes.service.UsuarioService;
 import com.example.saltitantes.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

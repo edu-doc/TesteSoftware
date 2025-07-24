@@ -117,19 +117,9 @@ public class SimuladorService {
             }
         }
 
-<<<<<<< Updated upstream:saltitantes/src/main/java/com/example/saltitantes/service/SimuladorService.java
-        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi
-        // finalizada
-        if (!historicoSimulacoes.isEmpty()) {
-            SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
-            ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
-        }
-=======
         // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi finalizada
         SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
         ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
-
->>>>>>> Stashed changes:saltitantes/src/main/java/com/example/saltitantes/model/service/SimuladorService.java
 
         return historicoSimulacoes;
     }
@@ -181,11 +171,7 @@ public class SimuladorService {
         List<Criaturas> criaturasParaProcessamento = new ArrayList<>(criaturas);
         for (Criaturas criatura : criaturasParaProcessamento) {
             // Apenas processa criaturas que ainda existem na lista principal
-<<<<<<< Updated upstream:saltitantes/src/main/java/com/example/saltitantes/service/SimuladorService.java
-            if (!criaturas.contains(criatura))
-                continue;
-=======
->>>>>>> Stashed changes:saltitantes/src/main/java/com/example/saltitantes/model/service/SimuladorService.java
+
 
             Criaturas vizinha = encontrarMaisProxima(criatura);
             if (vizinha != null && vizinha.getOuro() > 0) {
