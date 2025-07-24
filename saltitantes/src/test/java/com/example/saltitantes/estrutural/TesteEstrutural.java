@@ -8,14 +8,23 @@ import com.example.saltitantes.model.service.SimuladorService;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.saltitantes.model.service.UsuarioService;
+import jakarta.persistence.Id;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 /**
  * Testes Estruturais - Verificam as interações entre entidades e regras de
@@ -27,8 +36,15 @@ import static org.assertj.core.api.Assertions.*;
  * - Comportamento de métodos específicos
  * - Integridade das relações entre objetos
  */
+@ExtendWith(MockitoExtension.class)
 public class TesteEstrutural {
 
+        @Mock
+        private UsuarioService usuarioService;
+
+        @Spy
+        @InjectMocks
+        private SimuladorService simuladorService;
         /**
          * T9 — Verificar se alguma criatura roubou outra
          * 
@@ -286,5 +302,87 @@ public class TesteEstrutural {
                 assertThat(unicoEstado.isSimulacaoBemSucedida()).isTrue();
         }
 
+        //** Login válido e simulação com SUCESSO**
+
+        @Test
+        void simularComUsuario_DeveRegistrarComSucesso_QuandoLoginValido() {
+                // Arrange
+                String login = "admin";
+                // Força o método simular(int) a retornar um resultado BEM-SUCEDIDO
+                SimularResponseDTO sucessoDTO = new SimularResponseDTO(1, null, null, null, true);
+                doReturn(List.of(sucessoDTO)).when(simuladorService).simular(anyInt());
+
+                // Act
+                simuladorService.simular(10, login);
+
+                // Assert: Verifica se o registro foi chamado com 'true'
+                verify(usuarioService).registrarSimulacao(login, true);
+        }
+
+        // Login válido e simulação com FALHA**
+        @Test
+        void simularComUsuario_DeveRegistrarComFalha_QuandoLoginValido() {
+                // Arrange
+                String login = "admin";
+                // Força o método simular(int) a retornar um resultado SEM SUCESSO
+                SimularResponseDTO falhaDTO = new SimularResponseDTO(1, null, null, null, false);
+                doReturn(List.of(falhaDTO)).when(simuladorService).simular(anyInt());
+
+                // Act
+                simuladorService.simular(10, login);
+
+                // Assert: Verifica se o registro foi chamado com 'false'
+                verify(usuarioService).registrarSimulacao(login, false);
+        }
+
+        // Login NULO não deve registrar**
+        @Test
+        void simularComUsuario_NaoDeveRegistrar_QuandoLoginForNulo() {
+                // Arrange
+                String loginNulo = null;
+                SimularResponseDTO falhaDTO = new SimularResponseDTO(1, null, null, null, false);
+                doReturn(List.of(falhaDTO)).when(simuladorService).simular(anyInt());
+
+                // Act
+                simuladorService.simular(10, loginNulo);
+
+                // Assert: Verifica que NENHUM método foi chamado em usuarioService
+                verifyNoInteractions(usuarioService);
+        }
+
+        // Login VAZIO não deve registrar**
+        @Test
+        void simularComUsuario_NaoDeveRegistrar_QuandoLoginForVazio() {
+                // Arrange
+                String loginVazio = "   "; // Espaços em branco
+                SimularResponseDTO falhaDTO = new SimularResponseDTO(1, null, null, null, false);
+                doReturn(List.of(falhaDTO)).when(simuladorService).simular(anyInt());
+
+                // Act
+                simuladorService.simular(10, loginVazio);
+
+                // Assert: Verifica que NENHUM método foi chamado em usuarioService
+                verifyNoInteractions(usuarioService);
+        }
+
+        // Caminho da exceção (bloco CATCH)**
+        @Test
+        void simularComUsuario_DeveLidarComExcecaoDoRegistro() {
+                // Arrange
+                String login = "admin";
+                SimularResponseDTO falhaDTO = new SimularResponseDTO(1, null, null, null, false);
+                doReturn(List.of(falhaDTO)).when(simuladorService).simular(anyInt());
+
+                // Força o método do mock a lançar a exceção esperada
+                doThrow(new IllegalArgumentException("Erro forçado"))
+                        .when(usuarioService).registrarSimulacao(login, false);
+
+                // Act
+                // Não precisa de asserção de exceção, pois o método a captura e apenas loga
+                simuladorService.simular(10, login);
+
+                // Assert: Apenas verificamos que a chamada que causa a exceção foi tentada
+                verify(usuarioService).registrarSimulacao(login, false);
+        }
 
 }
