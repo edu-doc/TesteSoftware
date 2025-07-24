@@ -7,7 +7,6 @@ import com.example.saltitantes.model.dto.UsuarioDTO;
 import com.example.saltitantes.model.dto.EstatisticasDTO;
 import com.example.saltitantes.model.entity.Usuario;
 import com.example.saltitantes.service.SimuladorService;
-import com.example.saltitantes.service.UsuarioService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -361,13 +360,21 @@ public class TesteFuncional {
 
                 // Reinicializar com número diferente de criaturas
                 simulador.inicializar(7);
-                var resultado2 = simulador.simular(3);
-                assertThat(resultado2).hasSize(3);
-
-                // Verificar que o estado foi limpo corretamente
-                assertThat(resultado2.get(0).getCriaturas())
+                
+                // Verificar que o estado foi limpo corretamente ANTES de simular
+                // Isso testa se a inicialização funcionou corretamente
+                assertThat(simulador.getCriaturasParaTeste())
                                 .as("Nova inicialização deve ter o número correto de criaturas")
                                 .hasSize(7);
+                
+                // Verificar que o guardião foi recriado corretamente
+                assertThat(simulador.getGuardiaoParaTeste().getId())
+                                .as("Nova inicialização deve criar guardião com ID correto")
+                                .isEqualTo(8); // 7 criaturas + 1
+                
+                // Agora executar a simulação para confirmar que funciona
+                var resultado2 = simulador.simular(3);
+                assertThat(resultado2).hasSize(3);
         }
 
         /**
