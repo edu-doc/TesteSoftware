@@ -154,6 +154,24 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<!-- Configuração para executar testes excluindo sistema -->
+					<excludes>
+						<exclude>**/sistema/**</exclude>
+					</excludes>
+					<!-- Configuração para incluir cobertura de branch -->
+					<properties>
+						<property>
+							<name>listener</name>
+							<value>org.jacoco.core.runtime.RuntimeData</value>
+						</property>
+					</properties>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<annotationProcessorPaths>
@@ -189,6 +207,32 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<!-- Excluir classes que não precisam de cobertura -->
+						<exclude>**/SaltitantesApplication.*</exclude>
+						<exclude>**/config/**</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -202,5 +246,46 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<!-- Perfil para executar todos os testes -->
+		<profile>
+			<id>all-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<excludes>
+								<!-- Não excluir nenhum teste -->
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<!-- Perfil para executar testes excluindo sistema -->
+		<profile>
+			<id>no-system-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<excludes>
+								<exclude>**/sistema/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
