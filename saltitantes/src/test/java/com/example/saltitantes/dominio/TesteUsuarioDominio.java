@@ -286,6 +286,25 @@ public class TesteUsuarioDominio {
         }
 
         /**
+         * Testa a falha ao registrar simulação para um usuário inexistente.
+         *
+         * @pre Login de usuário inexistente fornecido
+         * @post IllegalArgumentException lançada com a mensagem apropriada
+         */
+        @Test
+        void testRegistroSimulacaoUsuarioInexistente() {
+                // Given
+                // O mock no setUp() já garante que findByLogin retornará Optional.empty()
+                // para qualquer string que não foi explicitamente mockada.
+                String loginInexistente = "fantasma";
+
+                // When/Then
+                assertThatThrownBy(() -> usuarioService.registrarSimulacao(loginInexistente, true))
+                                .isInstanceOf(IllegalArgumentException.class)
+                                .hasMessageContaining("Usuário não encontrado");
+        }
+
+        /**
          * Testa exclusão de usuário.
          * 
          * @pre Usuário criado e existente
@@ -423,4 +442,16 @@ public class TesteUsuarioDominio {
                                 .extracting(UsuarioDTO::getLogin)
                                 .containsExactlyInAnyOrder("user1", "user2", "user3");
         }
+
+        @Test
+        void testVerificarSenhaComSenhaArmazenadaNula() {
+                // Arrange
+                Usuario usuarioComSenhaNula = new Usuario(); // Usa o construtor sem argumentos
+                usuarioComSenhaNula.setSenha(null);
+
+                // Act & Assert
+                assertThat(usuarioComSenhaNula.verificarSenha("qualquerSenha")).isFalse();
+                assertThat(usuarioComSenhaNula.verificarSenha(null)).isFalse();
+        }
+
 }

@@ -15,15 +15,11 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.data.Offset.offset;
-import static org.assertj.core.data.Percentage.withPercentage;
 import static org.mockito.Mockito.*;
-import static org.mockito.ArgumentMatchers.*;
 
 /**
  * Testes com Dublês de Teste (Mocks, Stubs, Spies)
@@ -43,308 +39,79 @@ public class TesteComDubles {
         @InjectMocks
         private UsuarioService usuarioService;
 
-        private Usuario usuarioMock1;
-        private Usuario usuarioMock2;
-        private Usuario usuarioMock3;
+        private Usuario usuarioMock;
 
         @BeforeEach
         void setUp() {
-                // Criar usuários fictícios para testes
-                usuarioMock1 = new Usuario();
-                usuarioMock1.setId(1L);
-                usuarioMock1.setLogin("user1");
-                usuarioMock1.setSenha("pass1");
-                usuarioMock1.setAvatar("avatar1.png");
-                usuarioMock1.setPontuacao(5);
-                usuarioMock1.setTotalSimulacoes(10);
-
-                usuarioMock2 = new Usuario();
-                usuarioMock2.setId(2L);
-                usuarioMock2.setLogin("user2");
-                usuarioMock2.setSenha("pass2");
-                usuarioMock2.setAvatar("avatar2.png");
-                usuarioMock2.setPontuacao(3);
-                usuarioMock2.setTotalSimulacoes(8);
-
-                usuarioMock3 = new Usuario();
-                usuarioMock3.setId(3L);
-                usuarioMock3.setLogin("user3");
-                usuarioMock3.setSenha("pass3");
-                usuarioMock3.setAvatar("avatar3.png");
-                usuarioMock3.setPontuacao(0);
-                usuarioMock3.setTotalSimulacoes(2);
+                usuarioMock = new Usuario();
+                usuarioMock.setId(1L);
+                usuarioMock.setLogin("user1");
+                usuarioMock.setSenha("pass1");
+                usuarioMock.setAvatar("avatar1.png");
+                usuarioMock.setPontuacao(5);
+                usuarioMock.setTotalSimulacoes(10);
         }
 
         /**
-         * Teste com Stub: Simular login de usuário
-         * 
-         * @pre Repository mockado, usuários configurados
-         * @post Login válido retorna usuário, inválido retorna null
-         */
-        @Test
-        void testStubLoginUsuario() {
-                // Arrange - Configurar stub
-                when(usuarioRepository.findByLogin("user1"))
-                                .thenReturn(Optional.of(usuarioMock1));
-                when(usuarioRepository.findByLogin("inexistente"))
-                                .thenReturn(Optional.empty());
-
-                LoginDTO loginValido = new LoginDTO("user1", "pass1");
-                LoginDTO loginInvalido = new LoginDTO("inexistente", "qualquer");
-
-                // Act & Assert - Login válido
-                var usuarioLogado = usuarioService.login(loginValido);
-                assertThat(usuarioLogado)
-                                .as("Deve fazer login com credenciais válidas")
-                                .isNotNull()
-                                .extracting(UsuarioDTO::getLogin)
-                                .isEqualTo("user1");
-
-                // Act & Assert - Login inválido
-                assertThatThrownBy(() -> usuarioService.login(loginInvalido))
-                                .as("Deve rejeitar login com credenciais inválidas")
-                                .isInstanceOf(RuntimeException.class);
-
-                // Verify - Verificar interações
-                verify(usuarioRepository, times(1)).findByLogin("user1");
-                verify(usuarioRepository, times(1)).findByLogin("inexistente");
-        }
-
-        /**
-         * Teste com Mock: Verificar criação de usuário
-         * 
-         * @pre Repository mockado, usuário novo
-         * @post Usuário criado, método save chamado corretamente
-         */
-        @Test
-        void testMockCriacaoUsuario() {
-                // Arrange
-                CriarUsuarioDTO novoUsuario = new CriarUsuarioDTO("newuser", "newpass", "newavatar.png");
-
-                Usuario usuarioSalvo = new Usuario();
-                usuarioSalvo.setId(4L);
-                usuarioSalvo.setLogin("newuser");
-                usuarioSalvo.setSenha("newpass");
-                usuarioSalvo.setAvatar("newavatar.png");
-                usuarioSalvo.setPontuacao(0);
-                usuarioSalvo.setTotalSimulacoes(0);
-
-                when(usuarioRepository.findByLogin("newuser")).thenReturn(Optional.empty());
-                when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioSalvo);
-
-                // Act
-                var resultado = usuarioService.criarUsuario(novoUsuario);
-
-                // Assert
-                assertThat(resultado)
-                                .as("Deve criar usuário com sucesso")
-                                .isNotNull()
-                                .extracting(UsuarioDTO::getLogin)
-                                .isEqualTo("newuser");
-
-                // Verify - Verificar que save foi chamado
-                verify(usuarioRepository, times(1)).save(argThat(usuario -> "newuser".equals(usuario.getLogin()) &&
-                                "newpass".equals(usuario.getSenha()) &&
-                                "newavatar.png".equals(usuario.getAvatar())));
-        }
-
-        /**
-         * Teste com Mock: Verificar falha na criação por usuário existente
-         * 
-         * @pre Repository mockado, usuário existente configurado
-         * @post IllegalArgumentException lançada, save nunca chamado
-         */
-        @Test
-        void testMockFalhaCriacaoUsuarioExistente() {
-                // Arrange
-                CriarUsuarioDTO usuarioExistente = new CriarUsuarioDTO("user1", "newpass", "newavatar.png");
-
-                when(usuarioRepository.findByLogin("user1")).thenReturn(Optional.of(usuarioMock1));
-
-                // Act & Assert
-                assertThatThrownBy(() -> usuarioService.criarUsuario(usuarioExistente))
-                                .as("Deve lançar exceção para usuário já existente")
-                                .isInstanceOf(IllegalArgumentException.class)
-                                .hasMessageContaining("já existe");
-
-                // Verify - Verificar que save nunca foi chamado
-                verify(usuarioRepository, never()).save(any(Usuario.class));
-        }
-
-        /**
-         * Teste com Stub: Simular cálculo de estatísticas
-         * 
-         * @pre Repository com lista de usuários mockada
-         * @post Estatísticas calculadas corretamente
-         */
-        @Test
-        void testStubCalculoEstatisticas() {
-                // Arrange
-                List<Usuario> usuariosSimulados = Arrays.asList(usuarioMock1, usuarioMock2, usuarioMock3);
-                when(usuarioRepository.findAll()).thenReturn(usuariosSimulados);
-
-                // Act
-                EstatisticasDTO estatisticas = usuarioService.obterEstatisticas();
-
-                // Assert
-                assertThat(estatisticas.getQuantidadeTotalSimulacoes())
-                                .as("Total de simulações deve ser soma de todos os usuários")
-                                .isEqualTo(20); // 10 + 8 + 2
-
-                assertThat(estatisticas.getMediaSimulacoesSucessoUsuario())
-                                .as("Média de sucessos por usuário deve ser calculada corretamente")
-                                .isCloseTo((50.0 + 37.5 + 0.0) / 3.0, offset(0.1)); // Média das taxas de sucesso
-                                                                                    // percentuais
-
-                assertThat(estatisticas.getMediaTotalSimulacoesSucesso())
-                                .as("Média total de sucessos deve ser calculada corretamente")
-                                .isCloseTo(40.0, offset(0.1)); // 8 sucessos de 20 total = 40%
-
-                // Verify
-                verify(usuarioRepository, times(1)).findAll();
-        }
-
-        /**
-         * Teste com Spy: Verificar atualização de estatísticas
-         * 
+         * Teste com Spy: Verifica se a lógica de registro de simulação
+         * corretamente invoca a busca e o salvamento do usuário.
+         *
          * @pre Spy do service, repository mockado
-         * @post Métodos chamados corretamente, simulação registrada
+         * @post Métodos de busca e salvamento chamados corretamente
          */
         @Test
         void testSpyRegistroSimulacao() {
                 // Arrange
                 UsuarioService spyUsuarioService = spy(usuarioService);
-
-                when(usuarioRepository.findByLogin("user1")).thenReturn(Optional.of(usuarioMock1));
-                when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioMock1);
+                when(usuarioRepository.findByLogin("user1")).thenReturn(Optional.of(usuarioMock));
+                when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioMock);
 
                 // Act
                 spyUsuarioService.registrarSimulacao("user1", true);
 
-                // Assert & Verify
-                verify(spyUsuarioService, times(1)).registrarSimulacao("user1", true);
-                verify(usuarioRepository, times(1)).findByLogin("user1");
-                verify(usuarioRepository, times(1)).save(any(Usuario.class));
+                // Verify
+                verify(spyUsuarioService).registrarSimulacao("user1", true);
+                verify(usuarioRepository).findByLogin("user1");
+                verify(usuarioRepository).save(any(Usuario.class));
         }
 
         /**
-         * Teste com Mock: Simulação de erro do repositório
-         * 
+         * Teste com Mock: Simula um erro na camada de persistência para garantir
+         * que a exceção seja propagada corretamente pelo serviço.
+         *
          * @pre Repository configurado para lançar exceção
          * @post RuntimeException propagada corretamente
          */
         @Test
-        void testMockErroRepositorio() {
+        void testMockErroRepositorioAoListar() {
                 // Arrange
-                when(usuarioRepository.findAll()).thenThrow(new RuntimeException("Erro de conexão"));
+                when(usuarioRepository.findAll()).thenThrow(new RuntimeException("Erro de conexão com o banco"));
 
                 // Act & Assert
                 assertThatThrownBy(() -> usuarioService.obterEstatisticas())
-                                .as("Deve propagar erro do repositório")
                                 .isInstanceOf(RuntimeException.class)
-                                .hasMessageContaining("Erro de conexão");
-
-                // Verify
-                verify(usuarioRepository, times(1)).findAll();
+                                .hasMessageContaining("Erro de conexão com o banco");
         }
 
         /**
-         * Teste com Stub: Cenário de banco vazio
-         * 
+         * Teste com Stub: Garante que o cálculo de estatísticas não falhe
+         * (ex: divisão por zero) quando não há usuários no sistema.
+         *
          * @pre Repository retorna lista vazia
-         * @post Estatísticas zeradas corretamente
+         * @post Estatísticas zeradas retornadas corretamente
          */
         @Test
-        void testStubBancoVazio() {
+        void testStubEstatisticasComBancoVazio() {
                 // Arrange
-                when(usuarioRepository.findAll()).thenReturn(Arrays.asList());
+                when(usuarioRepository.findAll()).thenReturn(Collections.emptyList());
 
                 // Act
                 EstatisticasDTO estatisticas = usuarioService.obterEstatisticas();
 
                 // Assert
-                assertThat(estatisticas.getQuantidadeTotalSimulacoes())
-                                .as("Sem usuários, total deve ser 0")
-                                .isEqualTo(0);
-
-                assertThat(estatisticas.getMediaSimulacoesSucessoUsuario())
-                                .as("Sem usuários, média por usuário deve ser 0")
-                                .isEqualTo(0.0);
-
-                assertThat(estatisticas.getMediaTotalSimulacoesSucesso())
-                                .as("Sem usuários, média total deve ser 0")
-                                .isEqualTo(0.0);
-        }
-
-        /**
-         * Teste com Mock: Verificar listagem de usuários
-         * 
-         * @pre Repository com lista de usuários mockada
-         * @post Lista de usuários retornada corretamente
-         */
-        @Test
-        void testMockListagemUsuarios() {
-                // Arrange
-                List<Usuario> usuarios = Arrays.asList(usuarioMock1, usuarioMock2);
-                when(usuarioRepository.findAll()).thenReturn(usuarios);
-
-                // Act
-                var listaUsuarios = usuarioService.listarUsuarios();
-
-                // Assert
-                assertThat(listaUsuarios)
-                                .as("Deve retornar lista de usuários")
-                                .hasSize(2)
-                                .extracting(UsuarioDTO::getLogin)
-                                .containsExactly("user1", "user2");
-
-                // Verify
-                verify(usuarioRepository, times(1)).findAll();
-        }
-
-        /**
-         * Teste com Mock: Verificar exclusão de usuário
-         * 
-         * @pre Repository mockado, usuário existente
-         * @post Usuário excluído, métodos chamados corretamente
-         */
-        @Test
-        void testMockExclusaoUsuario() {
-                // Arrange
-                when(usuarioRepository.findByLogin("user1")).thenReturn(Optional.of(usuarioMock1));
-                doNothing().when(usuarioRepository).delete(usuarioMock1);
-
-                // Act
-                usuarioService.excluirUsuario("user1");
-
-                // Verify
-                verify(usuarioRepository, times(1)).findByLogin("user1");
-                verify(usuarioRepository, times(1)).delete(usuarioMock1);
-        }
-
-        /**
-         * Teste com Mock: Verificar se usuário existe
-         * 
-         * @pre Repository com respostas mockadas
-         * @post Existência verificada corretamente para ambos os casos
-         */
-        @Test
-        void testMockVerificarExistenciaUsuario() {
-                // Arrange
-                when(usuarioRepository.findByLogin("user1")).thenReturn(Optional.of(usuarioMock1));
-                when(usuarioRepository.findByLogin("inexistente")).thenReturn(Optional.empty());
-
-                // Act & Assert
-                assertThat(usuarioService.usuarioExiste("user1"))
-                                .as("Deve confirmar que usuário existe")
-                                .isTrue();
-
-                assertThat(usuarioService.usuarioExiste("inexistente"))
-                                .as("Deve confirmar que usuário não existe")
-                                .isFalse();
-
-                // Verify
-                verify(usuarioRepository, times(1)).findByLogin("user1");
-                verify(usuarioRepository, times(1)).findByLogin("inexistente");
+                assertThat(estatisticas.getTotalUsuarios()).isZero();
+                assertThat(estatisticas.getQuantidadeTotalSimulacoes()).isZero();
+                assertThat(estatisticas.getMediaSimulacoesSucessoUsuario()).isZero();
+                assertThat(estatisticas.getMediaTotalSimulacoesSucesso()).isZero();
         }
 }
