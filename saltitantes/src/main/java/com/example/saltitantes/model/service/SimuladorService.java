@@ -33,10 +33,6 @@ public class SimuladorService {
         return criaturas;
     }
 
-    public List<Cluster> getClustersParaTeste() {
-        return clusters;
-    }
-
     public Guardiao getGuardiaoParaTeste() {
         return guardiao;
     }
@@ -91,10 +87,6 @@ public class SimuladorService {
         }
         if (iteracoes > 1000) {
             throw new IllegalArgumentException("A quantidade de iterações deve ser menor ou igual a 1000.");
-        }
-
-        if (guardiao == null) {
-            throw new IllegalStateException("Simulação não foi inicializada corretamente.");
         }
 
         historicoSimulacoes.clear();

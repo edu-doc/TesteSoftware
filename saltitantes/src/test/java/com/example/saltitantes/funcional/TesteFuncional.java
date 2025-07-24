@@ -14,15 +14,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.stream.Stream;
 import java.util.Arrays;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.of;
+import static org.mockito.Mockito.*;
 
 /**
  * Testes Funcionais - Validam o funcionamento correto dos métodos principais do
@@ -34,6 +38,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
  * - Funcionamento dos algoritmos principais
  * - Integridade dos dados durante o processamento
  */
+
 public class TesteFuncional {
 
         /**
@@ -687,4 +692,26 @@ public class TesteFuncional {
                                 .as("Simulações idênticas devem produzir resultados diferentes devido à randomização")
                                 .isTrue();
         }
+
+        @Test
+        void simular_DeveLancarExcecaoQuandoChamadoSemInicializar() {
+                SimuladorService servicoNaoInicializado = new SimuladorService();
+                assertThatThrownBy(() -> servicoNaoInicializado.simular(5))
+                        .isInstanceOf(NullPointerException.class);
+        }
+
+        @Test
+        void simular_DeveExecutarTodasAsIteracoesSeNaoHouverGanhador() {
+
+                SimuladorService simuladorService = new SimuladorService();
+
+                simuladorService.inicializar(10);
+
+                List<SimularResponseDTO> resultado = simuladorService.simular(10);
+
+                assertThat(resultado).hasSize(10);
+                SimularResponseDTO ultimoEstado = resultado.get(resultado.size() - 1);
+                assertThat(ultimoEstado.isSimulacaoBemSucedida()).isFalse();
+        }
+
 }
