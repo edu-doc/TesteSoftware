@@ -1,7 +1,6 @@
 package com.example.saltitantes.estrutural;
 
-import com.example.saltitantes.model.dto.CriaturasDTO;
-import com.example.saltitantes.model.dto.SimularResponseDTO;
+import com.example.saltitantes.model.dto.*;
 import com.example.saltitantes.model.entity.Cluster;
 import com.example.saltitantes.model.entity.Criaturas;
 import com.example.saltitantes.service.SimuladorService;
@@ -449,6 +448,91 @@ public class TesteEstrutural {
 
                 assertThat(idRetornado).isEqualTo(-1); // Retorno deve ser -1
                 assertThat(cluster.getOuroTotal()).isEqualTo(ouroInicialCluster); // Ouro do cluster não muda
+        }
+
+        @Test
+        void testLoginResponseDto() {
+                UsuarioDTO usuarioDTO = new UsuarioDTO();
+                usuarioDTO.setLogin("admin");
+
+                LoginResponse response1 = new LoginResponse();
+                response1.setMessage("Login efetuado");
+                response1.setSuccess(true);
+                response1.setUsuario(usuarioDTO);
+
+                assertThat(response1.getMessage()).isEqualTo("Login efetuado");
+                assertThat(response1.isSuccess()).isTrue();
+                assertThat(response1.getUsuario()).isEqualTo(usuarioDTO);
+
+                LoginResponse response2 = new LoginResponse("Login efetuado", true, usuarioDTO);
+
+                assertThat(response1).isEqualTo(response2);
+                assertThat(response1.hashCode()).isEqualTo(response2.hashCode());
+
+                response2.setSuccess(false);
+                assertThat(response1).isNotEqualTo(response2);
+        }
+
+        @Test
+        void testConstrutoresGettersSetters() {
+                UsuarioDTO usuarioDTO = new UsuarioDTO();
+                usuarioDTO.setLogin("admin");
+
+                LoginResponseDTO response = new LoginResponseDTO();
+                response.setMessage("Sucesso");
+                response.setLogin("admin");
+                response.setUsuario(usuarioDTO);
+
+                assertThat(response.getMessage()).isEqualTo("Sucesso");
+                assertThat(response.getLogin()).isEqualTo("admin");
+                assertThat(response.getUsuario()).isEqualTo(usuarioDTO);
+
+                LoginResponseDTO fullResponse = new LoginResponseDTO("Sucesso", "admin", usuarioDTO);
+                assertThat(fullResponse.getMessage()).isEqualTo("Sucesso");
+                assertThat(fullResponse.getLogin()).isEqualTo("admin");
+        }
+
+        @Test
+        void testConstrutorCustomizado_ComUsuarioValido() {
+
+                UsuarioDTO usuarioDTO = new UsuarioDTO();
+                usuarioDTO.setLogin("admin");
+
+                LoginResponseDTO response = new LoginResponseDTO("Login OK", usuarioDTO);
+
+                assertThat(response.getMessage()).isEqualTo("Login OK");
+                assertThat(response.getUsuario()).isEqualTo(usuarioDTO);
+                assertThat(response.getLogin()).isEqualTo("admin");
+        }
+
+        @Test
+        void testConstrutorCustomizado_ComUsuarioNulo() {
+
+                LoginResponseDTO response = new LoginResponseDTO("Falha no login", null);
+
+                assertThat(response.getMessage()).isEqualTo("Falha no login");
+                assertThat(response.getUsuario()).isNull();
+                assertThat(response.getLogin()).isNull();
+        }
+
+        @Test
+        void testEqualsAndHashCode() {
+                UsuarioDTO usuario1 = new UsuarioDTO();
+                usuario1.setLogin("user1");
+
+                UsuarioDTO usuario2 = new UsuarioDTO();
+                usuario2.setLogin("user2");
+
+                LoginResponseDTO dto1 = new LoginResponseDTO("Sucesso", "user1", usuario1);
+                LoginResponseDTO dto2 = new LoginResponseDTO("Sucesso", "user1", usuario1);
+
+                LoginResponseDTO dto3 = new LoginResponseDTO("Sucesso", "user2", usuario2);
+
+                assertThat(dto1).isEqualTo(dto2);
+                assertThat(dto1).isNotEqualTo(dto3);
+
+                assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
+                assertThat(dto1.hashCode()).isNotEqualTo(dto3.hashCode());
         }
 
 }

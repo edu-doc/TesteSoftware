@@ -1,9 +1,6 @@
 package com.example.saltitantes.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * DTO para resposta de login simples.
@@ -12,9 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class LoginResponse {
 
     private String message;
     private boolean success;
-    private UsuarioDTO usuario; // Dados completos do usuário (sem senha)
+    private UsuarioDTO usuario;
 }
