@@ -65,16 +65,6 @@ public class Cluster {
     }
 
     /**
-     * Verifica se o cluster está na mesma posição que uma coordenada.
-     * 
-     * @param posicao posição a ser verificada
-     * @return true se as posições são iguais
-     */
-    public boolean estaNaPosicao(double posicao) {
-        return Math.abs(this.posicaox - posicao) < 1e-10;
-    }
-
-    /**
      * Gera um ID único para o cluster baseado nos IDs das criaturas.
      * 
      * @return ID único do cluster
@@ -83,22 +73,4 @@ public class Cluster {
         return this.idscriaturas.hashCode();
     }
 
-    /**
-     * Retorna o número de criaturas no cluster.
-     * 
-     * @return tamanho do cluster
-     */
-    public int getTamanho() {
-        return this.idscriaturas.size();
-    }
-
-    /**
-     * Verifica se o cluster contém uma criatura específica.
-     * 
-     * @param idCriatura ID da criatura a ser verificada
-     * @return true se a criatura está no cluster
-     */
-    public boolean contemCriatura(int idCriatura) {
-        return this.idscriaturas.contains(idCriatura);
-    }
 }

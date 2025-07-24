@@ -1,6 +1,7 @@
 package com.example.saltitantes.estrutural;
 
 import com.example.saltitantes.model.dto.CriaturasDTO;
+import com.example.saltitantes.model.dto.SimularResponseDTO;
 import com.example.saltitantes.model.entity.Criaturas;
 import com.example.saltitantes.model.service.SimuladorService;
 
@@ -270,4 +271,20 @@ public class TesteEstrutural {
                                 .extracting(Criaturas::getOuro)
                                 .allMatch(ouro -> ouro > 300000);
         }
+
+        @Test
+        void simular_DevePararQuandoGanhadorForEncontradoESetarFlagDeSucesso() {
+                SimuladorService simuladorService = new SimuladorService();
+                simuladorService.inicializar(2);
+                simuladorService.getCriaturasParaTeste().clear(); // Manipulação para forçar o caminho
+
+                List<SimularResponseDTO> resultado = simuladorService.simular(100);
+
+                assertThat(resultado).hasSize(1);
+                SimularResponseDTO unicoEstado = resultado.get(0);
+                assertThat(unicoEstado.getIteracao()).isEqualTo(1);
+                assertThat(unicoEstado.isSimulacaoBemSucedida()).isTrue();
+        }
+
+
 }

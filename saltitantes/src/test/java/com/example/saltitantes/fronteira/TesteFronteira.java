@@ -431,4 +431,15 @@ public class TesteFronteira {
                 .as("Guardião deve manter ouro após movimento")
                 .isEqualTo(ouroEsperado);
     }
+
+    @Test
+    void simular_DeveLancarIllegalArgumentExceptionParaIteracoesMaioresQueMil() {
+        SimuladorService simuladorService = new SimuladorService();
+
+        simuladorService.inicializar(10);
+
+        assertThatThrownBy(() -> simuladorService.simular(1001))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("A quantidade de iterações deve ser menor ou igual a 1000.");
+    }
 }
