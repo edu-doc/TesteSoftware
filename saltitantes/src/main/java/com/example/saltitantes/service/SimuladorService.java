@@ -117,7 +117,8 @@ public class SimuladorService {
             }
         }
 
-        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi finalizada
+        // Definir o flag de sucesso apenas na ÚLTIMA iteração se a simulação foi
+        // finalizada
         SimularResponseDTO ultimaIteracao = historicoSimulacoes.get(historicoSimulacoes.size() - 1);
         ultimaIteracao.setSimulacaoBemSucedida(simulacaoFinalizada);
 
@@ -125,14 +126,16 @@ public class SimuladorService {
     }
 
     /**
-     * Executa a simulação e registra o resultado para o usuário.
-     *
-     * @param iteracoes    número de iterações a serem executadas
-     * @param loginUsuario login do usuário que está executando a simulação
-     * @return lista contendo o snapshot de cada iteração ocorrida
-     * @throws IllegalStateException    se a simulação não foi iniciada corretamente
-     * @throws IllegalArgumentException se a quantidade de iterações for menor ou
-     *                                  igual a 1 ou maior que 1000
+     * MC/DC para a condição: (loginUsuario != null &&
+     * !loginUsuario.trim().isEmpty())
+     * -------------------------------------------------------------------------------------------------
+     * Caso | loginUsuario != null | !loginUsuario.trim().isEmpty() | Resultado |
+     * Justificativa
+     * -------------------------------------------------------------------------------------------------
+     * 1 | true | true | true | Caminho principal (login válido)
+     * 2 | true | false | false | Testa a 2ª condição (login com espaços)
+     * 3 | false | (não avaliado) | false | Testa a 1ª condição (login nulo)
+     * -------------------------------------------------------------------------------------------------
      */
     public List<SimularResponseDTO> simular(int iteracoes, String loginUsuario) {
         List<SimularResponseDTO> resultado = simular(iteracoes);
@@ -155,10 +158,15 @@ public class SimuladorService {
     }
 
     /**
-     * Processa as criaturas individuais, movendo-as e formando clusters quando
-     * necessário.
-     * * @return mapa com criaturas/clusters e IDs das criaturas roubadas
-     **/
+     * MC/DC para a condição: (vizinha != null && vizinha.getOuro() > 0)
+     * -------------------------------------------------------------------------------------
+     * Caso | vizinha != null | vizinha.getOuro() > 0 | Resultado | Justificativa
+     * -------------------------------------------------------------------------------------
+     * 1 | true | true | true | Caminho principal (roubo ocorre)
+     * 2 | true | false | false | Testa a 2ª condição (vizinha sem ouro)
+     * 3 | false | (não avaliado) | false | Testa a 1ª condição (não há vizinha)
+     * -------------------------------------------------------------------------------------
+     */
     private Map<Integer, Integer> processarCriaturas() {
         Map<Integer, Integer> roubos = new HashMap<>();
 
@@ -171,7 +179,6 @@ public class SimuladorService {
         List<Criaturas> criaturasParaProcessamento = new ArrayList<>(criaturas);
         for (Criaturas criatura : criaturasParaProcessamento) {
             // Apenas processa criaturas que ainda existem na lista principal
-
 
             Criaturas vizinha = encontrarMaisProxima(criatura);
             if (vizinha != null && vizinha.getOuro() > 0) {
@@ -223,17 +230,17 @@ public class SimuladorService {
 
         // Criar clusters a partir dos grupos identificados
         for (List<Criaturas> grupo : gruposProximos) {
-                Cluster novoCluster = new Cluster(grupo.get(0), grupo.get(1));
+            Cluster novoCluster = new Cluster(grupo.get(0), grupo.get(1));
 
-                for (int k = 2; k < grupo.size(); k++) {
-                    novoCluster.adicionarCriatura(grupo.get(k));
-                }
+            for (int k = 2; k < grupo.size(); k++) {
+                novoCluster.adicionarCriatura(grupo.get(k));
+            }
 
-                criaturas.removeAll(grupo);
-                clusters.add(novoCluster);
+            criaturas.removeAll(grupo);
+            clusters.add(novoCluster);
 
-                int criaturaSendoRoubada = roubarDaCriaturaMaisProxima(novoCluster);
-                roubos.put(novoCluster.getIdCluster(), criaturaSendoRoubada);
+            int criaturaSendoRoubada = roubarDaCriaturaMaisProxima(novoCluster);
+            roubos.put(novoCluster.getIdCluster(), criaturaSendoRoubada);
 
         }
 
@@ -286,10 +293,16 @@ public class SimuladorService {
     }
 
     /**
-     * Faz um cluster roubar da criatura mais próxima.
-     * * @param cluster cluster que vai roubar
-     * 
-     * @return ID da criatura roubada ou -1 se nenhuma foi roubada
+     * MC/DC para a condição: (criaturaMaisProxima != null &&
+     * criaturaMaisProxima.getOuro() > 0)
+     * ----------------------------------------------------------------------------------------------------------
+     * Caso | criaturaMaisProxima != null | criaturaMaisProxima.getOuro() > 0 |
+     * Resultado | Justificativa
+     * ----------------------------------------------------------------------------------------------------------
+     * 1 | true | true | true | Caminho principal (roubo ocorre)
+     * 2 | true | false | false | Testa a 2ª condição (alvo sem ouro)
+     * 3 | false | (não avaliado) | false | Testa a 1ª condição (não há alvo)
+     * ----------------------------------------------------------------------------------------------------------
      */
     public int roubarDaCriaturaMaisProxima(Cluster cluster) {
         Criaturas criaturaMaisProxima = encontrarCriaturaMaisProximaDoCluster(cluster);
@@ -316,7 +329,7 @@ public class SimuladorService {
     /**
      * Encontra a criatura mais próxima de um cluster.
      * * @param cluster cluster de referência
-     * 
+     *
      * @return criatura mais próxima ou null se não houver
      */
     public Criaturas encontrarCriaturaMaisProximaDoCluster(Cluster cluster) {
@@ -329,7 +342,7 @@ public class SimuladorService {
     /**
      * Cria um snapshot da iteração atual.
      * * @param numeroIteracao número da iteração
-     * 
+     *
      * @param clusterEliminado ID do cluster eliminado pelo guardião
      * @param roubos           mapa com IDs de entidades e quem elas roubaram
      * @return DTO da resposta da simulação
@@ -363,14 +376,40 @@ public class SimuladorService {
     }
 
     /**
-     * Verifica as condições de vitória da simulação.
-     * A simulação é considerada vencida (bem-sucedida) se:
-     * 1. Apenas o guardião resta (listas de criaturas e clusters estão vazias).
-     * 2. Restam apenas o guardião e uma única criatura (lista de clusters vazia e
-     * lista de criaturas com 1 elemento).
+     * MC/DC para a condição de vitória: (apenasGuardiaoVivo ||
+     * guardiaoMaisUmaCriatura)
+     * onde:
+     * apenasGuardiaoVivo = (numeroDeCriaturas == 0 && numeroDeClusters == 0)
+     * guardiaoMaisUmaCriatura = (numeroDeCriaturas == 1 && numeroDeClusters == 0)
      *
-     * @return true se uma das condições de vitória for atendida, false caso
-     *         contrário.
+     * Tabela para apenasGuardiaoVivo:
+     * ---------------------------------------------------------------------------------
+     * Caso | numeroDeCriaturas == 0 | numeroDeClusters == 0 | Resultado |
+     * Justificativa
+     * ---------------------------------------------------------------------------------
+     * 1 | true | true | true | Condição de vitória
+     * 2 | true | false | false | Testa 2ª condição
+     * 3 | false | true | false | Testa 1ª condição
+     * ---------------------------------------------------------------------------------
+     *
+     * Tabela para guardiaoMaisUmaCriatura:
+     * ---------------------------------------------------------------------------------
+     * Caso | numeroDeCriaturas == 1 | numeroDeClusters == 0 | Resultado |
+     * Justificativa
+     * ---------------------------------------------------------------------------------
+     * 1 | true | true | true | Condição de vitória
+     * 2 | true | false | false | Testa 2ª condição
+     * 3 | false | true | false | Testa 1ª condição
+     * ---------------------------------------------------------------------------------
+     *
+     * Tabela para a combinação final (A || B):
+     * -------------------------------------------------------------------
+     * Caso | apenasGuardiaoVivo (A) | guardiaoMaisUmaCriatura (B) | Resultado |
+     * -------------------------------------------------------------------
+     * 1 | true | false | true |
+     * 2 | false | true | true |
+     * 3 | false | false | false |
+     * -------------------------------------------------------------------
      */
     private boolean verificarGanhador() {
         // Conta o número de criaturas e clusters restantes.
@@ -394,7 +433,7 @@ public class SimuladorService {
     /**
      * Encontra a criatura mais próxima da criatura atual.
      * * @param atual criatura de referência (não pode ser null)
-     * 
+     *
      * @return objeto do tipo criatura
      * @pre nenhuma pré condição
      * @post retorna a criatura mais próxima da criatura atual
@@ -412,14 +451,14 @@ public class SimuladorService {
     }
 
     /**
-     * Calcula a distância absoluta entre duas criaturas.
-     * * @param a criatura a (não pode ser null)
-     * 
-     * @param b criatura b (não pode ser null)
-     * @return distância do tipo double
-     * @pre nenhuma pré condição
-     * @post compara e retorna a distância absoluta entre as criaturas
-     * @throws IllegalArgumentException se qualquer criatura for null
+     * MC/DC para a condição: (a == null || b == null)
+     * ---------------------------------------------------------
+     * Caso | a == null | b == null | Resultado | Justificativa
+     * ---------------------------------------------------------
+     * 1 | false | false | false | Caminho principal (válido)
+     * 2 | false | true | true | Testa a 2ª condição
+     * 3 | true | (não avaliado) | true | Testa a 1ª condição
+     * ---------------------------------------------------------
      */
     public double distancia(Criaturas a, Criaturas b) {
         if (a == null || b == null) {

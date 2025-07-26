@@ -24,11 +24,27 @@ public class UsuarioService {
     private UserRepository userRepository;
 
     /**
-     * Cria um novo usuário no sistema.
+     * MC/DC para a condição de validação do login: (criarUsuarioDTO.getLogin() ==
+     * null || criarUsuarioDTO.getLogin().trim().isEmpty())
+     * ------------------------------------------------------------------------------------------------------------------
+     * Caso | getLogin() == null | getLogin().trim().isEmpty() | Resultado |
+     * Justificativa
+     * ------------------------------------------------------------------------------------------------------------------
+     * 1 | false | false | false | Caminho principal (login válido)
+     * 2 | false | true | true | Testa a 2ª condição (login com espaços)
+     * 3 | true | (não avaliado) | true | Testa a 1ª condição (login nulo)
+     * ------------------------------------------------------------------------------------------------------------------
      *
-     * @param criarUsuarioDTO dados do usuário a ser criado
-     * @return DTO do usuário criado
-     * @throws IllegalArgumentException se login já existe ou dados inválidos
+     * MC/DC para a condição de validação da senha: (criarUsuarioDTO.getSenha() ==
+     * null || criarUsuarioDTO.getSenha().trim().isEmpty())
+     * ------------------------------------------------------------------------------------------------------------------
+     * Caso | getSenha() == null | getSenha().trim().isEmpty() | Resultado |
+     * Justificativa
+     * ------------------------------------------------------------------------------------------------------------------
+     * 1 | false | false | false | Caminho principal (senha válida)
+     * 2 | false | true | true | Testa a 2ª condição (senha com espaços)
+     * 3 | true | (não avaliado) | true | Testa a 1ª condição (senha nula)
+     * ------------------------------------------------------------------------------------------------------------------
      */
     public UsuarioDTO criarUsuario(CriarUsuarioDTO criarUsuarioDTO) {
         if (criarUsuarioDTO.getLogin() == null || criarUsuarioDTO.getLogin().trim().isEmpty()) {
@@ -150,9 +166,9 @@ public class UsuarioService {
 
         double mediaSimulacoesSucessoUsuario = usuarios.isEmpty() ? 0.0
                 : usuarios.stream()
-                .mapToDouble(Usuario::getTaxaSucesso)
-                .average()
-                .orElse(0.0);
+                        .mapToDouble(Usuario::getTaxaSucesso)
+                        .average()
+                        .orElse(0.0);
 
         double mediaTotalSimulacoesSucesso = totalSimulacoes == 0 ? 0.0
                 : (double) totalSimulacoesSucesso / totalSimulacoes * 100.0;
