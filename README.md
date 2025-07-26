@@ -16,121 +16,187 @@
 
 ### Tecnologias Utilizadas
 
-- JUnit 5 (com testes parametrizados)
-- AssertJ
+- **JUnit 5** (Jupiter) com testes parametrizados e property-based testing
+- **AssertJ** para assertions fluentes
+- **Mockito** para criação de dublês de teste
+- **Selenium WebDriver** para testes de sistema E2E
+- **Spring Boot Test** para testes de integração
+- **jqwik** para testes baseados em propriedades
 
 ### Estrutura dos Testes
 
-Os testes automatizados estão localizados em:
+O projeto possui uma estrutura organizada de testes distribuída em diferentes categorias:
 
 ```
-src/test/java/com/example/saltitantes/SaltitantesApplicationTests.java
+src/test/java/com/example/saltitantes/
+├── sistema/          # Testes de Sistema (E2E com Selenium)
+├── funcional/        # Testes de Integração
+├── dominio/          # Testes de Unidade (Regras de Negócio)
+├── dubles/           # Testes de Unidade (com Mocks)
+├── estrutural/       # Testes de Unidade (Estruturais)
+├── fronteira/        # Testes de Unidade (Casos Limite)
+├── propriedades/     # Testes de Unidade (Property-based)
+└── config/           # Configurações de teste
 ```
 
-### Tipos e Detalhamento dos Testes
+## 📊 **RESUMO GERAL DOS TESTES**
 
-Abaixo estão descritos detalhadamente todos os testes implementados, agrupados por tipo e com explicação do cenário e objetivo de cada um:
+### **TOTAL: 164 testes executados (107 métodos) distribuídos em:**
 
----
-
-#### 1. Testes de Fronteira e Domínio
-
-##### testInicializacao (ParameterizedTest, com inicializacaoProvider)
-- **Tipo:** Fronteira e domínio
-- **Cenário:** Inicialização do simulador com diferentes valores de criaturas
-- **O que valida:**
-  - Se o número de criaturas for menor que 2 ou maior que 1000, deve lançar exceção (validação de limites).
-  - Se o número estiver dentro do permitido, o simulador inicializa corretamente e o histórico de simulações começa vazio.
-- **Motivação:** Garante que o sistema respeita as restrições de negócio para o número de criaturas.
-- **Exemplos testados:**
-  - n = -1 (inválido, lança exceção)
-  - n = 1 (inválido, lança exceção)
-  - n = 1000 (válido)
-  - n = 1001 (inválido, lança exceção)
-
-##### testSemVizinhaNaoRoubada
-- **Tipo:** Fronteira/Negócio
-- **Cenário:** Simulação com apenas uma criatura (sem vizinha para ser roubada)
-- **O que valida:**
-  - Quando só existe uma criatura, ela não pode ser roubada e o campo `idCriaturaRoubada` deve ser -1.
-- **Motivação:** Garante que o sistema lida corretamente com o caso limite onde não há interações possíveis, mantendo a integridade da lógica de roubo.
+| **Tipo de Teste**           | **Métodos** | **Execuções** | **Porcentagem** | **Descrição**                   |
+| --------------------------- | ----------- | ------------- | --------------- | ------------------------------- |
+| **🔵 Testes de Unidade**    | **80**      | **123**       | **75%**         | Testam componentes isolados     |
+| **🟡 Testes de Integração** | **17**      | **36**        | **22%**         | Testam integração entre camadas |
+| **🟢 Testes de Sistema**    | **5**       | **5**         | **3%**          | Testam o sistema completo E2E   |
+| **⚫ Outros (Backup)**      | **5**       | **0**         | **0%**          | Arquivo backup (não executado)  |
 
 ---
 
-#### 2. Testes Funcionais de Simulação
+## 📂 **DETALHAMENTO POR CATEGORIA**
 
-##### testSimulacao (ParameterizedTest, com simulacaoProvider)
-- **Tipo:** Funcional
-- **Cenário:** Simulação de diferentes quantidades de criaturas e iterações
-- **O que valida:**
-  - O método simular retorna uma lista com o número correto de iterações
-  - Em cada iteração, a quantidade de criaturas está correta
-- **Motivação:** Garante que a simulação executa corretamente para diferentes cenários
-- **Exemplos testados:**
-  - 2 criaturas, 1 iteração
-  - 3 criaturas, 3 iterações
-  - 5 criaturas, 5 iterações
+### **🔵 Testes de Unidade (80 métodos → 123 execuções)**
 
-##### testSimulacaoComZeroIteracoes (ParameterizedTest, com iteracoesZeroProvider)
-- **Tipo:** Fronteira/Funcional
-- **Cenário:** Simulação com zero iterações
-- **O que valida:**
-  - O método simular retorna lista vazia quando o número de iterações é zero
-- **Motivação:** Garante que o sistema lida corretamente com o caso limite de não executar nenhuma simulação
+#### **Domínio (26 métodos → 66 execuções)** - Regras de Negócio
+
+- **`TesteDominio.java`**: 2 métodos → 13 execuções
+  - Validação de limites de criaturas e iterações
+  - Restrições fundamentais do sistema
+- **`TesteClusterDominio.java`**: 5 métodos → 8 execuções
+  - Formação e comportamento de clusters
+  - Soma de ouro e movimentação
+- **`TesteGuardiaDominio.java`**: 6 métodos → 18 execuções
+  - Comportamento do guardião
+  - Absorção de ouro e movimento
+- **`TesteUsuarioDominio.java`**: 13 métodos → 27 execuções
+  - Criação e validação de usuários
+  - Autenticação e gestão de pontuação
+
+#### **Dublês (3 métodos → 3 execuções)** - Testes com Mocks
+
+- **`TesteComDubles.java`**: 3 métodos → 3 execuções
+  - Isolamento de componentes usando Mockito
+  - Verificação de interações entre serviços
+
+#### **Estrutural (24 métodos → 30 execuções)** - Interações entre Componentes
+
+- **`TesteEstrutural.java`**: 22 métodos → 28 execuções
+  - Interações entre criaturas (roubo, distância)
+  - Validação de parâmetros e estado interno
+- **`UsuarioTest.java`**: 2 métodos → 2 execuções
+  - Testes específicos da entidade Usuario
+
+#### **Fronteira (14 métodos → 22 execuções)** - Casos Limite
+
+- **`TesteFronteira.java`**: 14 métodos → 22 execuções
+  - Valores nos limites exatos (mínimo/máximo)
+  - Comportamento com zero iterações
+  - Conservação de ouro em cenários extremos
+
+#### **Propriedades (7 métodos → 7 execuções)** - Property-Based Testing
+
+- **`TestePropriedades.java`**: 7 métodos → 7 execuções
+  - Testes baseados em propriedades usando jqwik
+  - Validação automatizada com dados aleatórios
+
+### **🟡 Testes de Integração (17 métodos → 36 execuções)**
+
+#### **Funcional (17 métodos → 36 execuções)** - Integração entre Camadas
+
+- **`TesteFuncional.java`**: 17 métodos → 36 execuções
+  - Execução completa da simulação
+  - Funcionamento do guardião e clusters
+  - Integração entre services, entities e DTOs
+  - Usa `@SpringBootTest` para contexto completo
+
+### **🟢 Testes de Sistema (5 métodos → 5 execuções)**
+
+#### **Sistema (5 métodos → 5 execuções)** - End-to-End com Interface Web
+
+- **`LoginTest.java`**: 1 teste - Login bem-sucedido
+- **`CadastroTest.java`**: 1 teste - Fluxo de cadastro
+- **`JornadaCompletaTest.java`**: 1 teste - Jornada completa do usuário
+- **`LoginJornadaFalhaTest.java`**: 1 teste - Falha no login
+- **`CadastroJornadaFalhaTest.java`**: 1 teste - Falha no cadastro
+
+Todos usam **Selenium WebDriver** para testar a interface web completa, simulando interações reais do usuário.
 
 ---
 
-#### 3. Testes Estruturais e de Interação
+## 🎯 **CARACTERÍSTICAS DOS TESTES**
 
-##### testRoubos (ParameterizedTest, com rouboProvider)
-- **Tipo:** Estrutural/Interação
-- **Cenário:** Simulação em que é esperado que ocorra pelo menos um roubo
-- **O que valida:**
-  - Após a simulação, pelo menos uma criatura deve ter realizado um roubo (campo idCriaturaRoubada diferente de -1)
-- **Motivação:** Garante que o mecanismo de roubo está funcionando e que a interação entre criaturas ocorre
+### **Técnicas Utilizadas:**
 
-##### testVizinhaNaoPodeSerRoubadaSeNaoTemOuro (ParameterizedTest, com vizinhaSemOuroProvider)
-- **Tipo:** Estrutural/Negócio
-- **Cenário:** Duas criaturas vizinhas, mas apenas uma tem ouro
-- **O que valida:**
-  - A criatura sem ouro não pode ser roubada (idCriaturaRoubada permanece -1)
-- **Motivação:** Garante a integridade da regra de negócio: só é possível roubar quem tem ouro
+- ✅ **Testes Parametrizados** - Múltiplos cenários automaticamente
+- ✅ **Property-Based Testing** - Validação com dados aleatórios
+- ✅ **Mocking** - Isolamento de dependências
+- ✅ **Integration Testing** - Teste de múltiplas camadas
+- ✅ **E2E Testing** - Teste completo da interface
+- ✅ **Boundary Testing** - Casos limite e extremos
+- ✅ **Domain Testing** - Regras de negócio específicas
 
-##### testVizinhaPodeSerRoubadaSeTemOuro (ParameterizedTest, com vizinhaComOuroProvider)
-- **Tipo:** Estrutural/Negócio
-- **Cenário:** Duas criaturas vizinhas, ambas com ouro
-- **O que valida:**
-  - O roubo ocorre e o campo idCriaturaRoubada indica que houve transferência de ouro
-- **Motivação:** Verifica que a lógica de roubo é aplicada corretamente quando as condições são atendidas
+### **Qualidade dos Testes:**
 
----
+- 📝 **Documentação clara** de cada teste com propósito definido
+- 🔍 **Cobertura abrangente** de cenários positivos e negativos
+- 🧪 **Isolamento adequado** usando mocks quando necessário
+- 📊 **Validação robusta** com AssertJ para assertions expressivas
+- 🔄 **Reutilização** através de PageObjects para testes de sistema
 
-### Resumo dos Tipos de Teste
+## 🚀 Como Executar os Testes
 
-- **Domínio:** Validam regras de negócio e restrições essenciais do sistema, como limites mínimos e máximos de entrada e condições de operação válidas. Exemplo: inicialização do simulador com valores inválidos ou extremos de criaturas.
-- **Fronteira:** Validam limites de entrada e comportamento em extremos (ex: inicialização, zero iterações)
-- **Funcional:** Validam o funcionamento correto dos métodos principais do sistema (ex: simulação)
-- **Estrutural/Interação:** Verificam as interações entre entidades e regras de negócio específicas (ex: roubo entre criaturas)
+### Executar todos os testes:
 
-Todos os testes utilizam parametrização para cobrir múltiplos cenários automaticamente, aumentando a robustez e a cobertura do sistema.
+```bash
+mvn test
+```
 
-  - As interações ocorram conforme o esperado.
+### Executar apenas uma categoria:
 
-#### 🔹 Teste de Movimento
+```bash
+# Testes de sistema (E2E)
+mvn test -Dtest="com.example.saltitantes.sistema.*"
 
-- Verifica:
-  - Se criaturas se movem corretamente dentro dos limites do mundo.
-  - Que não há movimentações para fora do espaço permitido.
+# Testes de integração
+mvn test -Dtest="com.example.saltitantes.funcional.*"
 
-#### 🔹 Teste de Combate e Roubo
+# Testes de unidade - domínio
+mvn test -Dtest="com.example.saltitantes.dominio.*"
 
-- Simula o encontro entre duas criaturas.
-- Garante que o ouro seja transferido de forma correta.
-- Valida que o perdedor não fique com valores negativos.
+# Testes de unidade - estrutural
+mvn test -Dtest="com.example.saltitantes.estrutural.*"
+
+# Testes de unidade - fronteira
+mvn test -Dtest="com.example.saltitantes.fronteira.*"
+
+# Testes de unidade - propriedades
+mvn test -Dtest="com.example.saltitantes.propriedades.*"
+
+# Testes de unidade - dublês
+mvn test -Dtest="com.example.saltitantes.dubles.*"
+```
+
+### Executar um teste específico:
+
+```bash
+mvn test -Dtest="TesteDominio#testInicializacaoRegrasNegocio"
+```
+
+## ✅ Benefícios da Estrutura de Testes
+
+1. **📁 Organização Clara**: Cada tipo de teste em sua categoria específica
+2. **🎯 Cobertura Completa**: 164 testes executados (107 métodos) cobrindo unidade, integração e sistema
+3. **🔍 Fácil Manutenção**: Localização rápida de testes por funcionalidade
+4. **📚 Documentação Detalhada**: Cada teste possui documentação clara do seu propósito
+5. **🧪 Execução Seletiva**: Possibilidade de executar apenas categorias específicas
+6. **📈 Qualidade Assegurada**: Cobertura robusta com diferentes técnicas de teste
 
 ## 📝 Critérios de Qualidade e Validação
 
-- ✔️ Nenhuma exceção não tratada durante a simulação.
-- ✔️ Consistência do total de ouro.
-- ✔️ Garantia de movimentação válida.
-- ✔️ Testes unitários cobrindo cenários diversos.
+- ✔️ **75% Testes de Unidade**: Garantem que cada componente funciona isoladamente
+- ✔️ **22% Testes de Integração**: Validam a comunicação entre componentes
+- ✔️ **3% Testes de Sistema**: Asseguram que o sistema funciona de ponta a ponta
+- ✔️ **164 testes executados**: Cobertura completa com diferentes técnicas
+- ✔️ **Nenhuma exceção não tratada** durante a simulação
+- ✔️ **Consistência do total de ouro** em todas as operações
+- ✔️ **Garantia de movimentação válida** dentro dos limites do sistema
+- ✔️ **Cobertura abrangente** de cenários positivos e negativos

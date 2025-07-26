@@ -1,131 +1,150 @@
 # 📁 Estrutura Organizada de Testes
 
-Este projeto agora possui uma estrutura de testes organizada por **tipo de teste**, facilitando a manutenção, compreensão e execução dos testes.
+Este projeto possui uma estrutura de testes organizada por **tipo de teste**, facilitando a manutenção, compreensão e execução dos testes.
 
 ## 📂 Estrutura de Pastas
 
 ```
 src/test/java/com/example/saltitantes/
-├── dominio/               # Testes de Regras de Negócio
-├── duplas/                # Testes com Dublês (Mocks)
-├── estrutural/            # Testes Estruturais
-├── fronteira/             # Testes de Fronteira
-├── funcional/             # Testes Funcionais
+├── sistema/               # Testes de Sistema (E2E com Selenium)
+├── funcional/             # Testes de Integração
+├── dominio/               # Testes de Unidade (Regras de Negócio)
+├── dubles/                # Testes de Unidade (com Mocks)
+├── estrutural/            # Testes de Unidade (Estruturais)
+├── fronteira/             # Testes de Unidade (Casos Limite)
+├── propriedades/          # Testes de Unidade (Property-based)
+├── config/                # Configurações de teste
 └── SaltitantesApplicationTests_BACKUP.java # Backup do arquivo original
 ```
 
+## 📊 **RESUMO GERAL**
+
+### **TOTAL: 164 testes executados (107 métodos) distribuídos em:**
+
+| **Tipo de Teste**           | **Métodos** | **Execuções** | **Porcentagem** | **Descrição**                   |
+| --------------------------- | ----------- | ------------- | --------------- | ------------------------------- |
+| **🔵 Testes de Unidade**    | **80**      | **123**       | **75%**         | Testam componentes isolados     |
+| **🟡 Testes de Integração** | **17**      | **36**        | **22%**         | Testam integração entre camadas |
+| **🟢 Testes de Sistema**    | **5**       | **5**         | **3%**          | Testam o sistema completo E2E   |
+| **⚫ Outros**               | **5**       | **0**         | **0%**          | Arquivo backup (não executado)  |
+
 ## 🎯 Tipos de Teste
 
-### 1. **Testes de Domínio** (`dominio/`)
+### 1. **🔵 Testes de Unidade** (`dominio/`, `dubles/`, `estrutural/`, `fronteira/`, `propriedades/`)
 
-**Objetivo**: Validam as regras de negócio e as restrições fundamentais do sistema, garantindo que os dados de entrada estejam dentro dos limites esperados.
+**Objetivo**: Testam componentes individuais de forma isolada, garantindo que cada unidade de código funciona corretamente independentemente.
 
-**Focam em**:
+#### **Domínio (26 métodos → 66 execuções)** - Regras de Negócio
 
-- Limites de entrada para a simulação (criaturas, iterações).
-- Condições de operação válidas.
-- Comportamento do sistema com dados inválidos.
+**Focam em**: Validação das regras de negócio e restrições fundamentais do sistema.
 
-**Testes Incluídos**:
+**Arquivos**:
 
-- `testInicializacaoRegrasNegocio()`: Valida limites para o número de criaturas (entre 2 e 1000).
-- `testIteracoesRegrasNegocio()`: Valida limites para o número de iterações (entre 1 e 1000).
-- `testCriaturasForaDoLimite()`: Garante que o sistema rejeita valores fora da faixa permitida.
+- **`TesteDominio.java`** (2 métodos → 13 execuções): Validação de limites de criaturas e iterações
+- **`TesteClusterDominio.java`** (5 métodos → 8 execuções): Formação e comportamento de clusters
+- **`TesteGuardiaDominio.java`** (6 métodos → 18 execuções): Comportamento do guardião
+- **`TesteUsuarioDominio.java`** (13 métodos → 27 execuções): Criação, validação e autenticação de usuários
 
-**Total**: 13 testes
+#### **Dublês (3 métodos → 3 execuções)** - Testes com Mocks
 
----
+**Focam em**: Isolamento de componentes usando dublês de teste.
 
-### 2. **Testes de Fronteira** (`fronteira/`)
+**Arquivos**:
 
-**Objetivo**: Verificam o comportamento do sistema em casos extremos e nos limites exatos das regras de negócio.
+- **`TesteComDubles.java`** (3 métodos → 3 execuções): Testes usando Mockito para isolar dependências
 
-**Focam em**:
+#### **Estrutural (24 métodos → 30 execuções)** - Interações entre Componentes
 
-- Valores nos limites exatos dos intervalos (mínimo e máximo).
-- Comportamento com zero iterações.
-- Simulações com o número mínimo de criaturas.
-- Conservação de ouro em cenários extremos.
+**Focam em**: Verificação das interações entre componentes internos do sistema.
 
-**Testes Incluídos**:
+**Arquivos**:
 
-- `testValoresExatosDeFronteira()`: Testa o comportamento com 1, 2, 1000 e 1001 criaturas.
-- `testIteracaoZeroComoCasoLimite()`: Valida o que acontece com 0 iterações.
-- `testOuroNaoSeCriaNemSeDestroi()`: Garante a conservação do ouro total na simulação.
-- `testGuardiaoComOuroInicialAumentado()`: Verifica o comportamento do guardião com ouro inicial elevado.
+- **`TesteEstrutural.java`** (22 métodos → 28 execuções): Interações entre criaturas, cálculo de distância, roubo
+- **`UsuarioTest.java`** (2 métodos → 2 execuções): Testes específicos da entidade Usuario
 
-**Total**: 12 testes
+#### **Fronteira (14 métodos → 22 execuções)** - Casos Limite
 
----
+**Focam em**: Comportamento do sistema em casos extremos e nos limites das regras.
 
-### 3. **Testes Funcionais** (`funcional/`)
+**Arquivos**:
 
-**Objetivo**: Validam o funcionamento correto das principais funcionalidades do sistema de ponta a ponta.
+- **`TesteFronteira.java`** (14 métodos → 22 execuções): Valores nos limites, zero iterações, conservação de ouro
 
-**Focam em**:
+#### **Propriedades (7 métodos → 7 execuções)** - Property-Based Testing
 
-- Execução completa e correta da simulação.
-- Funcionamento do guardião e sua interação com as criaturas.
-- Formação e eliminação de clusters.
-- Lógica de roubo e transferência de ouro.
+**Focam em**: Validação automatizada com dados aleatórios usando jqwik.
 
-**Testes Incluídos**:
+**Arquivos**:
 
-- `testFuncionamentoSimulacao()`: Executa uma simulação completa e valida o resultado.
-- `testFuncionamentoGuardiao()`: Testa a criação, o comportamento e a eliminação do guardião.
-- `testClusterFormacaoEliminacao()`: Valida a lógica de formação e destruição de clusters de criaturas.
+- **`TestePropriedades.java`** (7 métodos → 7 execuções): Testes baseados em propriedades
 
-**Total**: 9 testes
+### 2. **🟡 Testes de Integração** (`funcional/`)
 
----
+**Objetivo**: Validam a integração entre múltiplas camadas do sistema (services, entities, DTOs).
 
-### 4. **Testes Estruturais** (`estrutural/`)
+#### **Funcional (17 métodos → 36 execuções)** - Integração entre Camadas
 
-**Objetivo**: Verificam as interações entre os componentes internos do sistema, como classes e métodos.
+**Focam em**: Execução completa de funcionalidades envolvendo múltiplos componentes.
 
-**Focam em**:
+**Arquivos**:
 
-- Interação entre criaturas (cálculo de distância, roubo).
-- Validação de parâmetros (nulidade, estado interno).
-- Comportamento de métodos específicos de forma isolada.
+- **`TesteFuncional.java`** (17 métodos → 36 execuções): Simulação completa, guardião, clusters
+  - Usa `@SpringBootTest` para contexto completo do Spring
 
-**Testes Incluídos**:
+### 3. **🟢 Testes de Sistema** (`sistema/`)
 
-- `testInteracaoRoubo()`: Testa o mecanismo de roubo entre duas criaturas.
-- `testCalculoDistancia()`: Valida se o cálculo de distância euclidiana está correto.
-- `testEncontrarMaisProximaComportamento()`: Verifica a lógica para encontrar a criatura mais próxima.
-- `testValidacaoParametrosDistancia()`: Garante que o método lida corretamente com parâmetros nulos.
+**Objetivo**: Testam o sistema completo end-to-end através da interface web real.
 
-**Total**: 13 testes
+#### **Sistema (5 métodos → 5 execuções)** - End-to-End com Selenium
 
----
+**Focam em**: Fluxos completos do usuário através da interface web.
 
-### 5. **Testes com Dublês** (`duplas/`)
+**Arquivos**:
 
-**Objetivo**: Testam componentes de forma isolada, utilizando dublês (mocks) para simular dependências.
+- **`LoginTest.java`** (1 método → 1 execução): Login bem-sucedido
+- **`CadastroTest.java`** (1 método → 1 execução): Fluxo de cadastro
+- **`JornadaCompletaTest.java`** (1 método → 1 execução): Jornada completa do usuário
+- **`LoginJornadaFalhaTest.java`** (1 método → 1 execução): Falha no login
+- **`CadastroJornadaFalhaTest.java`** (1 método → 1 execução): Falha no cadastro
 
-**Focam em**:
+**Classes Auxiliares**:
 
-- Isolar o `SimuladorService` de suas dependências (`SimuladorUtils`).
-- Validar a lógica do serviço sem a interferência de outros componentes.
-- Garantir que os métodos corretos das dependências são chamados.
-
-**Testes Incluídos**:
-
-- `testProcessarCriaturasComMock()`: Testa o processamento de criaturas usando um mock para `SimuladorUtils`.
-
-**Total**: 1 teste
+- **PageObjects**: `LoginPageObject.java`, `CadastroPageObject.java`, `SimulationPageObject.java`, `EstatisticasPageObject.java`
+- **Configuração**: `WebDriverConfig.java`
 
 ## 📊 Resumo dos Testes
 
-| Categoria      | Quantidade | Foco Principal                 |
-| -------------- | ---------- | ------------------------------ |
-| **Domínio**    | 13         | Regras de negócio e restrições |
-| **Fronteira**  | 12         | Limites e casos extremos       |
-| **Funcional**  | 9          | Funcionamento de ponta a ponta |
-| **Estrutural** | 13         | Interações entre componentes   |
-| **Dublês**     | 1          | Testes isolados com mocks      |
-| **TOTAL**      | **48**     | **Cobertura completa**         |
+| **Categoria**     | **Tipo**       | **Métodos → Execuções** | **Foco Principal**              |
+| ----------------- | -------------- | ----------------------- | ------------------------------- |
+| **🔵 Unidade**    | Domínio        | 26 → 66                 | Regras de negócio e restrições  |
+| **🔵 Unidade**    | Dublês         | 3 → 3                   | Isolamento com mocks            |
+| **🔵 Unidade**    | Estrutural     | 24 → 30                 | Interações entre componentes    |
+| **🔵 Unidade**    | Fronteira      | 14 → 22                 | Limites e casos extremos        |
+| **🔵 Unidade**    | Propriedades   | 7 → 7                   | Property-based testing          |
+| **🟡 Integração** | Funcional      | 17 → 36                 | Integração entre camadas        |
+| **🟢 Sistema**    | E2E            | 5 → 5                   | Interface completa com Selenium |
+| **⚫ Backup**     | Arquivo Backup | 5 → 0                   | Não executado                   |
+| **TOTAL**         |                | **107 → 164**           | **Cobertura completa**          |
+
+## 🎯 **TÉCNICAS DE TESTE UTILIZADAS**
+
+### **Técnicas de Teste:**
+
+- ✅ **Testes Parametrizados** (JUnit 5) - Múltiplos cenários automaticamente
+- ✅ **Property-Based Testing** (jqwik) - Validação com dados aleatórios
+- ✅ **Mocking** (Mockito) - Isolamento de dependências
+- ✅ **Integration Testing** (Spring Boot Test) - Teste de múltiplas camadas
+- ✅ **E2E Testing** (Selenium) - Teste completo da interface
+- ✅ **Boundary Testing** - Casos limite e extremos
+- ✅ **Domain Testing** - Regras de negócio específicas
+
+### **Padrões de Qualidade:**
+
+- 📝 **Documentação clara** de cada teste com propósito definido
+- 🔍 **Cobertura abrangente** de cenários positivos e negativos
+- 🧪 **Isolamento adequado** usando mocks quando necessário
+- 📊 **Validação robusta** com AssertJ para assertions expressivas
+- 🔄 **Reutilização** através de PageObjects para testes de sistema
 
 ## 🚀 Como Executar
 
@@ -138,20 +157,26 @@ mvn test
 ### Executar apenas uma categoria:
 
 ```bash
-# Testes de domínio
-mvn test -Dtest="com.example.saltitantes.dominio.*"
+# Testes de sistema (E2E)
+mvn test -Dtest="com.example.saltitantes.sistema.*"
 
-# Testes de fronteira
-mvn test -Dtest="com.example.saltitantes.fronteira.*"
-
-# Testes funcionais
+# Testes de integração
 mvn test -Dtest="com.example.saltitantes.funcional.*"
 
-# Testes estruturais
+# Testes de unidade - domínio
+mvn test -Dtest="com.example.saltitantes.dominio.*"
+
+# Testes de unidade - estrutural
 mvn test -Dtest="com.example.saltitantes.estrutural.*"
 
-# Testes com dublês
-mvn test -Dtest="com.example.saltitantes.duplas.*"
+# Testes de unidade - fronteira
+mvn test -Dtest="com.example.saltitantes.fronteira.*"
+
+# Testes de unidade - propriedades
+mvn test -Dtest="com.example.saltitantes.propriedades.*"
+
+# Testes de unidade - dublês
+mvn test -Dtest="com.example.saltitantes.dubles.*"
 ```
 
 ### Executar um teste específico:
@@ -168,16 +193,18 @@ mvn test -Dtest="TesteDominio#testInicializacaoRegrasNegocio"
 4. **📚 Melhor Documentação**: Cada teste possui documentação detalhada do seu propósito.
 5. **🧪 Execução Seletiva**: Possibilidade de executar apenas categorias específicas.
 6. **📈 Cobertura Organizada**: Visão clara de que aspectos estão sendo testados.
+7. **🔄 Escalabilidade**: Estrutura permite fácil adição de novos testes.
 
-## 🔄 Migração dos Testes Originais
+## 🔄 Evolução dos Testes
 
-Todos os **28 testes originais** foram **migrados e expandidos** para **48 testes**, mantendo a funcionalidade original e adicionando novos testes para melhor cobertura:
+**164 testes organizados** em uma estrutura robusta e escalável:
 
-- ✅ **Funcionalidade preservada**: Todos os testes originais continuam funcionando.
+- ✅ **Funcionalidade preservada**: Todos os testes originais migrados e expandidos.
 - ✅ **Cobertura expandida**: Novos testes adicionados para casos específicos.
 - ✅ **Documentação melhorada**: Cada teste agora tem documentação clara do seu propósito.
 - ✅ **Organização aprimorada**: Estrutura lógica por tipo de teste.
+- ✅ **Qualidade assegurada**: 75% testes de unidade, 22% integração, 3% sistema.
 
 ---
 
-**🎉 Resultado**: Estrutura de testes mais robusta, organizada e fácil de manter!
+**🎉 Resultado**: Estrutura de testes mais robusta, organizada e fácil de manter, com cobertura completa do sistema!
